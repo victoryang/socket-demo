@@ -17,8 +17,9 @@ int main(int argc, char const *argv[])
 
 	memset((void *)&addr, sizeof(addr), 0);
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(3000);
-	addr.sin_addr.s_addr = INADDR_ANY;
+	addr.sin_port = htons(atoi(argv[2]));
+	inet_pton(AF_INET, argv[1], (void*)&addr.sin_addr.s_addr);
+	// addr.sin_addr.s_addr = INADDR_ANY;
 
 	socklen_t len = sizeof(addr);
 	if (connect(sockfd, (struct sockaddr*)&addr, len) < 0)
