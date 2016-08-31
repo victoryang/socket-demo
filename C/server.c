@@ -8,13 +8,20 @@
 int sock = 0;
 struct sockaddr_in addr;
 
+void do_printf(struct sockaddr_in addr)
+{
+	char buffer[16];
+	inet_ntop(AF_INET, &addr.sin_addr.s_addr, buffer, sizeof(addr));
+	unsigned int port = ntohs(addr.sin_port);
+	printf("client address %s port %d\n", buffer, port);
+}
+
 void do_service(int fd)
 {
 	const char *data = "echo";
 	//struct timeval lasttime;
 	printf("send messages to clent %d: %s\n", fd, data);
 	send(fd, data, strlen(data), 0);
-	close(fd);
 }
 
 int main(int argc, char const *argv[])
@@ -61,7 +68,9 @@ int main(int argc, char const *argv[])
 		}
 
 		printf("Got connection from client fd: %d\n",fd);
+		do_printf(clientAddr);
 		do_service(fd);
+		close(fd);	
 	}
 
 	printf("======= socket quits ======\n");

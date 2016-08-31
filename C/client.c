@@ -17,7 +17,18 @@ int main(int argc, char const *argv[])
 
 	memset((void *)&addr, sizeof(addr), 0);
 	addr.sin_family = AF_INET;
-	addr.
+	addr.sin_port = htons(3000);
+	addr.sin_addr.s_addr = INADDR_ANY;
+
+	socklen_t len = sizeof(addr);
+	if (connect(sockfd, (struct sockaddr*)&addr, len) < 0)
+	{
+		fprintf(stderr, "Error while connecting to server: %s\n",strerror(errno) );
+	}
+
+	char buff[16];
+	recv(sockfd, (void*)buff, 16, 0);
+	printf("receive from server %s\n", buff);
 
 	return 0;
 }
