@@ -5,8 +5,17 @@
 #include <string.h>
 #include <sys/time.h>
 
+#define closesocket close
 int sock = 0;
 struct sockaddr_in addr;
+
+void getsocketopt(int fd, int flag)
+{
+	char optval[20]={0};
+	socklen_t len;
+	getsockopt(fd, SOL_SOCKET, flag, optval, &len);
+	printf("value of %d is %s\n", flag, optval);
+}
 
 void do_printf(struct sockaddr_in addr)
 {
@@ -19,9 +28,15 @@ void do_printf(struct sockaddr_in addr)
 void do_service(int fd)
 {
 	const char *data = "echo";
+	char buff[16] = {0};
 	//struct timeval lasttime;
 	printf("send messages to clent %d: %s\n", fd, data);
+	recv(fd, (void*)buff, 16, 0);
+	int flag = atoi(buff);
+	printf("%d\n", flag);
+	getsocketopt(fd, flag);
 	send(fd, data, strlen(data), 0);
+	closesocket(fd);
 }
 
 int main(int argc, char const *argv[])
