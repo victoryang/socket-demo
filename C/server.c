@@ -1,93 +1,115 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <netdb.h>
 #include <errno.h>
-#include <stdlib.h>
 #include <string.h>
-#include <sys/time.h>
+#include <time.h>
+#include <sys/epoll.h>
+#include <fcntl.h>
 
-#define closesocket close
-int sock = 0;
-struct sockaddr_in addr;
+/* Initial variable */
+int sockfd;
+clock_t start, stop;
+struct sockaddr_in sAddr;
 
-void getsocketopt(int fd, int flag)
-{
-	char optval[20]={0};
-	socklen_t len;
-	getsockopt(fd, SOL_SOCKET, flag, optval, &len);
-	printf("value of %d is %s\n", flag, optval);
-}
-
-void do_printf(struct sockaddr_in addr)
-{
-	char buffer[16];
-	inet_ntop(AF_INET, &addr.sin_addr.s_addr, buffer, sizeof(addr));
-	unsigned int port = ntohs(addr.sin_port);
-	printf("client address %s port %d\n", buffer, port);
-}
+/* epoll variable*/
+#define MAX_EVENTS 10
+struct epoll_event ev, events[MAX_EVENTS];
+int epollfd, ndfs;
+int conn;
+struct sockaddr client;
+socklen_t len = sizeof(client);
 
 void do_service(int fd)
 {
-	const char *data = "echo";
 	char buff[16] = {0};
-	//struct timeval lasttime;
-	printf("send messages to clent %d: %s\n", fd, data);
+	printf("In do_service fd: %d\n", fd);
 	recv(fd, (void*)buff, 16, 0);
-	int flag = atoi(buff);
-	printf("%d\n", flag);
-	getsocketopt(fd, flag);
-	send(fd, data, strlen(data), 0);
-	closesocket(fd);
+	printf("%s\n", buff);
+	send(fd, "echo", strlen("echo"), 0);
+	if (epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, 0) < 0)
+	{
+		fprintf(stderr, "DEL epoll error: %s\n", strerror(errno));
+		exit(0);
+	}
+	close(fd);
 }
 
 int main(int argc, char const *argv[])
 {
-	printf("======= socket program started ======\n");
-
-	// create a socket
-	sock = socket(AF_INET,SOCK_STREAM,0);
-	if (sock < 0)
+	start = clock();
+	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	if (sockfd < 0)
 	{
-		fprintf(stderr, "socket created fails: %s\n", strerror(errno));
-		exit(1);
+		fprintf(stderr, "Failed to open socket: %s\n", strerror(errno));
 	}
 
-	// set address
-	memset((void*)&addr, 0, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons(3000);
-	addr.sin_addr.s_addr = INADDR_ANY;
+	memset((void*)&sAddr, 0, sizeof(sAddr));
+	sAddr.sin_family = AF_INET;
+	sAddr.sin_port = htons(3000);
+	sAddr.sin_addr.s_addr = INADDR_ANY;
+	// inet_pton(AF_INET, argv[1], (void*)&sAddr.sin_addr.s_addr);
 
-	// bind a socket to port
-	if (bind(sock, (struct sockaddr*)&addr,sizeof(addr)) < 0)
+	if (bind(sockfd, (struct sockaddr*)&sAddr, sizeof(sAddr)) < 0)
 	{
-		fprintf(stderr, "socket bind error: %s\n", strerror(errno));
-		exit(2);
+		fprintf(stderr, "Bind error: %s\n", strerror(errno));
+		exit(-1);
 	}
 
-	// listening
-	if (listen(sock, 10) < 0)
+	if (listen(sockfd, 10) < 0)
 	{
-		fprintf(stderr, "socket listening error: %s\n", strerror(errno));
-		exit(3);
+		fprintf(stderr, "Listen errror%s\n", strerror(errno));
+		exit(-1);
 	}
 
-	while(1)
+	// epolling
+	epollfd = epoll_create(1);
+	if( epollfd < 0)
 	{
-		struct sockaddr_in clientAddr;
-		socklen_t len = sizeof(clientAddr);
-		int fd = accept(sock, (struct sockaddr*)&clientAddr, &len);
-		if (fd < 0 )
+		fprintf(stderr, "epoll create fails: %s\n", strerror(errno));
+		exit(-1);
+	}
+
+	ev.events = EPOLLIN;
+	ev.data.fd = sockfd;
+	if( epoll_ctl(epollfd, EPOLL_CTL_ADD, sockfd, &ev) < 0)
+	{
+		fprintf(stderr, "epollctl failed: %s\n", strerror(errno));
+		exit(-1);
+	}
+
+	int i;
+	memset((void*)events, 0, sizeof(events));
+	for(;;) {
+		ndfs = epoll_wait(epollfd, events, MAX_EVENTS, -1);
+		if (ndfs < 0)
 		{
-			fprintf(stderr, "accept failed: %s\n", strerror(errno));
-			continue;
+			fprintf(stderr, "epoll_wait fails: %s\n", strerror(errno));
+			exit(-1);
 		}
 
-		printf("Got connection from client fd: %d\n",fd);
-		do_printf(clientAddr);
-		do_service(fd);
-		close(fd);	
+		for (i = 0; i < ndfs; i++)
+		{
+			if ( events[i].data.fd == sockfd) {
+				conn = accept(sockfd, (struct sockaddr *)&client, &len);
+				if (conn < 0)
+				{
+					fprintf(stderr, "connection error: %s\n", strerror(errno));
+					exit(-1);
+				}
+				fcntl(conn, F_SETFL, O_NONBLOCK);
+				ev.events = EPOLLIN | EPOLLET;
+				ev.data.fd = conn;
+				if ( epoll_ctl(epollfd, EPOLL_CTL_ADD, conn, &ev) < 0)
+				{
+					fprintf(stderr, "epoll error in connection: %s\n", strerror(errno));
+					exit(-1);
+				}
+			} else {
+				do_service(events[i].data.fd);
+			}
+		}
 	}
-
-	printf("======= socket quits ======\n");
+	close(epollfd);
 	return 0;
 }
