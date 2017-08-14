@@ -42,7 +42,7 @@ func main(){
 			fmt.Println(m)
 		}
 		enc := json.NewEncoder(files[r])
-		err := enc.Encode(kvs1)
+		err := enc.Encode(list)
 		if (err!=nil) {
 			fmt.Println(err)
 		}
