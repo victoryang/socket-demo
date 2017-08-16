@@ -1,20 +1,21 @@
 #include"test.h"
-using namespace std;
-
+namespace myClass {
 void test(A &a)
 {
-	cout << "no need to copy in test()" << endl;
+	std::cout << "no need to copy in test()" << std::endl;
 }
 
 void test1(A a)
 {
-	cout << "need copy in test1()" <<endl;
+	std::cout << "need copy in test1()" <<std::endl;
 }
-
+}  //namespace
 int main (int argc, char* argv[])
 {	
-	A a(1);
-	test(a);
-	test1(a);
+	::myClass::A a(1);
+	::myClass::test(a);
+	namespace sub = ::myClass::sub0; 
+	::sub::print();
+        //test1(a);
 	return 0;
 }

@@ -23,7 +23,7 @@ func main(){
 
 	m := make(map[string][]string)
 	s := []string{"a","b","c"}
-	m["1"] = s
+	m["1"] = append(s)
 	fmt.Println(m["1"])
 	/*for err == nil {
 		fmt.Println(kv)
