@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>resume.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="centerh3%E6%9D%A8%E6%B6%9Bh3center"><center><h3>杨涛</h3></center></h1>
+<center><h4>联系电话: 15810530882</h4></center>
+<center><h4>邮箱: yangtao3601@126.com</h4></center>
+<center><h4><a href="https://github.com/victoryang">Github主页</a></h4></center>
+<br>
+<br>
+<h2 id="%E6%95%99%E8%82%B2%E8%83%8C%E6%99%AF">教育背景</h2>
+<hr>
+<p>  2007.9～2011.6  北京邮电大学  本科  计算机科学与技术专业</p>
+<br>
+<br>
+<h2 id="%E4%B8%AA%E4%BA%BA%E6%8A%80%E8%83%BD">个人技能</h2>
+<hr>
+<ul>
+<li>熟悉C/C++、Golang、Rust、Python，熟悉Linux系统环境编程</li>
+<li>熟悉常见数据结构和算法</li>
+<li>熟悉Linux操作系统，具备独立地开发、调试及优化程序的能力</li>
+<li>熟悉Docker，熟悉CI/CD流程</li>
+<li>熟悉Http、Tcp等通信协议和网络基础知识，具有网络编程的经验，熟悉RESTful api</li>
+<li>熟悉多线程/多进程编程环境开发</li>
+<li>熟悉项目构建, 以及相关项目构建工具，有独立完成的个人项目</li>
+<li>熟悉Git, Gitlab, CI等开发常用工具和平台</li>
+<li>了解分布式系统相关知识</li>
+<li>了解云计算相关知识</li>
+<li>热爱开源项目</li>
+</ul>
+<br>
+<br>
+<div class="page" />
+<h2 id="%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C">工作经验</h2>
+<hr>
+<h3 id="20184%E8%87%B3%E4%BB%8A-%E5%8C%97%E4%BA%AC%E8%89%BE%E5%88%A9%E7%89%B9%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8-%E8%BD%AF%E4%BB%B6%E9%83%A8">  2018.4~至今    北京艾利特机器人有限公司    软件部</h3>
+<ul>
+<li>
+<p>高级软件工程师</p>
+</li>
+<li>
+<p>机器人控制器团队</p>
+</li>
+<li>
+<p>解耦原HMI和控制器的CS架构，为控制器软件提供网络接入服务，实现前后端分离，允许外部网络接入控制机器人</p>
+</li>
+<li>
+<p>参与项目：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>项目名称</th>
+<th>项目描述</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>控制器核心系统api-server项目</td>
+<td>解耦原有的控制器与HMI系统<br>提供远程访问接入的能力<br>实现前后端分离</td>
+<td>Golang/C <br> RESTFul API <br> Websocket <br> Shared Memory <br> Linux Arm</td>
+</tr>
+<tr>
+<td>2</td>
+<td>api-server接口文档</td>
+<td>提供api-server的接口文档说明</td>
+<td>Open API <br> Apidoc <br> Swagger <br> HTTP</td>
+</tr>
+<tr>
+<td>3</td>
+<td>控制器核心系统param-server项目</td>
+<td>分离api-server中的实时数据推送服务 <br> 改用Rust单独实现</td>
+<td>Rust/C <br> Websocket <br> Shared Memory <br> Linux Arm</td>
+</tr>
+<tr>
+<td>4</td>
+<td>控制器核心系统监控项目</td>
+<td>为控制器系统提供完整的监控解决方案 <br> 基于开源项目, 定制数据采集集合 <br> 实时的数据采集、显示和存储 <br> 由内部测试工具扩展至用户数据采集解决方案</td>
+<td>Golang <br> InfluxDB <br> Prometheus <br> Grafana <br> Time Series Database <br> Docker <br> Linux Arm</td>
+</tr>
+<tr>
+<td>5</td>
+<td>控制器系统SDK项目</td>
+<td>为控制器系统编写SDK文档及工具 <br> 基于工业和协作机器人控制器系统 <br> 提供C/C++/Python/C# 等版本 <br> 多平台、系统、架构</td>
+<td>C/C++/Python/C# <br> Linux/Windows <br> x86_32/x86_64/arm32 <br> GCC/AutoTool/CMake/VS <br> 编程规范 <br> API接口</td>
+</tr>
+<tr>
+<td>6</td>
+<td>控制器系统api-server代码架构重构</td>
+<td>梳理原有RESTFul API接口，提供v2版本 <br> 调整go依赖至1.12 <br> 调整内部模块代码 <br> GRPC API接口， 提供v3版本</td>
+<td>Golang/C <br> RESTFul API <br> Websocket <br> GRPC</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<br>
+<br>
+<br>
+<br>
+<hr>
+<h3 id="2017920182-%E6%B5%B7%E8%88%AA%E9%9B%86%E5%9B%A2%E6%98%93%E5%BB%BA%E7%A7%91%E6%8A%80-%E4%BA%91%E5%B9%B3%E5%8F%B0%E8%BD%AF%E4%BB%B6%E9%83%A8">  2017.9~2018.2    海航集团易建科技    云平台软件部</h3>
+<ul>
+<li>
+<p>研发工程师</p>
+</li>
+<li>
+<p>基础架构中心中间件团队</p>
+</li>
+<li>
+<p>参与项目：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>项目名称</th>
+<th>项目描述</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>mysql数据库读写分离架构方案</td>
+<td>基于kingshard项目<br>提供mysql的读写分离架构<br></td>
+<td>Golang <br> Mysql</td>
+</tr>
+<tr>
+<td>2</td>
+<td>广域网加速方案</td>
+<td>基于shadowsocks和kcptun<br>为mysql实现读写分离<br></td>
+<td>shadowsocks <br> Kcptun <br> Golang</td>
+</tr>
+<tr>
+<td>3</td>
+<td>服务监控方案</td>
+<td>基于Prometheus的监控方案</td>
+<td>Golang <br> Prometheus <br> Grafana</td>
+</tr>
+<tr>
+<td>4</td>
+<td>负载均衡方案</td>
+<td>基于Traefik和Etcd的负载均衡方案</td>
+<td>Golang <br> Traefik <br> Etcd <br> RESTFul API</td>
+</tr>
+<tr>
+<td>5</td>
+<td>维护项目组自研S3存储网关</td>
+<td>基于ceph存储 <br> S3存储网关</td>
+<td>Golang <br> Ceph <br> AWS S3</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<br>
+<br>
+<div class="page" />
+<hr>
+<h3 id="2013920179-%E5%8C%97%E4%BA%AC%E7%BB%9C%E5%A8%81%E5%B0%94%E8%BD%AF%E4%BB%B6%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8suse-suse-linux-enterprise%E9%83%A8">  2013.9~2017.9   北京络威尔软件有限公司(SUSE)   SUSE Linux Enterprise部</h3>
+<ul>
+<li>
+<p>软件工程师</p>
+</li>
+<li>
+<p>Linux桌面开发组</p>
+</li>
+<li>
+<p>参与项目：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>项目名称</th>
+<th>项目描述</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>维护桌面系统用户登陆鉴权模块</td>
+<td>Gdm</td>
+<td>C <br> Gnome <br> Linux</td>
+</tr>
+<tr>
+<td>2</td>
+<td>维护桌面系统文件管理器模块</td>
+<td>Nautilus</td>
+<td>C <br> Gnome <br> Linux</td>
+</tr>
+<tr>
+<td>3</td>
+<td>基础包及CVE维护工作</td>
+<td>Linux RPM Packaging</td>
+<td>C <br> Linux</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<br>
+<br>
+<hr>
+<h3 id="2011720134-%E5%8D%8E%E4%B8%BA%E7%BB%88%E7%AB%AF%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8-android%E6%99%BA%E8%83%BD%E6%9C%BA%E8%BD%AF%E4%BB%B6%E9%83%A8">  2011.7~2013.4    华为终端有限公司    Android智能机软件部</h3>
+<ul>
+<li>
+<p>助理工程师</p>
+</li>
+<li>
+<p>软件协议组</p>
+</li>
+<li>
+<p>参与项目：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>项目名称</th>
+<th>项目描述</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>维护Android Framework Telephony模块</td>
+<td>Android Framework中通信协议相关模块</td>
+<td>Java <br> Android Framework <br> Telephony</td>
+</tr>
+<tr>
+<td>2</td>
+<td>维护高通modem通信接口模块</td>
+<td>Android RIL 无线接口层</td>
+<td>C <br> Android RIL <br> Linux</td>
+</tr>
+<tr>
+<td>3</td>
+<td>维护高通modem底层通信模块</td>
+<td>Qualcomm Modem</td>
+<td>C <br> RTOS</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<br>
+<br>
+<div class="page" />
+<h2 id="%E4%B8%AA%E4%BA%BA%E8%AF%84%E4%BB%B7">个人评价</h2>
+<hr>
+<ul>
+<li>具备独立完成开发的能力</li>
+<li>热爱开源，由丰富的开源项目经历</li>
+</ul>
+<br>
+<br>
+<h2 id="%E8%8B%B1%E8%AF%AD%E6%8A%80%E8%83%BD">英语技能</h2>
+<hr>
+<ul>
+<li>英语六级</li>
+<li>外企工作经验</li>
+</ul>
+
+</body>
+</html>
