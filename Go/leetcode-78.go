@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "math"
 
 func try(r *[]int, start int, k int, input []int, res *[][]int) {
     if len(*r) == k {
@@ -27,11 +28,33 @@ func sub_k(input []int, k int) [][]int {
     return res
 }
 
-func sub_set(input []int){
+func sub_set1(input []int){
     res := make([][]int, 0)
 
     for i:=1; i<=len(input); i++ {
         res = append(res, sub_k(input, i)...)
+    }
+
+    fmt.Println("res: ", res)
+}
+
+func sub_set2(input []int) {
+    res := make([][]int, 0)
+
+    n := math.Pow(2, float64(len(input)))
+    for i:=1; i<int(n); i++ {
+        tmp := i
+        index := 0
+        r := make([]int, 0)
+        for tmp != 0 {
+            if tmp&1 != 0 {
+                r = append(r, input[index])
+            }
+            tmp = tmp >> 1
+            index = index + 1
+        }
+
+        res = append(res, r)
     }
 
     fmt.Println("res: ", res)
@@ -52,5 +75,7 @@ func main() {
 
     fmt.Println("input list: ", input)
 
-    sub_set(input)
+    sub_set1(input)
+
+    sub_set2(input)
 }
