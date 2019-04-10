@@ -1,6 +1,6 @@
-# 算法之回溯法
+# Backtracking
 
-[参考网站](https://blog.csdn.net/qq_20398345/article/details/80977586)
+[参考链接](https://blog.csdn.net/qq_20398345/article/details/80977586)
 
 ## 回溯法
     类似枚举的搜索尝试过程，是一种选优搜索法，按选优条件向前搜索，以达到目标。
