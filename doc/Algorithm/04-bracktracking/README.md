@@ -55,5 +55,12 @@
     ```
     
 
+## 典型应用
+    - NP
+    - Combination Sum
+    - Combination
+    - Permutation
+
+
 ## 总结
 [算法相关](https://blog.csdn.net/weixin_43624053/article/category/8314365)
