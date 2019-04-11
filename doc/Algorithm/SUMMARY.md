@@ -10,3 +10,5 @@
 * [第四章 回溯法](04-backtracking/README.md)
 
 * [第五章 分支限界法](05-bfs/README.md)
+
+* [第六章 递归](06-recursive/README.md)
