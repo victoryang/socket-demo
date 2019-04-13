@@ -1,6 +1,6 @@
 # 目录
 
-* [第一章 分治法]()
+* [第一章 分治法](01-divid-and-conquer/README.md)
 
 * [第二章 动态规划]()
 
@@ -12,3 +12,5 @@
 * [第五章 分支限界法](05-bfs/README.md)
 
 * [第六章 递归](06-recursive/README.md)
+
+* [第七章 位图](06-bitmap/README.md)
