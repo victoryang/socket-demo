@@ -13,4 +13,6 @@
 
 * [第六章 递归](06-recursive/README.md)
 
-* [第七章 位图](06-bitmap/README.md)
+* [第七章 位图](07-bitmap/README.md)
+
+* [第八章 排序](08-sort/README.md)
