@@ -16,3 +16,8 @@
 * [第七章 位图](07-bitmap/README.md)
 
 * [第八章 排序](08-sort/README.md)
+
+
+# 参考链接
+[如何学习算法](https://www.infoq.cn/article/rajw*TKbsG95M7CGHhE7)
+[基础算法](http://wiki.jikexueyuan.com/project/step-by-step-learning-algorithm/)
