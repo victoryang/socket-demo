@@ -18,4 +18,8 @@
 
 [edraw](https://www.edrawsoft.com/)
 
+[kubernetes](https://jimmysong.io/kubernetes-handbook/concepts/)
+
+[软件需求](https://www.jianshu.com/p/a52fe78962f0)
+
 ## 
