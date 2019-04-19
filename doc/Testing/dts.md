@@ -22,4 +22,6 @@
 
 [软件需求](https://www.jianshu.com/p/a52fe78962f0)
 
+[图片裁剪](https://editorcut.818ps.com/)
+
 ## 

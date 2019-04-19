@@ -1,0 +1,321 @@
+<svg width="1505" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1505 1291" height="1291" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <style type="text/css"><![CDATA[
+.st8 {fill:#000000;font-family:Arial;font-size:11pt;font-weight:bold}
+.st3 {fill:#000000;font-family:Arial;font-size:12pt;font-weight:bold}
+.st2 {fill:#000000;font-family:Arial;font-size:12pt}
+.st5 {fill:#000000;font-family:Arial;font-size:14pt;font-weight:bold}
+.st7 {fill:#000000;font-family:Arial;font-size:16pt;font-weight:bold}
+.st6 {fill:#6091cb;font-family:Arial;font-size:10pt;font-weight:bold}
+.st4 {fill:#6d6271;font-family:Arial;font-size:12pt;font-weight:bold}
+.st1 {fill:#6d6271;font-family:Arial;font-size:14pt;font-weight:bold}
+]]></style>
+    <defs/>
+    <g transform="translate(-356.49,-560.65)">
+        <g transform="translate(691.36,1161.95)">
+            <path stroke="#a2bac3" transform="translate(22.75,0)" id="shape1" fill="#b8d3de" d="M228.7,153.1L228.7,0L0,0L0,153.1L228.7,153.1z"/>
+            <path stroke="#a2bac3" transform="translate(11.97,8.57)" id="shape2" fill="#b8d3de" d="M228.7,153.1L228.7,0L0,0L0,153.1L228.7,153.1z"/>
+            <path stroke="#a2bac3" transform="translate(0,16.06)" id="shape3" fill="#b8d3de" d="M228.7,153.1L228.7,0L0,0L0,153.1L228.7,153.1z"/>
+        </g>
+        <g transform="translate(757.96,561.65)" id="shape4">
+            <text class="st1">
+                <tspan x="72.5" y="25.1">Robot Controller Testing Architecture</tspan>
+            </text>
+        </g>
+        <g transform="translate(709.76,1206.99)" id="shape5">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="77.3" y="17.4">case 1</tspan>
+            </text>
+        </g>
+        <g transform="translate(709.76,1234.67)" id="shape6">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="72.3" y="17.4"> case 2</tspan>
+            </text>
+        </g>
+        <g transform="translate(709.76,1262.34)" id="shape7">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="94.3" y="17.4">...</tspan>
+            </text>
+        </g>
+        <g transform="translate(709.76,1290.03)" id="shape8">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="77.3" y="17.4">case n</tspan>
+            </text>
+        </g>
+        <g transform="translate(719.44,1177.58)" id="shape9">
+            <text class="st3">
+                <tspan x="51.3" y="16.9">Task</tspan>
+            </text>
+        </g>
+        <g transform="translate(718.37,1336.56)" id="shape10">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(870.34,1336.56)" id="shape11">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(623.1,1752.26)">
+            <path stroke="#c6c6c6" id="shape12" fill="#868686" fill-opacity="0.95" d="M0,0L0,28C0,38.4,28.1,46.7,62.8,46.7C97.5,46.7,125.7,38.4,125.7,28L125.7,0C125.7,10.3,97.5,18.7,62.8,18.7C28.1,18.7,0,10.3,0,0z"/>
+            <g transform="translate(0,-18.7)" id="shape13">
+                <path stroke="#c6c6c6" fill="#afafaf" fill-opacity="0.95" d="M0,18.7C0,8.4,28.1,0,62.8,0C97.5,0,125.7,8.4,125.7,18.7C125.7,29,97.5,37.4,62.8,37.4C28.1,37.4,0,29,0,18.7z"/>
+                <text class="st4">
+                    <tspan x="33.3" y="99">Storage</tspan>
+                </text>
+            </g>
+        </g>
+        <g transform="translate(691.36,1101.71)" id="shape14">
+            <text class="st5">
+                <tspan x="32.5" y="29.5">Node 1</tspan>
+            </text>
+        </g>
+        <g transform="matrix(0.97,0.26,-0.26,0.97,1169.3,1514.1)" id="shape15">
+            <path fill="#000000" fill-opacity="0.08" d="M12.3,1.4L12.3,37.6L18,31.5L10.2,63.7L2.4,31.5L8.2,37.6L8.2,1.4L12.3,1.4z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(871.33,1514.02)" id="shape16">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="matrix(0.97,-0.26,0.26,0.97,719.8,1519.4)" id="shape17">
+            <path fill="#000000" fill-opacity="0.08" d="M11.2,2.4L11.2,38.6L17,32.5L9.2,64.7L1.4,32.5L7.2,38.6L7.2,2.4L11.2,2.4z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(745.57,1522.44)" id="shape18">
+            <text class="st6">
+                <tspan x="3.6" y="6.9">Metrics Collection</tspan>
+            </text>
+        </g>
+        <path stroke="#c8beb9" transform="translate(451.01,1608.11)" id="shape19" stroke-dasharray="2.5,2.5" fill="#4a7eaa" d="M1058.6,84.5C1065.3,84.5,1070.6,79.1,1070.6,72.5L1070.6,12C1070.6,5.4,1065.3,0,1058.6,0L12,0C5.4,0,0,5.4,0,12L0,72.5C0,79.1,5.4,84.5,12,84.5L1058.6,84.5z"/>
+        <g transform="translate(446.55,1599.66)" id="shape20">
+            <text class="st5">
+                <tspan x="17.1" y="28.9">Data Collector</tspan>
+            </text>
+        </g>
+        <g transform="translate(793.32,1619.09)" id="shape21">
+            <path stroke="#00ae9d" fill="#00ae9d" d="M133.1,45.6C139.7,45.6,145.1,40.2,145.1,33.6L145.1,12C145.1,5.4,139.7,0,133.1,0L12,0C5.4,0,0,5.4,0,12L0,33.6C0,40.2,5.4,45.6,12,45.6L133.1,45.6z"/>
+            <text class="st3">
+                <tspan x="38.1" y="27.8">Log Data</tspan>
+            </text>
+        </g>
+        <g transform="translate(623.1,1619.09)" id="shape22">
+            <path stroke="#c8beb9" fill="#00ae9d" d="M133.1,45.6C139.7,45.6,145.1,40.2,145.1,33.6L145.1,12C145.1,5.4,139.7,0,133.1,0L12,0C5.4,0,0,5.4,0,12L0,33.6C0,40.2,5.4,45.6,12,45.6L133.1,45.6z"/>
+            <text class="st3">
+                <tspan x="23.1" y="17.8">User-Defined </tspan>
+                <tspan x="12.1" y="37.8">Monitoring Data</tspan>
+            </text>
+        </g>
+        <g transform="translate(657.35,1431.14)" id="shape23">
+            <path stroke="#b8d3de" fill="#b8d3de" d="M26.4,52.8L111.2,52.8C125.8,52.8,137.6,41,137.6,26.4C137.6,11.8,125.8,0,111.2,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st3">
+                <tspan x="5.3" y="31.4">Robot Controller</tspan>
+            </text>
+        </g>
+        <g transform="translate(809.32,1431.14)" id="shape24">
+            <path stroke="#b8d3de" fill="#b8d3de" d="M26.4,52.8L111.2,52.8C125.8,52.8,137.6,41,137.6,26.4C137.6,11.8,125.8,0,111.2,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st3">
+                <tspan x="5.3" y="31.4">Robot Controller</tspan>
+            </text>
+        </g>
+        <g transform="translate(444.13,788.83)" id="shape25">
+            <path fill="#c8beb9" d="M1123.1,99.2C1129.8,99.2,1135.1,93.9,1135.1,87.2L1135.1,12C1135.1,5.4,1129.8,0,1123.1,0L12,0C5.4,0,0,5.4,0,12L0,87.2C0,93.9,5.4,99.2,12,99.2L1123.1,99.2z"/>
+            <text class="st7">
+                <tspan x="525.1" y="56.1">Gateway</tspan>
+            </text>
+        </g>
+        <g transform="translate(519.32,1205.74)">
+            <path stroke="#c6c6c6" id="shape26" fill="#868686" fill-opacity="0.95" d="M0,0L0,28C0,38.4,28.1,46.7,62.8,46.7C97.5,46.7,125.7,38.4,125.7,28L125.7,0C125.7,10.3,97.5,18.7,62.8,18.7C28.1,18.7,0,10.3,0,0z"/>
+            <g transform="translate(0,-18.7)" id="shape27">
+                <path stroke="#c6c6c6" fill="#afafaf" fill-opacity="0.95" d="M0,18.7C0,8.4,28.1,0,62.8,0C97.5,0,125.7,8.4,125.7,18.7C125.7,29,97.5,37.4,62.8,37.4C28.1,37.4,0,29,0,18.7z"/>
+                <text class="st4">
+                    <tspan x="20.3" y="89">Task Image </tspan>
+                    <tspan x="33.3" y="109">Storage</tspan>
+                </text>
+            </g>
+        </g>
+        <g transform="translate(1534.56,1654.56)" id="shape28">
+            <path fill="#000000" fill-opacity="0.08" d="M2,-1L63.5,-1C76,-1,86,-10.8,86,-23L86,-584.3L82.5,-584.3L88.5,-590.3L94.5,-584.3L91.5,-584.3L91.5,-23C92,-7.5,79.3,5,63.5,5L2,5L2,-1z"/>
+            <path stroke="#102a54" fill="#6d6271" stroke-width="0.333333" d="M0,-3L61.5,-3C74,-3,84,-12.8,84,-25L84,-586.3L80.5,-586.3L86.5,-592.3L92.5,-586.3L89.5,-586.3L89.5,-25C90,-9.5,77.3,3,61.5,3L0,3L0,-3z"/>
+        </g>
+        <g transform="translate(1299.86,1210.4)">
+            <path stroke="#c6c6c6" id="shape29" fill="#868686" fill-opacity="0.95" d="M0,0L0,28C0,38.4,28.1,46.7,62.8,46.7C97.5,46.7,125.7,38.4,125.7,28L125.7,0C125.7,10.3,97.5,18.7,62.8,18.7C28.1,18.7,0,10.3,0,0z"/>
+            <g transform="translate(0,-18.7)" id="shape30">
+                <path stroke="#c6c6c6" fill="#afafaf" fill-opacity="0.95" d="M0,18.7C0,8.4,28.1,0,62.8,0C97.5,0,125.7,8.4,125.7,18.7C125.7,29,97.5,37.4,62.8,37.4C28.1,37.4,0,29,0,18.7z"/>
+                <text class="st4">
+                    <tspan x="25.3" y="89">Test Case </tspan>
+                    <tspan x="33.3" y="109">Storage</tspan>
+                </text>
+            </g>
+        </g>
+        <g transform="translate(918.55,1009.48)" id="shape31">
+            <path stroke="#7d7081" fill="#547fb2" d="M26.4,52.8L168.2,52.8C182.8,52.8,194.6,41,194.6,26.4C194.6,11.8,182.8,0,168.2,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st8">
+                <tspan x="51.3" y="30.4">Task Service</tspan>
+            </text>
+        </g>
+        <g transform="translate(1000.25,1161.95)">
+            <path stroke="#a2bac3" transform="translate(22.75,0)" id="shape32" fill="#b8d3de" d="M228.7,153.1L228.7,0L0,0L0,153.1L228.7,153.1z"/>
+            <path stroke="#a2bac3" transform="translate(11.97,8.57)" id="shape33" fill="#b8d3de" d="M228.7,153.1L228.7,0L0,0L0,153.1L228.7,153.1z"/>
+            <path stroke="#a2bac3" transform="translate(0,16.06)" id="shape34" fill="#b8d3de" d="M228.7,153.1L228.7,0L0,0L0,153.1L228.7,153.1z"/>
+        </g>
+        <g transform="translate(1018.65,1206.99)" id="shape35">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="77.3" y="17.4">case 1</tspan>
+            </text>
+        </g>
+        <g transform="translate(1018.65,1234.67)" id="shape36">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="72.3" y="17.4"> case 2</tspan>
+            </text>
+        </g>
+        <g transform="translate(1018.65,1262.34)" id="shape37">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st3">
+                <tspan x="94.3" y="16.9">...</tspan>
+            </text>
+        </g>
+        <g transform="translate(1018.65,1290.03)" id="shape38">
+            <path stroke="#92b9ec" fill="#92b9ec" d="M0,0L200.6,0L200.6,23.7L0,23.7L0,0z"/>
+            <text class="st2">
+                <tspan x="77.3" y="17.4">case n</tspan>
+            </text>
+        </g>
+        <g transform="translate(1028.33,1177.58)" id="shape39">
+            <text class="st3">
+                <tspan x="51.3" y="16.9">Task</tspan>
+            </text>
+        </g>
+        <g transform="translate(1027.25,1336.56)" id="shape40">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(1179.22,1336.56)" id="shape41">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(1000.25,1101.71)" id="shape42">
+            <text class="st5">
+                <tspan x="32.5" y="29.5">Node 2</tspan>
+            </text>
+        </g>
+        <g transform="translate(1024.34,1514.02)" id="shape43">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="translate(1038.33,1522.44)" id="shape44">
+            <text class="st6">
+                <tspan x="14.6" y="6.9">Log Collection</tspan>
+            </text>
+        </g>
+        <g transform="translate(966.23,1431.14)" id="shape45">
+            <path stroke="#b8d3de" fill="#b8d3de" d="M26.4,52.8L111.2,52.8C125.8,52.8,137.6,41,137.6,26.4C137.6,11.8,125.8,0,111.2,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st3">
+                <tspan x="5.3" y="31.4">Robot Controller</tspan>
+            </text>
+        </g>
+        <g transform="translate(1118.2,1431.14)" id="shape46">
+            <path stroke="#b8d3de" fill="#b8d3de" d="M26.4,52.8L111.2,52.8C125.8,52.8,137.6,41,137.6,26.4C137.6,11.8,125.8,0,111.2,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st3">
+                <tspan x="5.3" y="31.4">Robot Controller</tspan>
+            </text>
+        </g>
+        <g transform="translate(595.05,1009.48)" id="shape47">
+            <path stroke="#7d7081" fill="#547fb2" d="M26.4,52.8L173.5,52.8C188.1,52.8,199.9,41,199.9,26.4C199.9,11.8,188.1,0,173.5,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st8">
+                <tspan x="44.5" y="30.4">Cluster Service</tspan>
+            </text>
+        </g>
+        <g transform="translate(1522.74,1009.48)" id="shape48">
+            <path stroke="#7d7081" fill="#547fb2" d="M26.4,52.8L170.3,52.8C184.9,52.8,196.7,41,196.7,26.4C196.7,11.8,184.9,0,170.3,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st8">
+                <tspan x="24.4" y="30.4">Data Analyze Service</tspan>
+            </text>
+        </g>
+        <g transform="translate(1263.91,1009.48)" id="shape49">
+            <path stroke="#7d7081" fill="#547fb2" d="M26.4,52.8L171.2,52.8C185.7,52.8,197.6,41,197.6,26.4C197.6,11.8,185.7,0,171.2,0L26.4,0C11.8,0,0,11.8,0,26.4C0,41,11.8,52.8,26.4,52.8z"/>
+            <text class="st8">
+                <tspan x="8.3" y="30.4">Case Managment Service</tspan>
+            </text>
+        </g>
+        <g transform="translate(859.01,1752.26)">
+            <path stroke="#c6c6c6" id="shape50" fill="#868686" fill-opacity="0.95" d="M0,0L0,28C0,38.4,28.1,46.7,62.8,46.7C97.5,46.7,125.7,38.4,125.7,28L125.7,0C125.7,10.3,97.5,18.7,62.8,18.7C28.1,18.7,0,10.3,0,0z"/>
+            <g transform="translate(0,-18.7)" id="shape51">
+                <path stroke="#c6c6c6" fill="#afafaf" fill-opacity="0.95" d="M0,18.7C0,8.4,28.1,0,62.8,0C97.5,0,125.7,8.4,125.7,18.7C125.7,29,97.5,37.4,62.8,37.4C28.1,37.4,0,29,0,18.7z"/>
+                <text class="st4">
+                    <tspan x="33.3" y="99">Storage</tspan>
+                </text>
+            </g>
+        </g>
+        <g transform="translate(1088.56,1752.26)">
+            <path stroke="#c6c6c6" id="shape52" fill="#868686" fill-opacity="0.95" d="M0,0L0,28C0,38.4,28.1,46.7,62.8,46.7C97.5,46.7,125.7,38.4,125.7,28L125.7,0C125.7,10.3,97.5,18.7,62.8,18.7C28.1,18.7,0,10.3,0,0z"/>
+            <g transform="translate(0,-18.7)" id="shape53">
+                <path stroke="#c6c6c6" fill="#afafaf" fill-opacity="0.95" d="M0,18.7C0,8.4,28.1,0,62.8,0C97.5,0,125.7,8.4,125.7,18.7C125.7,29,97.5,37.4,62.8,37.4C28.1,37.4,0,29,0,18.7z"/>
+                <text class="st4">
+                    <tspan x="33.3" y="99">Storage</tspan>
+                </text>
+            </g>
+        </g>
+        <g transform="translate(958.92,1619.09)" id="shape54">
+            <path stroke="#c8beb9" fill="#00ae9d" d="M133.1,45.6C139.7,45.6,145.1,40.2,145.1,33.6L145.1,12C145.1,5.4,139.7,0,133.1,0L12,0C5.4,0,0,5.4,0,12L0,33.6C0,40.2,5.4,45.6,12,45.6L133.1,45.6z"/>
+            <text class="st3">
+                <tspan x="25.1" y="27.8">System Data</tspan>
+            </text>
+        </g>
+        <path stroke="#000000" transform="translate(501.53,938.75)" id="shape55" stroke-dasharray="2.5,2.5" fill="none" d="M965.1,475.1C971.8,475.1,977.1,469.7,977.1,463.1L977.1,12C977.1,5.4,971.8,0,965.1,0L12,0C5.4,0,0,5.4,0,12L0,463.1C0,469.7,5.4,475.1,12,475.1L965.1,475.1z"/>
+        <g transform="translate(927.15,951.42)" id="shape56">
+            <text class="st5">
+                <tspan x="11.5" y="14.1">Automation </tspan>
+                <tspan x="44.5" y="37.1">Test</tspan>
+            </text>
+        </g>
+        <path stroke="#00b050" transform="translate(357.49,972.53)" id="shape57" stroke-dasharray="6,4" fill="none" d="M1490.8,126.7C1497.4,126.7,1502.8,121.3,1502.8,114.7L1502.8,12C1502.8,5.4,1497.4,0,1490.8,0L12,0C5.4,0,0,5.4,0,12L0,114.7C0,121.3,5.4,126.7,12,126.7L1490.8,126.7z"/>
+        <g transform="translate(1721.6,970.42)" id="shape58">
+            <text class="st5">
+                <tspan x="12.5" y="33.5">Framework</tspan>
+            </text>
+        </g>
+        <g transform="translate(1124.53,1619.09)" id="shape59">
+            <path stroke="#00ae9d" fill="#00ae9d" d="M133.1,45.6C139.7,45.6,145.1,40.2,145.1,33.6L145.1,12C145.1,5.4,139.7,0,133.1,0L12,0C5.4,0,0,5.4,0,12L0,33.6C0,40.2,5.4,45.6,12,45.6L133.1,45.6z"/>
+            <text class="st3">
+                <tspan x="67.1" y="27.8">...</tspan>
+            </text>
+        </g>
+        <g transform="translate(1357.31,1101.8)" id="shape60">
+            <path fill="#000000" fill-opacity="0.08" d="M11.8,2L11.8,38.2L17.6,32.1L9.8,64.3L2,32.1L7.8,38.2L7.8,2L11.8,2z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <g transform="matrix(0.97,0.26,-0.26,0.97,610.2,1101.9)" id="shape61">
+            <path fill="#000000" fill-opacity="0.08" d="M12.3,1.4L12.3,37.6L18,31.5L10.2,63.7L2.4,31.5L8.2,37.6L8.2,1.4L12.3,1.4z"/>
+            <path stroke="#869ba3" fill="#92b9ec" d="M9.8,0L9.8,36.2L15.6,30.1L7.8,62.3L0,30.1L5.8,36.2L5.8,0L9.8,0z"/>
+        </g>
+        <path stroke="#00ae9d" transform="translate(502.61,1711.57)" id="shape62" stroke-dasharray="2.5,2.5" fill="none" d="M845.8,139.2C852.4,139.2,857.8,133.8,857.8,127.2L857.8,12C857.8,5.4,852.4,0,845.8,0L12,0C5.4,0,0,5.4,0,12L0,127.2C0,133.8,5.4,139.2,12,139.2L845.8,139.2z"/>
+        <g transform="translate(1231.42,1711.57)" id="shape63">
+            <text class="st5">
+                <tspan x="28.5" y="33.5">Storage</tspan>
+            </text>
+        </g>
+        <g transform="translate(622.57,641.02)" id="shape64">
+            <path stroke="#00ae9d" fill="#00ae9d" d="M198.1,84.5C204.7,84.5,210.1,79.1,210.1,72.5L210.1,12C210.1,5.4,204.7,0,198.1,0L12,0C5.4,0,0,5.4,0,12L0,72.5C0,79.1,5.4,84.5,12,84.5L198.1,84.5z"/>
+            <text class="st3">
+                <tspan x="63" y="47.2">Dashboard</tspan>
+            </text>
+        </g>
+        <g transform="translate(910.01,641.02)" id="shape65">
+            <path stroke="#00ae9d" fill="#00ae9d" d="M198.1,84.5C204.7,84.5,210.1,79.1,210.1,72.5L210.1,12C210.1,5.4,204.7,0,198.1,0L12,0C5.4,0,0,5.4,0,12L0,72.5C0,79.1,5.4,84.5,12,84.5L198.1,84.5z"/>
+            <text class="st3">
+                <tspan x="89" y="47.2">APP</tspan>
+            </text>
+        </g>
+        <g transform="translate(1200.25,641.02)" id="shape66">
+            <path stroke="#00ae9d" fill="#00ae9d" d="M198.1,84.5C204.7,84.5,210.1,79.1,210.1,72.5L210.1,12C210.1,5.4,204.7,0,198.1,0L12,0C5.4,0,0,5.4,0,12L0,72.5C0,79.1,5.4,84.5,12,84.5L198.1,84.5z"/>
+            <text class="st3">
+                <tspan x="81" y="47.2">Admin</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
