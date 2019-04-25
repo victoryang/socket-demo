@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="588" width="937" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 937 588">
+    <style type="text/css"><![CDATA[
+.st4 {fill:#000000;font-family:Arial;font-size:12pt;font-weight:bold}
+.st2 {fill:#555555;font-family:Arial;font-size:24pt;font-weight:bold}
+.st5 {fill:#ffffff;font-family:Arial;font-size:14pt}
+.st1 {fill:#ffffff;font-family:Arial;font-size:20pt;font-weight:bold}
+.st3 {font-family:Arial;font-size:12pt;font-weight:bold}
+]]></style>
+    <defs/>
+    <g transform="translate(-87.55,-56)">
+        <g transform="translate(442.34,57)" id="shape1">
+            <path d="M167.6,0L167.6,64.9L0,64.9L0,0L167.6,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st1">
+                <tspan x="42.3" y="38.9">管理员</tspan>
+            </text>
+        </g>
+        <g transform="translate(132,163.5)" id="shape2">
+            <path d="M27.3,0L778.7,0C793.8,0,806,21,806,47L806,326C806,352,793.8,373,778.7,373L27.3,373C12.2,373,0,352,0,326L0,47C0,21,12.2,0,27.3,0z" stroke="#555555" fill="#f1f0eb" stroke-dasharray="6,4" stroke-width="4"/>
+            <text class="st2">
+                <tspan x="4.5" y="34">        nginx</tspan>
+            </text>
+        </g>
+        <g transform="translate(223.6,423.3)" id="shape3">
+            <path d="M0,48.7C0,21.8,21.8,0,48.7,0C75.6,0,97.4,21.8,97.4,48.7C97.4,75.6,75.6,97.4,48.7,97.4C21.8,97.4,0,75.6,0,48.7z" stroke="#69ae41" fill="#69ae41" stroke-width="0.666667"/>
+            <text class="st3">
+                <tspan x="4.2" y="54.2">Worker进程</tspan>
+            </text>
+        </g>
+        <g transform="translate(374.6,423.3)" id="shape4">
+            <path d="M0,48.7C0,21.8,21.8,0,48.7,0C75.6,0,97.4,21.8,97.4,48.7C97.4,75.6,75.6,97.4,48.7,97.4C21.8,97.4,0,75.6,0,48.7z" stroke="#69ae41" fill="#69ae41" stroke-width="0.666667"/>
+            <text class="st4">
+                <tspan x="4.2" y="54.2">Worker进程</tspan>
+            </text>
+        </g>
+        <g transform="translate(585.6,423.3)" id="shape5">
+            <path d="M0,48.7C0,21.8,21.8,0,48.7,0C75.6,0,97.4,21.8,97.4,48.7C97.4,75.6,75.6,97.4,48.7,97.4C21.8,97.4,0,75.6,0,48.7z" stroke="#69ae41" fill="#69ae41" stroke-width="0.666667"/>
+            <text class="st4">
+                <tspan x="4.2" y="54.2">Worker进程</tspan>
+            </text>
+        </g>
+        <g transform="translate(974.95,585.85)" id="shape6">
+            <path d="M0,0L-162.9,-58.1" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M-184.2,-65.8L-175.8,-55.8L-171.4,-68.1L-184.2,-65.8M-173.6,-61.9L-165.1,-52L-160.7,-64.3L-173.6,-61.9" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(526.85,294.09)" id="shape7">
+            <path d="M0,0L93,111.8" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M107.4,129.2L105.2,116.3L95.2,124.7L107.4,129.2M100.2,120.5L98,107.6L88,116L100.2,120.5" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(526.85,294.09)" id="shape8">
+            <path d="M0,0C0,0,0,0,-221,121.1" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M-240.9,132L-227.8,132.3L-234.1,120.8L-240.9,132M-231,126.6L-217.9,126.9L-224.2,115.4L-231,126.6" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(477.45,197.3)" id="shape9">
+            <path d="M0,48.7C0,21.8,21.8,0,48.7,0C75.6,0,97.4,21.8,97.4,48.7C97.4,75.6,75.6,97.4,48.7,97.4C21.8,97.4,0,75.6,0,48.7z" stroke="#69ae41" fill="#69ae41" stroke-width="0.666667"/>
+            <text class="st4">
+                <tspan x="6.2" y="54.2">Master进程</tspan>
+            </text>
+        </g>
+        <g transform="translate(748.3,423.3)" id="shape10">
+            <path d="M0,48.7C0,21.8,21.8,0,48.7,0C75.6,0,97.4,21.8,97.4,48.7C97.4,75.6,75.6,97.4,48.7,97.4C21.8,97.4,0,75.6,0,48.7z" stroke="#69ae41" fill="#69ae41" stroke-width="0.666667"/>
+            <text class="st4">
+                <tspan x="4.2" y="54.2">Worker进程</tspan>
+            </text>
+        </g>
+        <g transform="translate(526.85,294.09)" id="shape11">
+            <path d="M0,0L239.6,118.9" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M259.9,129L252.7,118.1L246.8,129.8L259.9,129M249.8,124L242.5,113.1L236.7,124.8L249.8,124" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(526.85,294.09)" id="shape12">
+            <path d="M0,0L-88.8,112.3" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M-102.9,130L-90.7,125.2L-101,117.1L-102.9,130M-95.8,121.1L-83.7,116.3L-93.9,108.2L-95.8,121.1" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(526.15,121.93)" id="shape13">
+            <path d="M0,0L.5,53.5" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M.7,76.2L7.1,64.8L-5.9,64.9L.7,76.2M.6,64.9L7,53.5L-6,53.6L.6,64.9" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(208,586)" id="shape14">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(327.45,586)" id="shape15">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(446.9,586)" id="shape16">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(685.81,586)" id="shape17">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(88.55,586)" id="shape18">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(566.36,586)" id="shape19">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(805.26,586)" id="shape20">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(922.71,586)" id="shape21">
+            <path d="M100.5,0L100.5,57L0,57L0,0L100.5,0z" stroke="#555555" fill="#555555" stroke-width="0.666667"/>
+            <text class="st5">
+                <tspan x="26.2" y="35">Client</tspan>
+            </text>
+        </g>
+        <g transform="translate(140.78,585.85)" id="shape22">
+            <path d="M0,0L111.2,-55.1" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M131.5,-65.1L118.5,-66L124.3,-54.3L131.5,-65.1M121.4,-60.1L108.3,-61L114.1,-49.2L121.4,-60.1" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(260.24,585.85)" id="shape23">
+            <path d="M0,0L15.4,-45.3" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M22.7,-66.8L12.9,-58.1L25.3,-53.9L22.7,-66.8M19.1,-56L9.2,-47.4L21.6,-43.2L19.1,-56" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(379.69,585.85)" id="shape24">
+            <path d="M0,0L31.7,-47" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M44.3,-65.8L32.6,-60L43.4,-52.7L44.3,-65.8M38,-56.4L26.2,-50.6L37.1,-43.3L38,-56.4" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(499.14,585.85)" id="shape25">
+            <path d="M0,0L-58.1,-50.9" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M-75.1,-65.8L-70.9,-53.4L-62.3,-63.2L-75.1,-65.8M-66.6,-58.3L-62.4,-45.9L-53.8,-55.8L-66.6,-58.3" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(618.59,585.85)" id="shape26">
+            <path d="M0,0L6.2,-43.4" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M9.4,-65.8L1.4,-55.5L14.3,-53.6L9.4,-65.8M7.8,-54.6L-0.2,-44.3L12.7,-42.4L7.8,-54.6" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(738.04,585.85)" id="shape27">
+            <path d="M0,0L-90.6,-54.1" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M-110,-65.8L-103.6,-54.3L-96.9,-65.6L-110,-65.8M-100.3,-59.9L-93.9,-48.5L-87.2,-59.7L-100.3,-59.9" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+        <g transform="translate(857.5,585.85)" id="shape28">
+            <path d="M0,0L-45.1,-48.6" stroke="#888889" stroke-linecap="round" stroke-dasharray="2.5,2.5" fill="none" stroke-width="2.66667"/>
+            <path d="M-60.5,-65.1L-57.6,-52.4L-48,-61.3L-60.5,-65.1M-52.8,-56.9L-49.9,-44.1L-40.3,-53L-52.8,-56.9" stroke="#888889" stroke-linecap="round" fill="#888889" stroke-width="1"/>
+        </g>
+    </g>
+</svg>
