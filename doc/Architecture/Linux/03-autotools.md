@@ -57,14 +57,16 @@ Linux系统默认会安装相关工具，安装包为automake
     该命令生成config.h.in
 
 ## 3 Makefile.am
-    Makefile.am定义生成Makefile的规则
+    Makefile.am 是一种比Makefile更高层次的编译规则，可以和configure.in一起通过调用automake生成configure.in， 然后调用./configure生成Makefile
+
 |宏|说明|可能值|
 |:---:|:---:|:---:|
 |AUTOMAKE_OPTIONS|软件等级||
 |SUBDIRS|先扫描子目录||
 |bin_PROGRAMS|软件生成后的可执行文件名称||
-|hello_SOURCES|当前目录源文件||
-|hello_LDADD|静态链接||
+|xxx_SOURCES|当前目录源文件||
+|xxx_LDFLAGS|链接选项||
+|xxx_LDADD|静态链接||
 |LIBS |m4定义|动态链接|
 ||||
 
