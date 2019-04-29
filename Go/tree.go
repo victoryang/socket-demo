@@ -34,31 +34,54 @@ func search_and_insert(val int, node *Node) *Node {
     return node
 }
 
-func build_binary_tree(arr []int) {
+func build_binary_tree(arr []int) *Node {
     var root *Node = nil
 
     for _,v := range arr {
         root = search_and_insert(v, root)
     }
 
-    traverse_tree(root)
-
-    fmt.Println()
+    return root
 }
 
-func traverse_tree(node *Node) {
+func traverse_tree_pre(node *Node) {
     if node!= nil {
         fmt.Printf("%d ", node.val)
 
-        traverse_tree(node.left)
-        traverse_tree(node.right)
+        traverse_tree_pre(node.left)
+        traverse_tree_pre(node.right)
     }
 }
 
-func main() {
-    var arr []int = []int{3,4,2,5,8,6,1,7,9}
+func traverse_tree_suf(node *Node) {
+    if node!= nil {
+        traverse_tree_suf(node.left)
+        fmt.Printf("%d ", node.val)
+        traverse_tree_suf(node.right)
+    }
+}
 
-    build_binary_tree(arr)
+func traverse_tree(root *Node) {
+    fmt.Printf("traverse_tree_pre: ")
+    traverse_tree_pre(root)
+    fmt.Println()
+
+    fmt.Printf("traverse_tree_suf: ")
+    traverse_tree_suf(root)
+    fmt.Println()
+}
+
+func main() {
+    var arr []int = []int{3,4,2,5,6,1,7,9}
+    var other int = 8
 
     fmt.Println("arr: ", arr)
+
+    root := build_binary_tree(arr)
+
+    traverse_tree(root)
+
+    search_and_insert(other, root)
+
+    traverse_tree(root)
 }
