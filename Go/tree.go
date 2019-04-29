@@ -19,26 +19,27 @@ func create_node(val int) *Node {
     return node
 }
 
-func search_and_insert(val int, node *Node) *Node {
-    if node == nil {
-        node = create_node(val)
-        return node
+func search_and_insert(val int, pNode **Node) {
+    if *pNode == nil {
+        *pNode = create_node(val)
+        return
     }
 
+    node := *pNode
     if node.val > val {
-        node.left = search_and_insert(val, node.left)
+        search_and_insert(val, &node.left)
     } else {
-        node.right = search_and_insert(val, node.right)
+        search_and_insert(val, &node.right)
     }
 
-    return node
+    return
 }
 
 func build_binary_tree(arr []int) *Node {
     var root *Node = nil
 
     for _,v := range arr {
-        root = search_and_insert(v, root)
+        search_and_insert(v, &root)
     }
 
     return root
@@ -71,6 +72,33 @@ func traverse_tree(root *Node) {
     fmt.Println()
 }
 
+func find_item_in_tree(val int, pos *Node, node *Node) bool {
+    if node==nil {
+        return false
+    }
+
+    if node.val == val {
+        pos = node
+        return true
+    }
+
+    return find_item_in_tree(val, pos, node.left) || find_item_in_tree(val, pos, node.right)
+}
+
+func remove_from_tree(val int, root **Node) bool {
+    var pos *Node = nil
+
+    if root == nil || *root == nil {
+        return false
+    }
+
+    if !find_item_in_tree(val, pos, *root) {
+        return false
+    }
+
+    return true
+}
+
 func main() {
     var arr []int = []int{3,4,2,5,6,1,7,9}
     var other int = 8
@@ -81,7 +109,10 @@ func main() {
 
     traverse_tree(root)
 
-    search_and_insert(other, root)
+    search_and_insert(other, &root)
 
     traverse_tree(root)
+
+    ret := remove_from_tree(other, &root)
+    fmt.Println("try to find ", other, ": ", ret)
 }
