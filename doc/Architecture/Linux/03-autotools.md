@@ -2,6 +2,8 @@
 
 [参考链接](https://blog.csdn.net/zhengqijun_/article/details/70105077)
 
+[Makefile.am详解](https://www.jianshu.com/p/2f5e586c3402)
+
 ## 0 预备知识
 Autotools工具链
 - autoscan
