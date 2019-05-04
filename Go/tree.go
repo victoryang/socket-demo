@@ -72,28 +72,70 @@ func traverse_tree(root *Node) {
     fmt.Println()
 }
 
-func find_item_in_tree(val int, pos *Node, node *Node) bool {
-    if node==nil {
+func find_item_in_tree(val int, node *Node, pos **Node, ppos **Node) bool {
+    if node == nil {
         return false
     }
 
     if node.val == val {
-        pos = node
+        *pos = node
         return true
     }
 
-    return find_item_in_tree(val, pos, node.left) || find_item_in_tree(val, pos, node.right)
+    *ppos = node
+
+    return find_item_in_tree(val, node.left, pos, ppos) || find_item_in_tree(val, node.right, pos, ppos)
 }
 
 func remove_from_tree(val int, root **Node) bool {
-    var pos *Node = nil
+    var pos *Node = *root
+    var ppos *Node = nil
 
     if root == nil || *root == nil {
         return false
     }
 
-    if !find_item_in_tree(val, pos, *root) {
+    if !find_item_in_tree(val, *root, &pos, &ppos) {
         return false
+    }
+
+    fmt.Println(pos.val)
+    fmt.Println(ppos.val)
+
+    // root
+    if pos == *root {
+        *root = nil
+        return true
+    }
+
+    // no left, no right
+    if pos.left == nil && pos.right == nil {
+        if ppos.left == pos {
+            ppos.left = nil
+        } else if ppos.right == pos {
+            ppos.right = nil
+        }
+        return true
+    }
+
+    // no right
+    if pos.right == nil {
+        if ppos.left == pos {
+            ppos.left = pos.left
+        } else if ppos.right == pos {
+            ppos.right = pos.left
+        }
+        return true
+    }
+
+    // no left
+    if pos.left == nil {
+        if ppos.left == pos {
+            ppos.left = pos.right
+        } else if ppos.right == pos {
+            ppos.right = pos.right
+        }
+        return true
     }
 
     return true
@@ -115,4 +157,5 @@ func main() {
 
     ret := remove_from_tree(other, &root)
     fmt.Println("try to find ", other, ": ", ret)
+    traverse_tree(root)
 }
