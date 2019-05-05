@@ -87,6 +87,15 @@ func find_item_in_tree(val int, node *Node, pos **Node, ppos **Node) bool {
     return find_item_in_tree(val, node.left, pos, ppos) || find_item_in_tree(val, node.right, pos, ppos)
 }
 
+func find_max_in_left(node *Node, parent **Node) *Node {
+    if node.right == nil {
+        *parent = node
+        return node.left
+    }
+
+    return find_max_in_left(node.right, parent)
+}
+
 func remove_from_tree(val int, root **Node) bool {
     var pos *Node = *root
     var ppos *Node = nil
@@ -137,6 +146,10 @@ func remove_from_tree(val int, root **Node) bool {
         }
         return true
     }
+
+    // both left and right exist
+    var pmax *Node = nil
+    max := find_max_in_left(pos.left, &pmax)
 
     return true
 }
