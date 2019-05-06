@@ -5,7 +5,7 @@
 
 <center><h4>邮箱: yangtao3601@126.com</h4></center>
 
-<center><h4><a href="https://github.com/victoryang">Github主页</a></h4></center>
+<center><h4><a href="https://github.com/victoryang">Github主页: https://github.com/victoryang</a></h4></center>
 
 <br>
 <br>
@@ -25,13 +25,13 @@
 - 熟悉C/C++、Golang、Rust、Python，熟悉Linux系统环境编程
 - 熟悉常见数据结构和算法
 - 熟悉Linux操作系统，具备独立地开发、调试及优化程序的能力
-- 熟悉Docker，熟悉CI/CD流程
+- 熟悉Docker使用，了解内部原理
 - 熟悉Http、Tcp等通信协议和网络基础知识，具有网络编程的经验，熟悉RESTful api
 - 熟悉多线程/多进程编程环境开发
-- 熟悉项目构建, 以及相关项目构建工具，有独立完成的个人项目
-- 熟悉Git, Gitlab, CI等开发常用工具和平台
-- 了解分布式系统相关知识
-- 了解云计算相关知识
+- 熟悉项目构建及相关工具，GNU AutoTools/Make/CMake/Bazel等，有独立完成的个人项目
+- 熟悉Git, Gitlab, CI/CD等开发常用工具和平台
+- 了解分布式系统相关知识, 学习过MIT6.824
+- 了解云计算相关知识及相关中间件项目
 - 热爱开源项目
 
 <br>
@@ -57,6 +57,7 @@
     |4|控制器核心系统监控项目|为控制器系统提供完整的监控解决方案 <br> 基于开源项目, 定制数据采集集合 <br> 实时的数据采集、显示和存储 <br> 由内部测试工具扩展至用户数据采集解决方案 |Golang <br> InfluxDB <br> Prometheus <br> Grafana <br> Time Series Database <br> Docker <br> Linux Arm|
     |5|控制器系统SDK项目|为控制器系统编写SDK文档及工具 <br> 基于工业和协作机器人控制器系统 <br> 提供C/C++/Python/C# 等版本 <br> 多平台、系统、架构 | C/C++/Python/C# <br> Linux/Windows <br> x86_32/x86_64/arm32 <br> GCC/AutoTool/CMake/VS <br> 编程规范 <br> API接口|
     |6|控制器系统api-server代码架构重构|梳理原有RESTFul API接口，提供v2版本 <br> 调整go依赖至1.12 <br> 调整内部模块代码 <br> GRPC API接口， 提供v3版本 | Golang/C <br> RESTFul API <br> Websocket <br> GRPC|
+    |7|控制器系统plugin| 移植协作机器人功能到工业机器人， 以plugin形式 | C <br> Arm Linux|
     ||||
 
 <br>
