@@ -20,3 +20,20 @@
 > 级别：log级别
 >
 > 动作: 消息目的地，如主机、用户等
+
+## gcc log编译宏
+
+```cpp
+#include <stdio.h>  
+  
+int main()  
+{  
+    printf("The file is %s.\n",__FILE__);  
+    printf( "The date is %s.\n", __DATE__ );  
+    printf( "The time is %s.\n", __TIME__ );  
+    printf( "This is line %d.\n", __LINE__ );  
+    printf( "This function is %s.\n", __FUNCTION__ );
+
+    return 0;  
+}
+```
