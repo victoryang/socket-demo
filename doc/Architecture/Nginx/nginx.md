@@ -2,6 +2,8 @@
 
 [高并发架构一般思路](https://www.cnblogs.com/gdsblog/p/7128497.html)
 
+[nginx参考](http://tengine.taobao.org/book/chapter_02.html)
+
 ## 初探nginx架构
 #### 1 nginx 启动形式
 - 前台单进程
