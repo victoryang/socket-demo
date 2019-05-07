@@ -1,5 +1,7 @@
 # Golang 分布式异步任务队列
 
+[machinary分析](http://masnun.rocks/2016/11/01/distributed-task-processing-in-golang/)
+
 ## 异步任务
 > 将需要长时间执行的代码放到一个单独的程序中，例如调用第三方邮件接口，但是这个接口可能非常慢才响应，这时候应当采用异步任务来进行解耦。
 
