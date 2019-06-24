@@ -28,4 +28,4 @@
     Level will be increased if there's "." inside "k1"
     Use "_" instead "." if there's no more levels
 
-    v1 only supports numberics
+    v1 only supports numerics
