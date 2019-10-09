@@ -1,5 +1,8 @@
 # Docker
 
+[docker and iptables](https://docs.docker.com/network/iptables/)
+[container networking model](https://success.docker.com/article/networking)
+
 ## Docker
 ### Version
 - docker ce
@@ -10,6 +13,10 @@
 ## Docker data
 
 ## Docker network
+- iptables on linux server
+- routing rules on windows server
+- forms and encapsulates packet
+- handle encryption
 
 ## Docker compose
     使用docker-compose.yml 模板文件来定义一组相关联的应用容器为一个项目
