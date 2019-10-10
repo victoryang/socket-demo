@@ -6,6 +6,8 @@
 
 [iowait](https://blog.51cto.com/291268154/1981358)
 
+[nvme performance](http://kernelmaker.github.io/nvme_ssd_fio)
+
 ## 基本概念
 
 ### 读写IO(Read/Write)操作
