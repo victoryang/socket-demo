@@ -10,6 +10,8 @@
 
 [linux io performance tunning](https://www.cnblogs.com/sky-heaven/p/9849280.html)
 
+[Disk tunning](http://blog.sina.com.cn/s/blog_448574810101k1va.html)
+
 ## 基本概念
 
 ### 读写IO(Read/Write)操作
