@@ -2,7 +2,7 @@
 
 [参考链接](https://www.infoq.cn/article/Xvlq27eG_GHazRHsOTU2)
 
-[Linux system tunning](https://yq.aliyun.com/articles/637634?spm=a2c4e.11153940.0.0.61904289RxXxtO)
+[Linux系统调优](https://yq.aliyun.com/articles/637634?spm=a2c4e.11153940.0.0.61904289RxXxtO)
 
 ## Linux subsystem
 
