@@ -10,7 +10,9 @@
 
 [slab内存分配器](https://blog.csdn.net/liuhangtiant/article/details/81259293)
 
-## Memory
+[Linux内存分配和回收](http://www.sohu.com/a/312093365_99952211)
+
+## Linux Memory
 
 <img src="memory.png" />
 
@@ -40,3 +42,71 @@ Buddy系统是为了解决外部碎片问题，它将内存按照2的幂级(orde
 
 - slab_reclaimable
 - slab_unreclaimble
+
+### 进程内存分布
+
+<img src="program_memory.jpeg" />
+
+终端进程调用 exec 函数将可执行文件载入内存，此时代码段，数据段，bbs 段，stack 段都通过 mmap 函数映射到内存空间，堆则要根据是否有在堆上申请内存来决定是否映射
+
+### OOM
+当内存不足时，系统通过多个因素选择要kill掉的进程，如占用内存、运行时间、进程优先级、是否root用户等。select_bad_process 遍历所有进程，计算 oom_score 分数，选取分数最高的kill掉。
+
+可以通过 /proc/<pid>/oom_adj来干预系统的OOM选择
+
+- OOM_DISABLE (-17)
+- OOM_ADJUST_MIN (-16)
+- OOM_ADJUST_MAX (15)
+
+**OverCommit_memory**
+
+- 0
+    - 默认值，启发式，申请内存不是很大时都通过
+- 1
+    - 永远允许内存申请
+- 2
+    - 有限定值
+
+### 内存映射
+
+- 文件映射
+    - file-backed cache
+- 匿名映射
+    - anonymous cache
+
+### 内存回收
+
+#### 手动回收
+
+/proc/sys/vm/drop_caches
+
+- 1
+    - free page cache
+- 2
+    - free dentries and inode
+- 3
+    - both 1 and 2
+
+#### tmpfs
+
+和sysfs/procfs/ramfs一样，基于内存的文件系统，但tmpfs会使用swap
+
+#### 自动释放
+
+- OOM
+- writeback
+
+**Write Back**
+
+- file-backed page
+    - dirty写回，非dirty直接收回
+- anonymous page
+    - swap out
+
+swap 换进换出很占用IO，如果系统内存需求突然迅速增长，那么cpu将被IO占用，系统会卡死，导致不能对外提供服务，因此系统提供了一个参数，用于设置当进行内存回收时，执行回收cache和swap的：
+
+**/proc/sys/vm/swappiness**
+
+`The value in this file controls how aggressively the kernel will swap memory pages. Higher values increase aggressiveness, lower values decrease aggressivenss. The default value is 60.`
+
+值越高，越可能用swap
