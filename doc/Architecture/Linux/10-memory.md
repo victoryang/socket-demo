@@ -110,3 +110,19 @@ swap 换进换出很占用IO，如果系统内存需求突然迅速增长，那�
 `The value in this file controls how aggressively the kernel will swap memory pages. Higher values increase aggressiveness, lower values decrease aggressivenss. The default value is 60.`
 
 值越高，越可能用swap
+
+swappiness参数设定了系统在什么时候使用swap空间
+
+```
+# cat /proc/sys/vm/swappiness
+60
+```
+
+这个60表示物理内存使用率到60%的时候才开始使用swap
+
+- swap=0表示最大限度的使用内存，然后才使用swap
+- swap=100表示积极使用swap分区，并把内存上的数据及时地交换到swap上
+
+通常来说：
+swap分区的设置是内存的2倍(4G内存)或者比内存稍大(内存大于4G)；
+另外，尽量调低swappiness的值，系统的性能越好
