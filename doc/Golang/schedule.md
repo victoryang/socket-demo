@@ -2,6 +2,10 @@
 
 [Golang Concurrency Model](https://www.jianshu.com/p/790384768317)
 
+[A compelete journey with goroutine](https://medium.com/@riteeksrivastava/a-complete-journey-with-goroutines-8472630c7f5c)
+
+[Go Scheduler](https://povilasv.me/go-scheduler/s)
+
 ## 线程模型
 
 根据用户态线程与内核调度实体(Kernel Scheduling Entity)之间的对应关系，分为以下模型
