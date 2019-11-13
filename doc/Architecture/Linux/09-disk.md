@@ -4,6 +4,10 @@
 
 [Disk tunning](http://blog.sina.com.cn/s/blog_448574810101k1va.html)
 
+[Linux 对SSD的优化](https://www.jianshu.com/p/nQpqsN)
+
+[Shannon-util](http://www.doc88.com/p-3939101394659.html)
+
 ## NVME and PCIe
 历史上，大多数SSD使用如SATA、SAS等接口与计算机接口的总线连接。随着固态硬盘在大众市场上的流行，SATA已成为个人电脑中连接SSD的最典型方式；但是，SATA的设计主要是作为机械硬盘驱动器(HDD)的接口，并随着时间的推移越来越难满足速度日益提高的SSD。随着在大众市场的流行，许多固态硬盘的数据速率提升已经放缓。不同于机械硬盘，部分SSD硬盘已经受到SATA最大吞吐量的限制。
 
@@ -16,3 +20,16 @@ NVMe接口优点
 - NVMe可以把最大队列深度从32提升到64000，SSD的IOPS也会得到大幅提升
 - 自动功耗切换和动态能耗管理功能大大降低功耗
 - NVMe标准的出现解决了不同PCIe SSD之间的驱动适用性问题。
+
+## Linux对SSD硬盘的优化
+
+1. ext4文件系统在SSD硬盘上性能最优
+
+2. 查看系统支持的调度算法
+
+```
+dmesg |grep -i scheduler
+```
+
+3. 查看当前系统的I/O调度算法
+
