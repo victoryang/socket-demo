@@ -28,7 +28,7 @@ NVMe接口优点
 2. 查看系统支持的调度算法
 
 ```
-dmesg |grep -i scheduler
+    dmesg |grep -i scheduler
 ```
 
 3. 查看当前系统的I/O调度算法
