@@ -6,6 +6,10 @@
 
 [深入理解linux cgroups](https://www.cnblogs.com/ryanyangcs/p/11198140.html)
 
+[Docker系列](https://segmentfault.com/a/1190000016355300)
+
+[Kubernetes Docker Cgroup](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cgroup-drivers)
+
 ## Conception
 Namespace帮助进程隔离出单独的空间，CGroups限制每个空间的大小，保证进程间不会互相争抢
 
@@ -97,3 +101,7 @@ Cgroups是通过三个组件互相协作实现的。
 
 ## Docker使用Cgroups
 通过为每个容器创建cgroup，并通过cgroup去配置资源的限制和资源监控
+
+### Issues
+
+[docker with cgroup and systemd](https://github.com/moby/moby/issues/16256)
