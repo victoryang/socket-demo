@@ -5,3 +5,28 @@
 ## 进程描述符
 
 <img src="task_struct.png">
+
+## 进程状态
+
+```
+switch (state) {
+     case 'R':
+       running++;
+       break;
+     case 'S':
+       sleeping++;
+       break;
+     case 'D':
+       blocked++;
+       break;
+     case 'Z':
+       zombies++;
+       break;
+     case 'T':
+       stopped++;
+       break;
+     case 'W':
+       paging++;
+       break;
+     }
+```

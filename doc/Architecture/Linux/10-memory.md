@@ -12,6 +12,8 @@
 
 [Linux内存分配和回收](http://www.sohu.com/a/312093365_99952211)
 
+[永久关闭swap](https://blog.csdn.net/odailidong/article/details/79656188)
+
 ## Linux Memory
 
 <img src="memory.png" />
@@ -126,3 +128,18 @@ swappiness参数设定了系统在什么时候使用swap空间
 通常来说：
 swap分区的设置是内存的2倍(4G内存)或者比内存稍大(内存大于4G)；
 另外，尽量调低swappiness的值，系统的性能越好
+
+## Issues
+
+1. Slab Unreclaim 内存释放
+slab unreclaim 内存占据的内存，通常在几百兆，当系统内存不足时，不可释放
+
+2. swap内存释放
+
+现象：free不断变少
+
+3. 关闭swap
+
+swapoff -a
+
+关闭后，carbon-relay-ng的virt和res使用量明显倒个

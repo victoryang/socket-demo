@@ -6,6 +6,8 @@
 
 [Linux系统调优2](https://yq.aliyun.com/articles/509658?spm=a2c4e.11153940.0.0.61904289RxXxtO#)
 
+[kernel update](https://www.cnblogs.com/hezhiyao/p/8327339.html)
+
 ## Linux subsystem
 
 - Network
