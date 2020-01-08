@@ -1,10 +1,8 @@
 # Docker network
-- iptables on linux server
-- routing rules on windows server
-- forms and encapsulates packet
-- handle encryption
 
-## Network drivers
+[Docker Daemon Network](http://blog.daocloud.io/docker-source-code-analysis-part6/)
+
+## Network Drivers
 - bridge (default)
     - The default network driver. Bridge networks are usually used when your applications run in standalone containers that need to communicate.
 - host
@@ -17,7 +15,7 @@
     - disable networking
 - Networks plugins
 
-### Network driver summary
+### Network Driver Summary
 - User-defined bridge networks
     - are best when you need multiple containers to communicate on the same Docker host.
 - Host networks
@@ -29,9 +27,67 @@
 - Third-party network plugins
     - allow you to integrate Docker with specialized network stack.
 
-## Docker EE networking features
+## Docker EE Networking Features
 - HTTP routing mesh
 - Session stickness
+
+## Docker Daemon Network
+
+### Network Configuration
+
+<img src="network_bridge.jpg">
+
+### Daemon Network Initialization
+
+<img src="flow_chart.jpg">
+
+#### Env and Commandline Interface
+
+- EnableIptables
+- EnableIpForward
+- BridgeIface
+- BridgeIP
+- InterContainerCommunication
+
+#### Bridge Network
+
+<img src="bridge_network.jpg">
+
+#### Iptables
+
+```
+// Configure iptables for link support
+if enableIPTables {
+        if err := setupIPTables(addr, icc); err != nil {
+            return job.Error(err)
+        }
+}
+
+// We can always try removing the iptables
+if err := iptables.RemoveExistingChain("DOCKER"); err != nil {
+        return job.Error(err)
+}
+
+if enableIPTables {
+        chain, err := iptables.NewChain("DOCKER", bridgeIface)
+        if err != nil {
+            return job.Error(err)
+        }
+        portmapper.SetIptablesChain(chain)
+}
+```
+
+#### Ip Forward
+
+```
+if ipForward {
+        // Enable IPv4 forwarding
+        if err := ioutil.WriteFile("/proc/sys/net/ipv4/ip_forward", []byte{'1', '\n'}, 0644); err != nil {
+            job.Logf("WARNING: unable to enable IPv4 forwarding: %s\n", err)
+        }
+}
+```
+
 
 ## Docker and iptables
 On linux, Docker manipulates iptables rules to provide network isolation. This is an implementation detail, and you should not modify the rules Dockr inserts into your iptables policies.
