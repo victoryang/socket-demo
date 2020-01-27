@@ -88,6 +88,5 @@ if ipForward {
 }
 ```
 
-
 ## Docker and iptables
 On linux, Docker manipulates iptables rules to provide network isolation. This is an implementation detail, and you should not modify the rules Dockr inserts into your iptables policies.
