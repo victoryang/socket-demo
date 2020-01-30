@@ -10,12 +10,22 @@
 
 [nginx一般介绍](https://www.centos.bz/2017/11/openresty%E6%9C%80%E4%BD%B3%E6%A1%88%E4%BE%8B-%E7%AC%AC1%E7%AF%87%EF%BC%9Anginx%E4%BB%8B%E7%BB%8D/)
 
-## Nginx HA
-
-<img src="nginx_ha.jpeg">
 
 ## Nginx 应用
 <img src="nginx_function.jpeg">
+
+## Nginx 安装
+
+### Download
+
+```
+wget -c https://nginx.org/download/nginx-1.16.1.tar.gz
+
+# see http://nginx.org/en/docs/configure.html
+./configure
+
+make clean & make & make install
+```
 
 ## Nginx 架构
 
@@ -68,3 +78,7 @@ location --> server --> main
 ## Caching Process
 
 <img src="nginx_cache.jpeg">
+
+## Nginx HA
+
+<img src="nginx_ha.jpeg">
