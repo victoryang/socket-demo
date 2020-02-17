@@ -42,11 +42,37 @@ make clean & make & make install
 
 <img src="nginx_arch2.jpeg">
 
+### 配置
+
+#### location
+
+语法规则
+
+> location [=|~|~*|^~] /uri/ { … }
+
+|模式|含义|
+|:-:|:-:|
+|location = /uri|=表示精确匹配，只有完全匹配上了才能生效|
+|location ^~ /uri|^~ 开头对URL路径进行前缀匹配，并且优先级在正则之前|
+|location ~ pattern|正则匹配，不区分大小写|
+|location ~* pattern|正则匹配，区分大小写|
+|location /uri|前缀匹配，优先级在正则之后|
+|location /|通用匹配，前面的未匹配|
+
+rewrite语法
+
+- last – 基本上都用这个 Flag
+- break - 中止 Rewirte，不再继续匹配
+- redirect - 返回临时重定向的 HTTP 状态 302
+- permanent – 返回永久重定向的 HTTP 状态 301
+
 ## Nginx模块化和handle
 
 <img src="nginx_modules.jpg">
 
 ### nginx_conf 模块
+
+Nginx 的配置文件是以block的形式组织的，一个block通常使用大括号"{}"表示。block分为几个层级，整个配置文件为main层级；main下层有event，http等层级，而http中会有server block；server block中可以包含location block。
 
 <img src="nginx_http_conf.jpg">
 
@@ -71,9 +97,17 @@ location --> server --> main
 
 ### nginx_http 模块
 
+Nginx本身做的实际工作很少，当它接收到一个http请求后，它仅仅是通过查找配置文件将此次请求映射到一个location block，而此location中所配置的各个指令则会启动不同的模块去完成工作，因此模块可以看做Nginx真正的劳动工作者。通常一个location中的指令会涉及一个handler和多个filter模块。handler模块负责处理请求，完成响应内容的生成，而filter模块对响应内容进行处理。
+
 <img src="nginx_handler.jpeg">
 
 <img src="nginx_http_handle.jpg">
+
+#### 模块开发
+
+1. 定义模块配置结构
+
+需要一个结构用于存储从配置文件中读取相关参数，即模块配置信息结构。根据nginx模块开发规则，结构体命名规则为ngx_http_[module name]_[main|srv|loc]_t。其中main、srv和loc分别用于表示同一模块在三层block中的配置信息。
 
 ## Caching Process
 

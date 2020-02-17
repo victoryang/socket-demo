@@ -7,3 +7,5 @@
 Lua is a powerful, dynamic and light-weight programming language
 
 Lua Just-In-Time Compiler
+
+LuaJIT 
