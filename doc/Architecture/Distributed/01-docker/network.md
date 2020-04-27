@@ -49,6 +49,19 @@
 - BridgeIP
 - InterContainerCommunication
 
+#### Host Network
+
+连接到host网络的容器共享Docker宿主机的网络栈，即容器的网络配置与host宿主机一样。可以通过--network=host参数来指定该容器使用host网络。
+
+在容器中可以看到host的所有网卡，并且连hostname也是host的。
+
+直接使用host网络最大的好处就是性能，如果容器对网络传输效率有较高的要求，则可以选择host网络。不便之处就是牺牲一些灵活性，比如要考虑端口冲突问题
+
+另一个用途是容器可以直接配置host网络。比如某些跨host的网络解决方案，其本身也是以容器方式运行的，这些方案需要对网络进行配置。
+
+相当于该容器拥有了host主机的网络，那么其ip等配置也相同，相当于主机中套了一个与外部一模一样的容器，可以直接通过host的ip地址来访问该容器
+
+
 #### Bridge Network
 
 <img src="bridge_network.jpg">
