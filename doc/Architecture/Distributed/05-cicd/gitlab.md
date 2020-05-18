@@ -4,7 +4,9 @@
 
 [gitlab features](https://about.gitlab.com/features/)
 
-[gitlab ci](https://docs.gitlab.com/ee/ci/introduction/)
+[installation](https://docs.gitlab.com/ce/install/installation.html)
+
+[gitlab ce source](https://gitlab.com/gitlab-org/gitlab-foss)
 
 ## Installation
 

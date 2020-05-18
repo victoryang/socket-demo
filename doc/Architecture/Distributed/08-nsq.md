@@ -4,6 +4,12 @@
 
 [High Performance Nsq](https://www.cnblogs.com/linkstar/p/10341685.html)
 
+## 消息队列
+
+- 异步
+- 削峰
+- 解耦
+
 ## Nsq Architecture
 
 <img src="nsq_arch.jpg">
