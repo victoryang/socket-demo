@@ -66,3 +66,59 @@ Each section of the output is described below.
 
 #### Addresses
 
+The usage of these fields varies depending on your cloud provider or bare metal configuration.
+
+- Hostname: The hostname as reported by the node's kernel
+- ExternalIP
+- InternalIP
+
+#### Conditions
+
+The ```conditions``` field describe the status of all ```Running``` nodes. Examples of conditions include:
+
+|Node Condition|Description|
+|-|-|
+|Ready|```True``` if the node is healthy and ready to accept pods, ```false``` if the node is no healthy and is not accepting pods, and ```Unknown``` if the node controller has not heard from the node in the last ```node-monitor-grace-period```(default is 40s)|
+|DiskPressure|```True``` if pressure exists on the disk size - that is, if the disk capacity is low; otherwise ```false```|
+|MemoryPressure|```True``` if pressure exists on the node memory - that is, if the node memory is low; otherwise ```false```|
+|PIDPressure|```True``` if pressure exists on the processes - that is, if there is too many processes; otherwise ```false```|
+|NetworkUnavailable|```True``` if the network for the node is not correctly configured, otherwise ```false```|
+
+Noted: If you use command-line tools to print details of a cordoned Node, the Condition includes ```SchedulingDisabled```. ```SchedulingDisabled``` is not a Condition in the Kubernetes API; instead, cordoned nodes are marked Unschedulable in their spec.
+
+If the Status of the Ready condition remains ```Unknown``` or ```False``` for longer than the pod-eviction-timeout (an arguement passed to the kube-controller-manager), all the Pods on the node are scheduled for deteletion by the node controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the API server is unable to communicate with kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until comminucation with the API server is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
+
+The node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. You can see the pods that might be running on an unreachable node as being in ```Terminating``` or ```Unknown``` state. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanetly left a cluster, the cluster administrator may need to delete the node object by hand. Deleting the node object from Kubernetes causes all the Pod objects running on the node to be deleted from the API server, and frees up their names.
+
+The node lifecycle controller automatically creates taints that represents conditions. The scheduler takes the Node's taints into consideration when assigning a Pod to a Node. Pods can also have tolerations which let them tolerate a Node's taints.
+
+#### Capacity and Allocatable
+
+Describes the resources available on the node: CPU, memory and the maximum number of Pods that can be scheduled onto the node.
+
+The fields in the capacity block indicate the total amount of resources that a Node has. The allocatable block indicates the amount of resources on a Node that is available to be consumed by normal Pods.
+
+#### Info
+
+Describes general information about the node, such as kernel version, Kubernetes version(kubelet and kube-proxy version), Docker version, and OS name.
+
+#### Node controller
+
+The node controller is a Kubernetes control plane component that messages various aspects of nodes.
+
+The node controller has multiple roles in a node's life.
+
+The first is assigning a CIDR block to the node when it is registered (if CIDR assignment is turned on).
+
+The second is keeping the node controller’s internal list of nodes up to date with the cloud provider’s list of available machines.
+
+The third is monitoring the nodes’ health. 
+
+##### Heartbeats
+
+
+
+## Control Plane - Node Communication
+
+This document catalogs the communication path between the control plane(really the apiserver) and the Kubenetes cluster. The intent is to allow users to customize their installation to harden the network configuration such that the cluster can be run on an untrusted network(or on fully public IPs on a cloud provider).
+
