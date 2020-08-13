@@ -2,6 +2,16 @@
 
 [Redis 持久化](https://segmentfault.com/a/1190000016021217)
 
+[redis sentinel](https://blog.csdn.net/sunbocong/article/details/85252071)
+
+[redis sentinel + auth](https://blog.csdn.net/leader_an_yu_xiao/article/details/85000881)
+
+[cluster](https://www.cnblogs.com/williamjie/p/11132211.html)
+
+[redis cluster](https://www.sohu.com/a/200298129_466839)
+
+[redis cluster slot](http://www.chinacion.cn/article/5382.html)
+
 ## 持久化方式
 
 ### 快照方式持久化
@@ -105,3 +115,8 @@ rdbchecksum yes
 
 #### RDB的优点
 - RDB是一个非常紧凑的文件
+
+
+## Issue
+
+[slot issue](https://mp.weixin.qq.com/s?__biz=MjM5NjkxMjA1MA==&mid=2247483772&idx=1&sn=51d93d22e1ed2efbff5596839d5b77df&chksm=a6e34fa19194c6b7e4775eea10bfb5632458d04706ed1620dc0432f6911cc6a306b86dee26c8&mpshare=1&scene=23&srcid=0705sl1vlnkvPkwBSm6fUQTb#rd)

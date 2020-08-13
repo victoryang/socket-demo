@@ -4,6 +4,8 @@
 
 [HowTo](https://blog.csdn.net/weixin_33712987/article/details/85709898)
 
+[bazel 使用](https://www.jianshu.com/p/35bca530ebac)
+
 ## 定义
 ### WORKSPACE
     Bazel的编译是基于workspace的概念, Workspace是一个存放了所有源代码和Bazel编译输出文件的目录, 也就是整个项目的根目录.
