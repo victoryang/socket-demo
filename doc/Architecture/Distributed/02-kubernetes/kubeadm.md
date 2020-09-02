@@ -4,6 +4,12 @@
 
 [kubeadm 1.18](https://www.jianshu.com/p/bba23a9fdee1)
 
+[upstream installation guide](https://kubernetes.io/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+
+[install deb by aliyun repo](https://www.cnblogs.com/xiaochina/p/11650520.html)
+
+[upstream kubelet config for system](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf)
+
 ## prequisite
 
 1. 域名修改
