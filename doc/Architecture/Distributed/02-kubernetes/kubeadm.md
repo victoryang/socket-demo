@@ -10,6 +10,8 @@
 
 [upstream kubelet config for system](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf)
 
+[kubelet flags](https://www.jianshu.com/p/36ad3028a710)
+
 ## prequisite
 
 1. 域名修改
