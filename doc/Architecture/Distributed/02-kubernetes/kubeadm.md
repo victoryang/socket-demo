@@ -2,7 +2,7 @@
 
 [github doc design](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.10.md)
 
-[kubeadm 1.18](https://www.jianshu.com/p/bba23a9fdee1)
+[kubeadm 1.18 init a cluster](https://www.jianshu.com/p/bba23a9fdee1)
 
 [upstream installation guide](https://kubernetes.io/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
 
@@ -11,6 +11,12 @@
 [upstream kubelet config for system](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf)
 
 [kubelet flags](https://www.jianshu.com/p/36ad3028a710)
+
+[cri-tools](https://github.com/kubernetes-sigs/cri-tools)
+
+[kubernetes cni plugins](https://github.com/containernetworking/plugins)
+
+[install](https://blog.csdn.net/qq_27374315/article/details/88720507)
 
 ## prequisite
 
@@ -44,10 +50,10 @@
    iptables是Linux服务器上进行网络隔离的核心技术，内核在处理网络请求时会对iptables中的策略进行逐条解析，因此当策略较多时效率较低；而是用IPSet技术可以将策略中的五元组(协议，源地址，源端口,目的地址，目的端口)合并到有限的集合中，可以大大减少iptables策略条目从而提高效率。测试结果显示IPSet方式效率将比iptables提高100倍
 6. ipvsadm
 7. timezone
+8. cni plugins
 
-## Phase
+## Kubeadm Init Phase
 
-kubeadm init
 ```
 kubeadm config images pull
 --image-repository=registry.aliyuncs.com/google_containers
@@ -55,6 +61,20 @@ kubeadm config images pull
 ```
 
 ### Preflight Phase
+
+```bash
+systemctl enable docker.service
+
+apt install -y ebtables
+
+apt install -y ethtool
+
+apt install -y socat
+
+systemctl enable kubelet.service
+
+apt install -y conntrack
+```
 
 ### Kubelet Phase
 
@@ -152,3 +172,108 @@ If the user specified an external etcd this step will be skipped, otherwise a st
 
 ### Wait for Control Plane Phase
 
+### Upload ConifgMap Phase
+
+kubeadm saves the configuration passed to `kubeadm init`, either via flags or the config file, in a ConfigMap named `kubeadm-config` under `kube-system` namespace.
+
+### Mark Control Plane Phase
+
+As soon as the control plane is available, kubeadm executes following actions:
+
+- Label the master with `node-role.kubernetes.io/master=""`
+- Taints the master with `node-role.kubernetes.io/master:NoSchedule`
+
+### Bootstrap Token Phase
+
+kubeadm uses [Authenticating with Bootstrap Tokens](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) for joining new nodes to an existing cluster;
+
+`kubeadm init` ensures that everything is properly configured for this process, and this includes following steps as well as setting API server and controller flags
+
+#### Create a bootstrap token
+
+#### Allow joining nodes to call CSR API
+
+#### Setup auto approval for new bootstrap tokens
+
+#### Setup nodes certificate rotation with auto approval
+
+#### Create the public `cluster-info` ConfigMap
+
+### Addon Phase
+
+https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+- CoreDNS
+- kube-proxy
+
+## Apply Pod Network
+
+### Flannel
+
+```bash
+wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
+kubectl apply -f kube-flannel.yml
+
+```bash
+root@k8s-master:~/kubernetes_master# kct apply -f kube-flannel.yml
+podsecuritypolicy.policy/psp.flannel.unprivileged created
+clusterrole.rbac.authorization.k8s.io/flannel created
+clusterrolebinding.rbac.authorization.k8s.io/flannel created
+serviceaccount/flannel created
+configmap/kube-flannel-cfg created
+daemonset.apps/kube-flannel-ds-amd64 created
+```
+
+### Dashboard
+
+```
+// get dashboard
+wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
+```
+
+kubernetes-dashboard.yml
+
+## Kubeadm Join Phases
+
+### Preflight Checks
+
+`kubeadm` executes a set of preflight checks before starting the join, with the aim to verify preconditions and avoid common cluster startup problems.
+
+Please note that:
+
+1. `kubeadm join` preflight checks are basically a subnet `kubeadm init` preflight checks
+
+2. Starting from 1.9, kubeadm provides better support for CRI-generic functionality; in that case, linux specfic controls are skipped or replaced by similar controls for crictl.
+
+3. Starting from 1.9, kubeadm provides support for joining nodes running on windows, in that case, linux specific controls are skipped.
+
+4. In any case the user can skip specific preflight checks(or eventually all preflight checks) with `--ignore-preflight-errors` option.
+
+### Discovery cluster-info
+
+There are 2 main schemes for discovery. The first is to use a shared token along with the IP address of the API server. The second is to provide a file(a subset of the standard kubeconfig file)
+
+#### Shared token discovery
+
+If `kubeadm join` is invoked with --discovery-token, token discovery is used; in this case the node basically retrieves the cluster CA certificates from the `cluster-info` ConfigMap in the `kube-public` namespace.
+
+In order to prevent "man in the middle" attacks, several steps are taken:
+
+- First, the CA certificate is retrieved via insecure connection (note: this is possible because `kubeadm ini` granted access to `cluster-info` users for `system::unauthenticated`)
+
+- Then the CA certificate goes through following validate steps:
+   - "Base validation", using the token ID against a JWT signature
+   - "Pub key validatation", using provided `--discovery-token-ca-cert-has`. This value is available in the output of "kubeadm init" or can be calculated using standard tools(the hash is calculated over the bytes of the Subject Public Key Info(SPKI)). The `--discovery-token-ca-cert-hash flag` may be repeated multiple times to allow more than one public key.
+   - as a additional validation, the CA certificate is retrieved via secure connection and then compared with the CA retrieved initially
+
+Please note that:
+
+"Pub key validation" can be skipped passing `--discovery-token-unsafe-skip-ca-verification flag`; This weakens the kubeadm security model since others can potentially impersonate the Kubernetes Master.
+
+#### File/https discovery
+
+If `kubeadm join` is invoked with `--discovery-file`, file discovery file is used; this file can be a local file or downloaded via an HTTPS URL; in case of HTTPS, the host installed CA bundle is used to verify the connection.
+
+With file discovery, the cluster CA certificates is provided into the file itself; in fact, the discovery file is a kubeconfig file with only `server` and `certificate-authority-data` attributes set

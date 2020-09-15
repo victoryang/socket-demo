@@ -4,6 +4,8 @@
 
 [kafka download](https://kafka.apache.org/downloads.html)
 
+[quick start](https://kafka.apache.org/quickstart)
+
 ## 分布式流平台
 
 - 发布和订阅消息(流)，类似一个消息队列或企业系统
