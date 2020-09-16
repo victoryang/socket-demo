@@ -2,7 +2,8 @@
 
 [access control](https://github.com/kubernetes/dashboard/blob/master/docs/user/accessing-dashboard/README.md)
 
-[ways to access dashboard-ui](https://www.cnblogs.com/rainingnight/p/deploying-k8s-dashboard-ui.html)
+***Important***
+[Right Way to Access Dashboard-ui](https://www.cnblogs.com/rainingnight/p/deploying-k8s-dashboard-ui.html)
 
 [github](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
 
