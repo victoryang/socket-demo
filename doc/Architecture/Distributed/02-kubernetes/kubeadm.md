@@ -18,6 +18,8 @@
 
 [install](https://blog.csdn.net/qq_27374315/article/details/88720507)
 
+[kubeadm create cluster](https://www.cnblogs.com/rainingnight/p/using-kubeadm-to-create-a-cluster.html)
+
 ## prequisite
 
 1. 域名修改

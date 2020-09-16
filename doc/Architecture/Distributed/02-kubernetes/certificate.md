@@ -8,6 +8,8 @@
 
 [kubernetes tls bootstrapping](https://mritd.me/2018/01/07/kubernetes-tls-bootstrapping-note/)
 
+[trusted on MAC](https://blog.csdn.net/qq_40460909/article/details/85682595)
+
 ## Catalog
 
 ```
@@ -61,3 +63,10 @@
 
 根证书又称自签名证书，也就是自己给自己颁发的证书。 CA 被称为证书授权中心，k8s中的ca证书就是根证书
 
+
+## 客户端选择证书的原理
+
+1. 证书选择是在客户端和服务端 SSL/TLS 握手协商阶段商定的
+2. 服务端如果要求客户端提供证书，则在握手时会向客户端发送一个它接受的 CA 列表
+3. 客户端查找它的证书列表(一般是操作系统的证书，对于 MAC 为 keychain)，看有没有被CA签名的证书，如果有，则将它们提供给用户选择(证书的私钥)；
+4. 用户选择一个证书私钥，然后客户端将使用它和服务端通信

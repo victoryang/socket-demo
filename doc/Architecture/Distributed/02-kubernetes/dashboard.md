@@ -10,24 +10,32 @@
 
 [blog share](https://blog.csdn.net/networken/article/details/85607593)
 
-## generate cert files
-
-### Self Signed Cert
+## Generate Certificate
 
 https://github.com/kubernetes/dashboard/blob/master/docs/user/certificate-management.md
 
+### Public trusted Certificate Authority
+
+[Let's encrypt](https://letsencrypt.org/getting-started/)
+
+### Self Signed Cert
+
+OpenSSL
+
 ```bash
-# 生成client-certificate-data
-grep 'client-certificate-data' ~/.kube/config | head -n 1 | awk '{print $2}' | base64 -d >> kubecfg.crt
+openssl genrsa -des3 -passout pass:over4chars -out dashboard.pass.key 2048
+...
+openssl rsa -passin pass:over4chars -in dashboard.pass.key -out dashboard.key
+# Writing RSA key
+rm dashboard.pass.key
+openssl req -new -key dashboard.key -out dashboard.csr
 
-# 生成client-key-data
-grep 'client-key-data' ~/.kube/config | head -n 1 | awk '{print $2}' | base64 -d >> kubecfg.key
-
-# 生成p12
-openssl pkcs12 -export -clcerts -inkey kubecfg.key -in kubecfg.crt -out kubecfg.p12 -name "kubernetes-client"
+openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt
 ```
 
 ## Ways to Access Kubernetes-dashboard
+
+https://github.com/kubernetes/dashboard/blob/master/docs/user/accessing-dashboard/README.md
 
 ### Proxy
 
@@ -62,6 +70,12 @@ spec:
 https://github.com/kubernetes/dashboard/tree/master/docs/user
 
 ### API Server
+
+将 k8s 集群的根证书加入到本地，设置为 always trusted
+
+如 https://blog.csdn.net/qq_40460909/article/details/85682595
+
+使用 /etc/kubernetes/admin.conf 生成客户端访问 api-server 的证书
 
 ```bash
 # 生成client-certificate-data
