@@ -279,3 +279,15 @@ Please note that:
 If `kubeadm join` is invoked with `--discovery-file`, file discovery file is used; this file can be a local file or downloaded via an HTTPS URL; in case of HTTPS, the host installed CA bundle is used to verify the connection.
 
 With file discovery, the cluster CA certificates is provided into the file itself; in fact, the discovery file is a kubeconfig file with only `server` and `certificate-authority-data` attributes set
+
+## Kubeadm Reset Phase
+
+```bash
+# clean up node info
+kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
+
+kubectl delete node <node name>
+
+# then run reset command on node machine
+kubeadm reset
+```

@@ -72,11 +72,11 @@ https://github.com/kubernetes/dashboard/tree/master/docs/user
 
 ### API Server
 
-将 k8s 集群的根证书加入到本地，设置为 always trusted
-
+#### 将 k8s 集群的根证书加入到本地，设置为 always trusted
 如 https://blog.csdn.net/qq_40460909/article/details/85682595
 
-使用 /etc/kubernetes/admin.conf 生成客户端访问 api-server 的证书
+
+#### 使用 /etc/kubernetes/admin.conf 生成客户端访问 api-server 的证书
 
 ```bash
 # 生成client-certificate-data
@@ -88,5 +88,17 @@ grep 'client-key-data' ~/.kube/config | head -n 1 | awk '{print $2}' | base64 -d
 # 生成p12
 openssl pkcs12 -export -clcerts -inkey kubecfg.key -in kubecfg.crt -out kubecfg.p12 -name "kubernetes-client"
 ```
+
+#### 创建 Admin User
+
+recommand.yml 所创建的User `kubernetes-dashboard` 只有 namespace `kubernetes-dashboard` 的权限，无法做到全局的管理，根据官方提供的方式：
+
+https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+
+可以创建一个 admin 的 user 来获取全局的信息。
+
+### URL
+
+https://<master-ip>:<apiserver-port>/api/v1/namespaces/<kubernetes-dashboard-namespace>/services/https:kubernetes-dashboard:/proxy/
 
 ### Ingress

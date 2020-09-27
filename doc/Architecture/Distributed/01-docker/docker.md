@@ -8,6 +8,8 @@
 
 [简介](https://blog.csdn.net/thollych/article/details/102717701)
 
+[core tech](https://www.cnblogs.com/LangXian/p/10639581.html)
+
 ## Docker
 ### Version
 - docker ce
