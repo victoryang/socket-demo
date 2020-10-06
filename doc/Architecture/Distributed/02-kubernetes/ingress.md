@@ -8,6 +8,8 @@
 
 [nginx/kubernetes-ingress](https://github.com/nginxinc/kubernetes-ingress)
 
+[aliyun version ingress](https://help.aliyun.com/document_detail/151524.html?spm=a2c4g.11186623.6.1098.7a4546e30LJG3J)
+
 ## Service
 
 Service 的作用体现在两个方面，对集群内部，不断跟踪 pod 的变化，更新 endpoint 中对应 pod 的对象，提供了 ip 不断变化的 pod 的服务发现机制。
@@ -43,7 +45,17 @@ ingress 是一个 API 对象，和其他对象一样，通过 yaml 文件来配�
 
 #### Deployment + LoadBalancer Service
 
+用 Deployment 部署 ingress-controller，创建一个 type 为 LoadBalancer 的 service 关联这组 Pod。大部分公有云，都会为 LoadBalancer 的 service 自动创建一个负载均衡器，通常还绑定了公网地址。只要把域名解析指向该地址，就实现了集群服务的对外暴露。
+
 #### Deployment + NodePort Service
 
+同样用 Deployment 模式部署 ingress-controller，并创建对应的服务，但是 type 为 NodePort。这样，ingress 就会暴露在集群节点 ip 的特定端口上。由于 NodePort 暴露的端口是随机端口，一般会在前面再搭建一套负载均衡器来转发请求。该方式一般用于宿主机是相对固定的环境 ip 地址不变的场景。
+
+NodePort 方式暴露 ingress 虽然简单方便，但是 NodePort 多了一层 NAT，在请求量级很大时可能对性能会有一定影响。
+
 #### DaemonSet + HostNetwork + NodeSelector
+
+[DaemonSet + HostNetwork + NodeSelector](https://segmentfault.com/a/1190000019908991)
+
+用 DaemonSet 结合 NodeSelector 来部署 ingress-controller 到特定的 node 上，然后使用 HostNetwork 直接把该 pod 与宿主机 node 的网络打通，直接使用宿主机的 80/443 端口就能访问服务。这时，ingress-controller 所在的 node 机器就很类似传统架构的边缘节点，比如机房入口的 nginx 服务器。该方式整个请求链路最简单，性能相对 NodePort 模式更好。缺点是由于直接利用宿主机节点的网络和端口，一个 node 只能部署一个 ingress-controller pod。比较适合大并发的生产环境使用。
 

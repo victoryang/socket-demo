@@ -2,6 +2,8 @@
 
 [pod lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
 
+[Pod philosophy and lifecycle](https://www.jianshu.com/p/49c21b5feb99)
+
 ## Pod Phase
 
 The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The phase is not intended to be a comprehensive rollup of observations of container or Pod state, nor is it intended to be a comprehensive state machine.

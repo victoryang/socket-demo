@@ -6,6 +6,8 @@
 
 [k8s rbac](https://www.cnblogs.com/weiyiming007/p/10484763.html)
 
+[k8s rbac](https://note.abeffect.com/articles/2019/08/26/1566807667654.html)
+
 ## Access Control
 
 - ABAC

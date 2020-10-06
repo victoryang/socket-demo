@@ -290,4 +290,33 @@ kubectl delete node <node name>
 
 # then run reset command on node machine
 kubeadm reset
+
+# cni network
+systemctl stop kubelet
+systemctl stop docker
+rm -rf /var/lib/cni/
+rm -rf /var/lib/kubelet/*
+rm -rf /etc/cni/
+ifconfig cni0 down
+ifconfig flannel.1 down
+ifconfig docker0 down
+ip link delete cni0
+ip link delete flannel.1
+##重启kubelet
+systemctl restart kubelet
+##重启docker
+systemctl restart docker
 ```
+
+
+## Q&A
+
+[k8s pod ping clusterip](https://blog.51cto.com/13641616/2442005)
+
+[pod-network-cidr](https://blog.csdn.net/shida_csdn/article/details/104334372)
+
+[podip vs clusterip vs externalip](https://blog.csdn.net/xichenguan/article/details/79141445)
+
+[flannel PodCIDR](https://ithelp.ithome.com.tw/articles/10222753)
+
+[flannel overlay](https://blog.laputa.io/kubernetes-flannel-networking-6a1cb1f8ec7c)

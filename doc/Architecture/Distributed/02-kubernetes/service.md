@@ -1,5 +1,7 @@
 # Service
 
+[service access pod](http://www.tup.com.cn/upload/books/yz/079113-01.pdf)
+
 ## Type
 
 - ClusterIP
@@ -114,7 +116,7 @@ spec:
       targetPort: 9377
 ```
 
-## Chossing your own IP address
+## Choosing your own IP address
 
 You can specify your own cluster IP address as part of a Service creation request. 
 
