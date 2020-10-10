@@ -1,5 +1,7 @@
 package main
 
+// Remove Duplicats from Sorted Array
+
 import "fmt"
 
 func remove_duplicated_from_sorted(arr [10]int) []int{

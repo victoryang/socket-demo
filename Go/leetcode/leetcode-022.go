@@ -1,5 +1,7 @@
 package main
 
+// Generate parentheses
+
 import "fmt"
 
 var target = map[string]int{"(": 1, ")": -1}

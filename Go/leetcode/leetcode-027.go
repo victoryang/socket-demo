@@ -1,5 +1,7 @@
 package main
 
+// Remove Element
+
 import "fmt"
 
 func remove_item_from_unsorted(arr [10]int, num int) []int {
