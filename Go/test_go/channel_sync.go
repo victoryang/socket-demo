@@ -6,10 +6,10 @@ import(
 )
 
 func hello(c chan string){
-		data := <-c
-		if(data == "hello") {
-			fmt.Println(data)
-		}
+	data := <-c
+	if(data == "hello") {
+		fmt.Println(data)
+	}
 }
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 
 	go hello(c)
 
-		c <- "hello"
-		fmt.Println("send")
-		time.Sleep(1000)
+	c <- "hello"
+	fmt.Println("send")
+	time.Sleep(1000)
 }
