@@ -26,3 +26,11 @@
 [剑指offer](https://blog.csdn.net/weixin_43624053/article/category/8314365)
 
 [算法刷题指南](https://xiaozhuanlan.com/Lisanaaa)
+
+[leetcode](https://leetcode.com/problemset/algorithms/)
+
+[leetcode playground](https://leetcode.com/playground/new/empty)
+
+[leetcode experience](https://www.zhihu.com/question/280279208/answer/510354868)
+
+[github shares](https://github.com/azl397985856/leetcode)
