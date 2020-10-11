@@ -19,7 +19,9 @@ func twoSum(nums []int, target int) []int {
     for j < n {
         k := nums[j]
         if v,ok := t[k]; ok {
-            res = []int{v,j}
+        	if v != j {
+                res = []int{v,j}
+            }
         }
         j = j + 1
     }
