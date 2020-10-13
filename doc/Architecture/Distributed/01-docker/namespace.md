@@ -2,6 +2,8 @@
 
 [Linux kernel and namespace](https://cloud.tencent.com/developer/article/1096434)
 
+<img src="namespaces.png">
+
 ## Conception
 Linux命名空间机制提供了一种资源隔离的解决方案。PID，IPC，Network等系统资源不再是全局性的，而是属于特定的Namespace。Linux Namespace机制为实现基于容器的虚拟化技术提供了很好的基础，LXC(Linux Containers)就是利用这一特性实现了资源的隔离。不同Container内的进程属于不同的Namespace，彼此透明，互不干扰。
 
