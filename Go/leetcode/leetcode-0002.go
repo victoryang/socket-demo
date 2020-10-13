@@ -25,22 +25,6 @@ type ListNode struct {
 	Next 	*ListNode
 }
 
-func make_list(num int) *ListNode {
-    var list *ListNode = nil
-
-    n := num
-    for n>0 {
-        t := n % 10
-        tmp := new(ListNode)
-        tmp.Val = t
-        tmp.Next = list
-        list = tmp
-        n = n / 10
-    }
-
-    return list
-}
-
 func print_list(list *ListNode){
     var t *ListNode = list
 
@@ -54,32 +38,120 @@ func print_list(list *ListNode){
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
     t1 := l1
     t2 := l2
-    sum := 0
-    unit := 1
-    for t1!=nil && t2!=nil {
-        sum = sum + (t1.Val + t2.Val)*unit
-        unit = unit * 10
+    var res *ListNode = nil
+    
+    tail := new(ListNode)
+    tail.Val = 0
+    tail.Next = nil
+    res = tail
 
-        t1 = t1.Next
-        t2 = t2.Next
+    carry := 0
+    var t1Val int
+    var t2Val int
+    for t1!=nil || t2!=nil {
+        if t1 == nil {
+            t1Val = 0
+        } else {
+            t1Val = t1.Val
+            t1 = t1.Next
+        }
+        
+        if t2 == nil {
+            t2Val = 0
+        } else {
+            t2Val = t2.Val
+            t2 = t2.Next
+        }
+
+        val := t1Val + t2Val + carry
+        if val >= 10 {
+            val = val % 10
+            carry = 1
+        } else {
+            carry = 0
+        }
+        
+        tmp := new(ListNode)
+        tmp.Val = val
+        tmp.Next = tail.Next        
+        tail.Next = tmp
+        tail = tmp
+    }
+    
+    if carry == 1 {
+        tmp := new(ListNode)
+        tmp.Val = 1
+        tmp.Next = tail.Next        
+        tail.Next = tmp
+        tail = tmp
     }
 
-    for t1!=nil {
-        sum = sum + t1.Val*unit
-        unit = unit * 10
-
-        t1 = t1.Next
-    }
-
-    for t2!=nil {
-        sum = sum + t2.Val*unit
-        unit = unit * 10
-
-        t2 = t2.Next
-    } 
-
-    return make_list(sum)
+    return res.Next
 }
+
+/*
+ func make_list(num []int) *ListNode {
+    var list *ListNode = nil
+    
+    // first value
+    tail := new(ListNode)
+    tail.Val = num[0]
+    tail.Next = nil
+    list = tail
+
+    i := 1
+    for i < len(num) {
+        tmp := new(ListNode)
+        tmp.Val = num[i]
+        tmp.Next = nil
+        tail.Next = tmp
+        tail = tmp
+        i = i + 1
+    }
+
+    return list
+ }
+
+ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+    t1 := l1
+    t2 := l2
+    
+    res := make([]int, 0)
+    addOne := 0
+    for t1!=nil || t2!=nil {
+        var t1Val int
+        var t2Val int
+        if t1 == nil {
+            t1Val = 0
+        } else {
+            t1Val = t1.Val
+            t1 = t1.Next
+        }
+        if t2 == nil {
+            t2Val = 0
+        } else {
+            t2Val = t2.Val
+            t2 = t2.Next
+        }
+        val := t1Val + t2Val + addOne
+        if val >= 10 {
+            addOne = 1
+            val = val % 10
+        } else {
+            addOne = 0
+        }
+        
+        res = append(res, val)
+    }
+
+    if addOne == 1 {
+        res = append(res, 1)
+    }
+
+    return make_list(res)
+}
+
+ */
 
 func main() {
     a := 9999999
