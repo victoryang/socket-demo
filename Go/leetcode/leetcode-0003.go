@@ -1,40 +1,72 @@
 package main
 
-// Longest Substring without Repeating Characters
+// Given a string s, find the length of the longest substring without repeating characters.
 
 import "fmt"
 
-func longest_substring_without_repeating(str string){
-	var length = len(str)
+/*
+func lengthOfLongestSubstring(s string) int {
+    length := len(s)
+    t := 0
+    maximumWindowLength := 0
+    
+    for t < length {
+        j := t + 1
+        for j < length {
+                i := t
+                window := 0
+                for j < length && s[i] == s[j] && s[j-1] != s[j] {
+                        window = window + 1
+                        i = i + 1
+                        j = j + 1
+                }
 
-	i := 0
-	j := i + 1
-	res := make(map[rune]bool, 0)
-	for i<length && j<length {
-		if str[j] == str[j-1] {
-			for _,v := range str[i:j] {
-				if _,ok := res[v];!ok {
-					res[v] = true
-				}
-			}
-			i = i + 1
-			j = i + 1
-		} else {
-			j = j + 1
-		}
-	}
-	
-	for _,v := range str[i:j] {
-		if _,ok := res[v];!ok {
-			res[v] = true
-		}
-	}
+                if window > maximumWindowLength {
+                        maximumWindowLength = window
+                }
 
-	var r string
-	for k,_ :=range res {
-		r = r + string(k)
-	}
-	fmt.Println("r: ", r)
+                j = j + 1
+        }
+        
+        t = t + 1
+    }
+    
+    return maximumWindowLength
+}
+*/
+
+func lengthOfLongestSubstring(str string){
+	length := len(s)
+    if length == 0 || length == 1{
+            return length
+    }
+
+    t := 0
+    maximumWindowLength := 0
+    
+    for t < length {
+        subs := make(map[byte]bool)
+        window := 0
+        j := t
+        for j < length {
+                if _,ok := subs[s[j]]; !ok {
+                        subs[s[j]] = true
+                        window = window + 1
+                } else {
+                        break
+                }
+
+                j = j + 1
+        }
+
+        if window > maximumWindowLength {
+                maximumWindowLength = window
+        }
+        
+        t = t + 1
+    }
+
+    return maximumWindowLength
 }
 
 func main() {
@@ -42,7 +74,7 @@ func main() {
 	var b_str = "bbbbb"
 	var c_str = "pwwkew"
 
-	longest_substring_without_repeating(a_str)
-	longest_substring_without_repeating(b_str)
-	longest_substring_without_repeating(c_str)
+	lengthOfLongestSubstring(a_str)
+	lengthOfLongestSubstring(b_str)
+	lengthOfLongestSubstring(c_str)
 }
