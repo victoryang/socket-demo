@@ -1,0 +1,349 @@
+# Kubernetes Mind Map
+
+[ProcessOn Mind Map](https://www.processon.com/view/5ac61d63e4b00dc8a02ed698?fromnew=1#map)
+
+## Kubernetes Mind Map
+
+- 进阶指南
+    - 组件
+        - 核心组件
+            - etcd
+            - kube-apiserver
+            - kube-controller-manager
+            - kube-scheduler
+            - kube-proxy
+            - docker
+    - 附加组件
+        - DNS
+            - kube-dns
+            - coredns
+        - Ingress Controller
+            - traefik
+            - NGINX Ingress Controller
+            - Nginx Plus
+            - HAProxy Ingress
+            - AppsCode Voyager
+            - contour
+            - Cloudflare Warp Ingress
+            - F5 Big IP Controller
+            - Gloo
+            - gRPC Load balancing
+            - Kong
+            - nghttpx Ingress Controller
+            - Ambassador
+            - Skipper
+        - Heapster
+        - Dashboard
+        - Kubernator
+        - Federation
+        - eventrouter
+    - 资源对象
+        - Pod
+            - Init Container
+            - Pod Security Policy
+            - Pod Lifecycle
+            - Pod Hook
+            - Pod Preset
+            - Disruption
+            - Resource Quota
+            - liveness和readiness
+        - 集群配置
+            - Node
+            - Namespace
+            - Label
+            - Annotation
+            - Taint 和 Toleration
+            - 亲和性（Affinity）和反亲和性（anti-affinity）
+            - Garbage Collection
+        - 控制器
+            - Deployment
+            - DaemonSet
+            - StatefulSet
+            - ReplicaSet
+            - Job
+            - CronJob
+            - Horizontal Pod Autoscaling
+            - cron-hpa-controller
+            - Escalator
+        - 服务发现
+            - Service
+            - Ingress
+        - 身份与权限控制
+            - Service Account
+            - Network Policy
+            - kubernetes-network-policy-recipes
+            - Security Context
+            - RBAC
+        - 存储配置
+            - Secret
+            - ConfigMap
+            - Volume
+            - Persistent Volume
+            - Local Volume
+            - Storage Class
+            - Stork
+        - API 扩展
+            - CustomResourceDefinition
+        - Operator
+            - awesome-operators
+            - Prometheus
+            - ops-kube-alerting-rules-operator
+            - Confluent Operator
+            - Kong API
+            - Kubernetes Operators
+            - K8s Operator Workshop
+            - Cert Operator
+            - Cert manager
+            - Operator Kit
+            - Container Linux Update Operator
+            - DB Operator
+            - etcd
+            - Elasticsearch
+            - Memcached
+            - MongoDB
+            - MySQL Operator 
+            - PostgreSQL
+            - Another PostgreSQL
+            - Kafka
+            - Envoy Operator 
+            - rbac-manager
+            - Akrobateo
+        - Aggregated API Server
+        - custom-metrics-apiserver-ingress-nginx
+        - metacontroller
+    - 部署配置
+        - 单机部署
+            - minikube
+            - kubeasz
+            - Sealos
+        - 集群部署
+            - Sealos
+            - Breeze
+            - kubeadm
+            - Kubespray
+            - LinuxKit
+            - kubeasz
+        - 部署 Windows 节点
+        - Kubernetes on Azure
+    - 插件扩展
+        - CNI
+            - Flannel
+            - Weave Net
+            - Contiv
+            - Calico
+            - OVN
+            - SR-IOV
+            - Romana
+            - OpenContrail
+            - Canal
+            - kuryr-kubernetes
+            - Cilium
+            - CNI-Genie
+            - Kube-router
+            - Nuage
+            - Multus-cni
+            - Virtlet
+        - CSI
+            - Ceph
+        - CRI
+            - Docker
+            - HyperContainer
+            - Runc
+            - cri-containerd
+            - cri-o
+            - gVisor
+            - Rkt
+            - Mirantis
+            - Infranetes
+        - Scheduler 扩展
+            - Sticky Node Scheduler
+            - ksched
+            - kube-node-index-prioritizing-scheduler
+        - Device 插件
+        - keepalived-vip
+        - External DNS
+        - kubevirt
+    - 服务治理
+        - Helm
+            - Helmfile
+        - Service mesh
+            - Istio
+                - Envoy
+                    - 文档
+                        - LearnEnvoy
+                        - Envoy 官方文档中文版
+                        - Envoy 官方文档
+                - 工具
+                    - Fortio
+                    - outlier-istio
+            - Linkerd
+            - Conduit
+    - 持续集成
+        - Jenkins
+        - Drone
+        - Apollo
+    - CI/CD
+        - Skaffold
+        - Jenkins X
+        - Spinnaker
+        - Kubernetes Pipeliner
+        - Draft
+        - Forge
+        - Flux
+        - GitKube
+        - KubeCI
+        - Keel
+        - Brigade
+    - Kompose
+    - 灰度发布
+        - Shipper
+- Kubernetes 周边项目
+    - 客户端
+        - Kubernetic
+        - Cabin
+    - Dashboard
+        - Kuboard
+        - K8Dash
+        - Octant
+        - fist
+        - konstellate
+    - 多集群管理
+        - Gardener
+        - Aptomi
+    - 大数据与机器学习
+        - Spark
+        - Kubeflow
+        - mxnet-operator
+        - seldon-core
+        - FfDL
+    - Serverless架构
+        - OpenFaaS
+        - FaaS-netes
+        - Funktion
+        - Fission
+        - Kubeless
+        - OpenWhisk
+        - Iron.io
+        - Nuclio
+        - Virtual Kubelet
+    - PaaS平台
+        - KubeSphere
+        - Rancher
+        - Openshift Origin
+        - Kel
+        - IBM Bluemix Container Service
+        - Hasura
+        - teresa
+    - 企业级产品
+        - CoreOS Tectonic
+        - CoreOS Tectonic
+        - OpenShift - Container Platform
+        - SUSE Container as a Service
+        - Canonical Distribution of Kubernetes - CDK
+    - 命令行工具
+        - click
+        - kubeman
+        - kube-prompt
+        - Kube-shell
+        - Kubebot
+        - kubectx
+        - kubens
+        - StackStorm
+        - kubectld
+        - Kubectl Aliases
+        - Vikube
+        - kube-ps1
+        - kube-tmux
+        - kubensx
+        - Kubetail
+        - stern
+        - kubeval
+        - Kube YAML validations
+        - ksort
+        - Ksd
+        - kubectl-service-plugin
+        - kubectl-plugins
+        - 简化 kubernetes 部署定义
+            - Kedge
+            - Koki Short
+        - Kustomize
+        - kube-score
+        - kubespy
+        - kube-capacity
+    - 监控项目
+        - Datadog
+        - Node Problem Detector
+        - eventrouter
+        - Grafana Kubernetes App
+        - Heapster
+        - Kubernetes Operational View
+        - Kubewatch
+        - Prometheus
+            - thanos
+        - Loki
+        - Sysdig Monitoring
+        - Weave Scope
+        - Cockpit
+        - Searchlight
+        - IngressMonitorController
+    - 测试
+        - k8s-testsuite
+        - Test-Infra
+        - Sonobuoy
+        - PowerfulSeal
+        - Kubesquash
+        - Kubectl-debug
+        - kboom
+    - 自愈合
+        - Node-problem-detector
+        - Draino
+        - K8s-cleanup
+        - Remediation Collection
+- Kubernetes 素材
+    - 书籍
+        - Kubernetes 权威指南
+        - Kubernetes Cookbook
+        - DevOps with Kubernetes
+        - 免费电子书
+            - kubernetes handbook
+            - Kubernets 指南
+            - Istio官方文档中文版
+            - SDN网络指南
+            - Helm 用户指南
+    - 视频
+        - 使用 Kubernetes 进行可扩展微服务
+        - IBM Cloud: Deploying Microservices with Kubernetes
+        - Kubernetes 中基于策略的资源分配
+        - 使用 client-go 控制原生及拓展的 Kubernetes API
+        - Introduction to Kubernetes
+    - 系列教程
+        - Kubernetes Tutorials by Kubernetes Team
+        - Kubernetes By Example by OpenShift Team
+        - Kubernetes Tutorial by Tutorialspoint
+        - Kubernetes integration with Spring Cloud
+    - 在线实验环境
+        - Katacoda
+        - Kubernetes Bootcamp
+        - Play with Kubernetes
+        - Redhat 提供的 Istio 在线交互式教学
+    - 博客
+        - Jimmy Song
+        - Kubernetes Blog
+        - Tony Bai
+        - 伪架构师
+- Kubernetes 社区
+    - Kubernetes 中文社区
+    - Istio 中文社区
+    - KubeWeekly
+    - Stackoverflow
+    - Kubernetes 论坛
+    - 邮件列表
+        - user discussion and Q&A
+        - developer/contributor discussion
+    - 会议
+        - Kubecon
+        - Container Camp
+        - GCP Next
+        - Docker Con
+        - Devoxx
+        - ContainerDays
