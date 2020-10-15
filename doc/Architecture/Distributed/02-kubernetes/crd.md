@@ -6,6 +6,8 @@
 
 [crd share part 3](https://blog.csdn.net/boling_cavalry/article/details/88934063)
 
+[crd vs operator](https://zhuanlan.zhihu.com/p/141877334)
+
 [java share](https://github.com/zq2599/blog_demos)
 
 ## CRD
