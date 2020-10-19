@@ -24,7 +24,7 @@ https://github.com/kubernetes/community/blob/master/contributors/design-proposal
 
 ## Custom Resources
 
-*Custom resources* are extensions of the Kubernetes API. This page discusses when to add a custom resource to your Kubernetes cluster and when to use a standalone service. It describes thw two methods for adding custom resources and how to choose between them.
+*Custom resources* are extensions of the Kubernetes API. This page discusses when to add a custom resource to your Kubernetes cluster and when to use a standalone service. It describes the two methods for adding custom resources and how to choose between them.
 
 ### Custom resources
 
@@ -37,6 +37,27 @@ Custom resources can appear and disappear in a running cluster through dynamic r
 ### Custom controllers
 
 On their own, custom resources simply let you store and retrieve structure data. When you combine a custom resource with a *custom controller*, custom resources provide a true
+declarative *API*.
 
-## Extend the Kubernetes API with CustomResourceDefinitions
+A declarative API allow you to declare or specify the desired state of your resource and tries to keep the current state of Kubernetes objects in sync with the desired state. The controller interprets the structure data as a record of the user's desired state, and continually maintains this state.
+
+You can deploy and update a custom controller on a running cluster, independently of the cluster's lifecycle. Custom controllers can work with any kind of resource, but they are especially effective when combined with custom resources. The Operator pattern combines custom resources and custom controllers. You can use custom controllers to encode domain knowledge for specific applications into an extension of the Kubernetes API.
+
+### Adding custom resources
+
+Kubernetes provides two ways to add custom resources to your cluster:
+
+- CRDs are simple and can be created without any programming.
+- API Aggregation requires programming, but allow more control over API behaviors like how data is stored and conversion between API versions.
+
+Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
+
+Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called API Aggregation. To users, it simply appears that the Kubernetes API is extended.
+
+CRDs allow users to create new types of resources without adding another API server. You don not need to understand API Aggregation to use CRDs.
+
+Regardless of how they are installed, the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources(like pods).
+
+
+
 
