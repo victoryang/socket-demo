@@ -6,6 +6,8 @@
 
 [kubernetes CN](http://docs.kubernetes.org.cn/)
 
+[kubernetes tips](https://akomljen.com/kubernetes-tips-part-1/)
+
 ## Containers
     Containers are small and fast, one applcation can be packed in each container image. The one to one application to image relationship unlocks the full benefits of containers. With containers, immutable container images can be created/release time rather than deployment time, since each application doesn't need to be composed with reset of the application stack, nor married to the production infrastructure environment. Generating container images at build/release time enabls a consistent environment to be carried from development into production.
 
