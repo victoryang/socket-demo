@@ -117,3 +117,11 @@ Force deletion can be potentially dangerous for some Pods and should be performe
 ## Privileged mode for pod containers
 
 Any container in a Pod can enable privileged mode, using the privileged flag on the security context of the container spec. This is useful for containers that want to use Linux capabilities like manipulating the network stack and accessing devices. Processes within the container get almost the same privileges that are available to processes outside a container. With privileged mode, it should be easier to write network and volume plugins as separate Pods that don’t need to be compiled into the kubelet.
+
+## Static Pod
+
+*Static Pods* are managed directly by the kubelet daemon on a specific node, without the API server observing them. Whereas the most Pods are managed by the control plane(for example, a Deployment), for static Pods, the kubelet directly supervises each static Pod(and restarts it if it fails).
+
+Static Pods are always bound to one Kubelet on a specific node. The main use of static pods is to run a self-hosted control plane:in other words, using the kubelet to supervise the individual control plane components.
+
+The kubelet automatically tries to create a mirror Pod on the Kubernetes API server for each static Pod. This means that the Pods running a node are visible on the API server, but cannot be controlled from there.

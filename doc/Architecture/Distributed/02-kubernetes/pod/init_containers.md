@@ -1,25 +1,5 @@
 # Pod
 
-## Pod Phase
-
-[lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)
-
-A Pod's ```status``` field is a PodStatus object, which has a phase field
-
-The phase of a Pod is simple, high-level summary of where the Pod is in its lifecycle. The phase is not intended to be a comprehensive rollup of observation of Container or Pod state, nor is it intended to be a comprehensive state machine.
-
-The number and meaning of Pod phase values are tightly guarded. Other than what is documented here, nothing should be assumed about Pods that have a given ```phase``` value.
-
-Here are the possible values of ```phase```:
-
-|Value|Description|
-|-|-|
-|Pending|The Pod has been accepted by kubernetes ,but one or more of container image has not been created.This includes time before being scheduled as well as time spent downloading images over the network, which could take a while|
-|Running|The Pod has been bond to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting|
-|Succeeded|All Containers in the Pod have terminated in success, and will not be restarted.|
-|Failed|All containers in Pod have terminated, and at least one container has terminated in failure. That is, the container either exit with non-zero status or was terminated by system|
-|Unknown|For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.|
-
 ## Init Containers
 
 [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
