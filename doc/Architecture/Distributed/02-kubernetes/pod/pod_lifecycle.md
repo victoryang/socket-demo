@@ -20,9 +20,11 @@ Here are the possible values of `phase`:
 |Failed|All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system|
 |Unknown|For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running|
 
+If a node dies or is disconnected from the rest of the cluster, Kubernetes applies a policy for setting the `phase` of all Pods on the lost node to Failed.
+
 ## Container States
 
-As well as the phase of the Pod overall, Kubernetes tracks the state of each container inside a Pod. You can use container life cycle to trigger events to run at certain points in a container's lifecycle.
+As well as the phase of the Pod overall, Kubernetes tracks the state of each container inside a Pod. You can use [container life cycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/) to trigger events to run at certain points in a container's lifecycle.
 
 Once the scheduler assigns a Pod to a Node,the kubelet starts creating containers for that Pod using a container runtime. There are three possible container state: `Waiting`, `Running`, and `Terminating`.
 
@@ -30,16 +32,31 @@ To check the state of a Pod's containers, you can use `kubectl describe pod <nam
 
 Each state has a specific meaning:
 
-- Waiting
-- Running
-- Terminating
+### Waiting
 
+If a container is not in either `Runing` or `Terminated` state, it is `wating`. A container in `Waiting` state is still running operations it requires in order to complete start up: for example, pulling the container image from a container image registry, or applying Secret data.
+
+When you use `kubectl` to query a Pod with a container that is `Waiting`, you also see a Reason field to summarize why the container is in that state.
+
+### Running
+
+The `Running` status indicates that a container is executing without issues. If there was a `PostStart` hook configured, it has already executed and finished.
+
+When you use `kubectl` to query a Pod with a container that is Running, you also see information about when the container entered the `Running` state.
+
+### Terminated
+
+A Container in the `Terminated` state began execution and then ran to completion or failed for some reason.
+
+When you use `kubectl` to query a Pod with a container that is `Terminated`, you see a reason, an exit code, and the start and finish time for that container's period of execution.
+
+If a container has a `preStop` hook configured, that runs before the container enters the `Terminated` state.
 
 ## Container restart policy
 
 The `spec` of a Pod has a `restartPolicy` field with possible value Always, OnFailure, and Never. The default value is Always.
 
-The `restartPolicy` applies to all the containers in the Pod.
+The `restartPolicy` applies to all the containers in the Pod. `restartPolicy` only refers to restarts of the containers by kubelet on the same node. After containers in a Pod exit, the kubelet restarts them with an exponential back-off delay(10s,20s,40s,...), that is capped at five minutes. Once a container has executed for 10 minutes without any problems, the kubelet resets the restart backoff timer for that container.
 
 ## Pod conditions
 
