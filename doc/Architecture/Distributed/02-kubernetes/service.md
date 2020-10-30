@@ -4,6 +4,8 @@
 
 [debug iptables and ipvs in kubernetes](https://segmentfault.com/a/1190000016333317?utm_source=tag-newest)
 
+[ping and network](https://www.jianshu.com/p/dc9de5038874)
+
 ## Type
 
 - ClusterIP

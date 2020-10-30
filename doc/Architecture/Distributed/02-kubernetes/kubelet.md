@@ -2,6 +2,8 @@
 
 [kubelet](https://www.cnblogs.com/heboxiang/p/12180291.html)
 
+[kubelet原理解析一](https://www.jianshu.com/p/253ce74398f0)
+
 [pleg](https://www.jianshu.com/p/a735eee106b3)
 
 ## PLEG
