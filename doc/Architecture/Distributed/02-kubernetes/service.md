@@ -2,6 +2,8 @@
 
 [service access pod](http://www.tup.com.cn/upload/books/yz/079113-01.pdf)
 
+[debug iptables and ipvs in kubernetes](https://segmentfault.com/a/1190000016333317?utm_source=tag-newest)
+
 ## Type
 
 - ClusterIP
