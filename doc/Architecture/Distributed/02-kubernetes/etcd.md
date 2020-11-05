@@ -54,10 +54,13 @@ etcd also keeps a secondary in-memory btree index to to speed up range queries o
 
 ### Client Requirement
 
-- Correctness
-- Liveness
-- Effectiveness
-- Portability
+- Correctness.Requests may fail in the presence of server faults. However, it never violates consistency guarantees: global ordering properties, never write corrupted data, at-most once semantics for mutable operations, watch never observes partial events, and so on.
+
+- Liveness. Servers may fail or disconnect briefly. Clients should make progress in either way. Clients should never deadlock waiting for a server to come back from offline, unless configured to do so. Ideally, clients detect unavailable servers with HTTP/2 ping and failover to other nodes with clear error messages.
+
+- Effectiveness. Clients should operate effectively with minimum resources: previous TCP connections should be gracefully closed after endpoint switch. Failover mechanism should effectively predict the next replica to connect, without wastefully retrying on failed nodes.
+
+- Portability. Official client should be clearly documented and its implementation be applicable to other language bindings. Error handling between different language bindings should be consistent. Since etcd is fully committed to gRPC, implementation should be closely aligned with gRPC long-term design goals.
 
 ### Client Overview
 
@@ -67,3 +70,30 @@ etcd client implements the following component:
 - API client that sends RPCs to an etcd server, and
 - error handler that decides whether to retry a failed request or switch endpoints.
 
+Languages may differ in how to establish an initial connection(e.g. configure TLS), how to encode and send Protocol Buffer messages to server, how to handle stream RPCs, and so on. However, errors returned from etcd server will be the same. So should be error handling and retry policy.
+
+## Server Design
+
+[Server Design](https://etcd.io/docs/v3.4.0/learning/design-learner/)
+
+### Background
+
+#### 1. New Cluster member overloads Leader
+
+A newly joined etcd member starts with no data, thus demanding more updates from leader until it catches up with leader's logs. The leader's network is more likely to be overloaded, blocking or dropping leader heartbeats to followers. In such case, a follower may election-timeout to start a new leader election. That is, a cluster with a new member is more vulnerable to leader election. Both leader election and the subsquent update propagation to the new member are prone to causing periods of cluster unavailability.
+
+<img src="newly_added_member.png">
+
+#### 2. Network Partitions scenarios
+
+What if network partition happens? It depends on leader partition. If the leader still maintains the active quorum, the cluster would continue to operate.
+
+<img src="network_partition.png">
+
+##### 2.1 Leader Isolation
+
+What if the leader becomes isolated from the rest of the cluster? Leader monitors progress of each follower. When leader lose connectivity from the quorum, it reverts back to follower which will affect the cluster availability.
+
+<img src="leader_isolated.png">
+
+When a new node is added to 3 node cluster, the cluster size becomes 4 and the quorum size becomes 3. What if a new node had joined the cluster, and the network partition happens? It depends on which partition the new member gets located after partition.
