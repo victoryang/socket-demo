@@ -97,3 +97,47 @@ What if the leader becomes isolated from the rest of the cluster? Leader monitor
 <img src="leader_isolated.png">
 
 When a new node is added to 3 node cluster, the cluster size becomes 4 and the quorum size becomes 3. What if a new node had joined the cluster, and the network partition happens? It depends on which partition the new member gets located after partition.
+
+##### 2.2 Cluster Split 3+1
+
+If the new node happens to be located in the same partition as leader's, the leader still maintains the active quorum of 3. No leadership election happens, and no cluster availability gets affected.
+
+<img src="cluster_split_3_and_1.png">
+
+##### 2.3 Cluster Split 2+2
+
+If the cluster 2+2 partitioned, then neither of partition maintains the quorum of 3. In this case, leadership election happens.
+
+<img src="cluster_split_2_and_2.png">
+
+##### 2.4 Quorum Lost
+
+What if network partition happens first, and then a new member gets added? A partitioned 3-node cluster already has one disconnected follower. When a new member is added, the quorum changes from 2 to 3. Now, this cluster only have 2 active nodes to 4, thus losing quorum and starting a new leadership election.
+
+<img src="quorum_lost.png">
+
+Since member add operation can change the size of quorum, it is always recommened to "member remove" first to replace an unhealthy node.
+
+Adding a new member to a 1-node cluster changes the quorum size to 2, immediately causing a leader election when the previous leader finds out quorum is not active. This is because "member add" operation is a 2-step process where user needs to apply "member add" command first, and then starts the new node process.
+
+<img src="member_add.png">
+
+#### 3. Cluster Misconfigurations
+
+An even worse case is when an added member is misconfigured. Membership reconfiguration is a two-step process: "etcdctl member add" and starting an etcd server process with the given peer URL. That is, "member add" command is applied regardless of URL, even when the URL value is invalid. If the first step is applied with invalid URLs, the second step cannot even start the new etcd. Once the cluster loses quorum, there is no way to revert the membership change.
+
+<img src="member_add_with_misconfigured_url.png">
+
+Same applies to a multi-node cluster. For example, the cluster has two members down(one is failed, the other is misconfigured) and two members up, but now it requires at least 3 votes to change the cluster membership.
+
+<img src="misconfigured_etcd_server.png">
+
+As seen above, a simple misconfiguration can fail the whole cluster into an inoperative state. In such case, an operator need manually recreate the cluster with `etcd --force-new-cluster` flag. As etcd has become a mission-critical service for kubernetes, even the slightest outage may have significant impact on users. What can we better to make etcd such operations easier? Among other things, leader election is most critical to cluster availability: 
+
+#### Raft Learner
+
+In order to mitigate such availability gaps in the previous section,  Raft §4.2.1 introduces a new node state “Learner”, which joins the cluster as a non-voting member until it catches up to leader’s logs.
+
+
+## Authentication design
+
