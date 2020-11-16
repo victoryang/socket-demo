@@ -1,19 +1,5 @@
 # Etcd
 
-[etcdctl 访问 kubernetes](https://jimmysong.io/kubernetes-handbook/guide/using-etcdctl-to-access-kubernetes-data.html)
-
-
-## Get keys
-
-```bash
-#!/bin/bash
-
-keys=`./etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key get /registry --prefix -w json|python -m json.tool|grep key|cut -d ":" -f2|tr -d '"'|tr -d ","`
-for x in $keys;do
-  echo $x|base64 -d|sort
-done
-```
-
 ## Data Model
 
 etcd is designed to reliably store inrequently updated data and provide reliable watch queries. etcd exposes previous versions of key-value pairs to support inexpensive snapshots and watch history events("time travel queries"). A persistent, multiple-version, concurrency-control data model is a good fit for these use cases.
@@ -140,4 +126,6 @@ In order to mitigate such availability gaps in the previous section,  Raft §4.2
 
 
 ## Authentication design
+
+
 
