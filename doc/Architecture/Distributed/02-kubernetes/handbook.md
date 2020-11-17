@@ -9,3 +9,5 @@
 [newstack pdf download](https://thenewstack.io/ebooks/kubernetes/ci-cd-with-kubernetes/)
 
 [newstack pdf download](https://thenewstack.io/ebooks-thank-you?pid=2336895&bid=2984613)
+
+[kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way)

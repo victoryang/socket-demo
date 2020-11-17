@@ -308,6 +308,12 @@ systemctl restart kubelet
 systemctl restart docker
 ```
 
+### token missing
+
+```bash
+kubeadm token create --print-join-command
+```
+
 
 ## Q&A
 
