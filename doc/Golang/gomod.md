@@ -11,3 +11,9 @@
 ```
 https://blog.csdn.net/u013842501/article/details/102269885
 ```
+
+```bash
+export GOROOT=/usr/local/go
+export GOPATH=/root/go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+```
