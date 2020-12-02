@@ -1,8 +1,14 @@
 # CRD
 
-[crd](https://blog.csdn.net/boling_cavalry/article/details/88917818)
+[crd example](https://blog.csdn.net/boling_cavalry/article/details/88917818)
 
 [crd](https://zhuanlan.zhihu.com/p/114659529)
+
+[kubebuilder](https://my.oschina.net/u/4172827/blog/3084709)
+
+[crd 详解](https://www.jianshu.com/p/cc7eea6dd1fb)
+
+[crd 扩展](https://www.cnblogs.com/double12gzh/p/11335058.html)
 
 ## Resouces
 
