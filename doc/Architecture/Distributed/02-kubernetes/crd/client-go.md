@@ -2,6 +2,8 @@
 
 [client-go in sample-controller](https://github.com/kubernetes/sample-controller/blob/master/docs/controller-client-go.md)
 
+[深入浅出](https://so.csdn.net/so/search/s.do?q=%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAkubernetes%E4%B9%8Bclient-go&t=blog&u=weixin_42663840)
+
 ## Architeture
 
 <img src="client-go-controller-interaction.jpeg">
@@ -45,9 +47,19 @@ go get k8s.io/client-go@v0.19.0
 
 https://github.com/kubernetes/client-go/tree/master/examples/in-cluster-client-configuration
 
+```
+"k8s.io/client-go/rest"
+config, err := rest.InClusterConfig()
+```
+
 ### Out of Cluster
 
 https://github.com/kubernetes/client-go/tree/master/examples/out-of-cluster-client-configuration
+
+```
+"k8s.io/client-go/tools/clientcmd"
+config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+```
 
 ### Examples
 
