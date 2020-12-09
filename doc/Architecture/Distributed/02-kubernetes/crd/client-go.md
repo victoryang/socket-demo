@@ -43,7 +43,13 @@ go get k8s.io/client-go@v0.19.0
 
 ## How to use it
 
-### In Cluster
+### Examples
+
+https://github.com/kubernetes/client-go/tree/master/examples
+
+### Basics
+
+#### In Cluster
 
 https://github.com/kubernetes/client-go/tree/master/examples/in-cluster-client-configuration
 
@@ -52,7 +58,7 @@ https://github.com/kubernetes/client-go/tree/master/examples/in-cluster-client-c
 config, err := rest.InClusterConfig()
 ```
 
-### Out of Cluster
+#### Out of Cluster
 
 https://github.com/kubernetes/client-go/tree/master/examples/out-of-cluster-client-configuration
 
@@ -61,6 +67,7 @@ https://github.com/kubernetes/client-go/tree/master/examples/out-of-cluster-clie
 config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 ```
 
-### Examples
+### Advanced
 
-https://github.com/kubernetes/client-go/tree/master/examples
+#### Work queues and informer framework
+
