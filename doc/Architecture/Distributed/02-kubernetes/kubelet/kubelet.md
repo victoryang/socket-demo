@@ -6,6 +6,8 @@
 
 [pleg](https://www.jianshu.com/p/a735eee106b3)
 
+[pod](https://www.jianshu.com/p/49c21b5feb99)
+
 ## PLEG
 
 Pod Life Event Generator
@@ -13,3 +15,4 @@ Pod Life Event Generator
 
 <img src="pleg_health_check.webp">
 
+***kubernetes/pkg/kubelet/pleg/generic.go***
