@@ -7,3 +7,8 @@
 [go get](https://zhuanlan.zhihu.com/p/295431046)
 
 [go generic](https://zhuanlan.zhihu.com/p/317313199)
+
+[sourcegraph](https://about.sourcegraph.com/)
+
+[go tooling workshop](https://github.com/campoy/go-tooling-workshop)
+
