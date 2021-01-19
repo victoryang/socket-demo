@@ -26,4 +26,10 @@ kube-scheduler select a node for the pod in a 2-step operation:
 
 The *filtering* step finds the set of Nodes where it's feasible to schedule the Pod. For example, the PodFitsResources filter checks whether a candidate Node has enough available resource to meet a Pod's specific resource requests. After this step, the node list contains any suitable Node; often, there will be more than one. If the list is empty, the Pod isn't schedulable.
 
-In the scoring step, the scheduler ranks the remaining nodes to choose the most suitable Pod placement. The scheduler assigns a score to each Node that survived filtering, basing this score on the active scoring rules.
+In the *scoring* step, the scheduler ranks the remaining nodes to choose the most suitable Pod placement. The scheduler assigns a score to each Node that survived filtering, basing this score on the active scoring rules.
+
+Finally, kube-scheduler assigns the Pod to the Node with the highest ranking. If there is more than one with equal scores, kube-scheduler selects one of these at random.
+
+There are two supported ways to configure the filtering and scoring behaviour of the scheduler:
+- **Scheduling Policies** allow you to configure *Predicates* for filtering and *Priorities* for scoring.
+- *Scheduling Profiles* allow you to configure Plugins that implement different scheduling stages,including: `QueueSort`,`Filter`,`Score`,`Bind`, `Reserve`,`Permit`, and others. You can also configure the kube-scheduler to run different profiles.

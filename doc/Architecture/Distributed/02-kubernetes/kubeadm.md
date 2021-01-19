@@ -326,3 +326,5 @@ kubeadm token create --print-join-command
 [flannel PodCIDR](https://ithelp.ithome.com.tw/articles/10222753)
 
 [flannel overlay](https://blog.laputa.io/kubernetes-flannel-networking-6a1cb1f8ec7c)
+
+[重置 node](https://blog.csdn.net/wzygis/article/details/84098247?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2.control)
