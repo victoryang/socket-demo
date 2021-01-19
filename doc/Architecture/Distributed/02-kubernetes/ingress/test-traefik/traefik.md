@@ -66,4 +66,3 @@ spec:
                   serviceName: test-traefik
                   servicePort: 9000
 ```
-
