@@ -11,6 +11,21 @@ kubectl patch service traefik -p '{"spec":{"type":"NodePort"}}'
 
 ## Backend
 
+**build image**
+docker build -t test/test_traefik:v1 .
+
+```bash
+FROM alpine
+
+ENV PATH /usr/bin:${PATH}
+
+EXPOSE 9000
+
+COPY app /usr/bin/
+
+CMD ["/usr/bin/app"]
+```
+
 ```yaml
 # Deployment
 apiVersion: apps/v1
@@ -63,6 +78,6 @@ spec:
              paths:
              - path: /
                backend:
-                  serviceName: test-traefik
-                  servicePort: 9000
+                    serviceName: test-traefik
+                    servicePort: 9000
 ```

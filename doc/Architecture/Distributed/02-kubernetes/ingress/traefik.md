@@ -25,3 +25,45 @@ There are three different, mutually exclusive (e.g. you can use only one at the 
 2. In the command-line argument
 3. As environment variables
 
+## Configuration Discovery
+
+
+
+## Routing & Load Balancing
+
+### Overview
+
+#### Clear Responsibilities
+
+- **Providers** discover the services that live on your infrastructure(their IP, health...)
+- **Entrypoints** listen for incoming traffic (ports,...)
+- **Routers** analyse the requests (host,path,headers,SSL,...)
+- **Middlewares** may update the request or make decisions based on the request (authentication, rate limiting, headers,...)
+
+#### EntryPoints
+
+https://doc.traefik.io/traefik/routing/entrypoints/
+
+#### Routers
+
+https://doc.traefik.io/traefik/routing/routers/
+
+#### Services
+
+https://doc.traefik.io/traefik/routing/services/
+
+#### Providers
+
+https://doc.traefik.io/traefik/routing/providers/kubernetes-ingress/
+
+## HTTPS & TLS
+
+## Middlewares
+
+## Plugins & Traefik Pilot
+
+## Operations
+
+## Observability
+
+## User guides
