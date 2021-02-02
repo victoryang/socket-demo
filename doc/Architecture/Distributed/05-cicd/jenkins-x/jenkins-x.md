@@ -4,6 +4,8 @@
 
 [Architecture](https://whimsical.com/lines-2-SnJBgXG6jz9pqQewiDTNRt)
 
+[azure proxy](http://mirror.azure.cn/help/gcr-proxy-cache.html)
+
 ## Overview
 
 Overview of the architecture, concepts and motivations for Jenkins X 3.x
