@@ -22,17 +22,15 @@
 
 ---
 
-- 熟悉C/C++、Golang、Rust、Python，熟悉Linux系统环境编程
-- 熟悉常见数据结构和算法
-- 熟悉Linux操作系统，具备独立地开发、调试及优化程序的能力
-- 熟悉Docker使用，了解内部原理
-- 熟悉Http、Tcp等通信协议和网络基础知识，具有网络编程的经验，熟悉RESTful api
-- 熟悉多线程/多进程编程环境开发
-- 熟悉项目构建及相关工具，GNU AutoTools/Make/CMake/Bazel等，有独立完成的个人项目
-- 熟悉Git, Gitlab, CI/CD等开发常用工具和平台
-- 了解分布式系统相关知识, 学习过MIT6.824
-- 了解云计算相关知识及相关中间件项目
-- 热爱开源项目
+- 熟悉 Golang/C 开发，熟悉 Linux 系统环境编程
+- 熟悉常用数据结构和算法，熟悉多线程和网络编程
+- 熟悉容器技术，了解 Kubernetes，并有实施的经验
+- 有 DevOps 相关经验，熟悉 CI/CD 流程和相关平台等
+- 熟悉主流监控系统及相关落地方案，并有实施和维护经验
+- 熟悉 Linux，了解内核原理及调优
+- 熟悉项目构建及相关工具，有独立完成的个人项目(C/Go/Rust)
+- 了解分布式系统相关知识, 自学 MIT 6.824
+- 热爱开源项目，热爱云原生
 
 <br>
 <br>
@@ -42,7 +40,29 @@
 ## 工作经验
 
 ---
-### &emsp;&emsp;2018.4~至今 &emsp;&emsp;&emsp;北京艾利特机器人有限公司 &emsp;&emsp;&emsp;软件部
+### &emsp;&emsp;2019.5~至今 &emsp;&emsp;&emsp;雪球(北京)技术开发有限公司 &emsp;&emsp;&emsp;研发部
+
+- 资深运维开发工程师
+- 基础架构/SRE  DevOps团队
+- 负责 CI/CD、监控系统以及其他系统工具的开发和维护工作
+- 参与项目：
+
+    |编号|项目名称|项目描述|关键字|
+    |--|--|--|--|
+    |1|CI/CD 系统维护和开发|维护自研 Docker 生产环境 CI/CD 平台|Go<br>Beego<br>CI/CD<br>Docker<br>|
+    |2|监控系统维护和开发|基于 Graphite 的监控系统及相关组件的维护和开发|Graphite<br>Go<br>基础设施监控|
+    |3|新监控体系建设|基于 Prometheus 生态的监控体系构建和改造推进|Prometheus<br>基础设施监控<br>业务监控|
+    |4|Kubernetes 调研和落地|调研、搭建、架构方案、测试等|Kubernetes|
+    |5|新 CI/CD 系统开发|基于 Kubernetes 环境的自研 CI/CD 系统的开发|Go<br>Gin Vue<br>CI/CD<br>Kubernetes
+    |6|基础设施工具维护和开发|Redis key 分析工具展示平台<br>日志搜集<br>流量复制分发工具|Go<br>系统基础组件|
+
+<br>
+<br>
+<br>
+<br>
+
+---
+### &emsp;&emsp;2018.4~2019.5 &emsp;&emsp;&emsp;北京艾利特机器人有限公司 &emsp;&emsp;&emsp;软件部
 
 - 高级软件工程师
 - 机器人控制器团队
@@ -69,7 +89,7 @@
 ### &emsp;&emsp;2017.9~2018.2 &emsp;&emsp;&emsp;海航集团易建科技 &emsp;&emsp;&emsp;云平台软件部
 
 - 研发工程师
-- 基础架构中心中间件团队
+- 基础架构中心存储团队
 - 参与项目：
 
     |编号|项目名称|项目描述|关键字|
