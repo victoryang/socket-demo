@@ -101,4 +101,6 @@ https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/cre
 
 https://<master-ip>:<apiserver-port>/api/v1/namespaces/<kubernetes-dashboard-namespace>/services/https:kubernetes-dashboard:/proxy/
 
+[access cluster service](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-services/)
+
 ### Ingress
