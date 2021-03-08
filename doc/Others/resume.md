@@ -22,14 +22,13 @@
 
 ---
 
-- 熟悉 golang 开发，并有其他语言开发经历，如 c/python/rust 等
+- 熟悉 golang 开发，并有c/python/rust 等语言开发经历
 - 熟悉 Linux 系统环境编程, 了解内核原理及调优
 - 熟悉常用数据结构和算法，熟悉多线程和网络编程
 - 熟悉 CI/CD 流程和相关工具平台等
 - 熟悉容器技术，了解 Kubernetes 
 - 熟悉主流监控系统及相关落地方案，并有实施和维护经验
 - 熟悉项目构建及相关工具，有独立完成的个人项目(C/Go/Rust)
-- 了解前端，有一定的维护经验
 - 了解分布式系统相关知识, 完成 MIT 6.824 部分课程
 - 熟悉开源项目，热爱云原生
 
@@ -79,7 +78,6 @@
     |5|控制器系统SDK项目|为控制器系统编写SDK文档及工具 <br> 基于工业和协作机器人控制器系统 <br> 提供C/C++/Python/C# 等版本 <br> 多平台、系统、架构 | C/C++/Python/C# <br> Linux/Windows <br> x86_32/x86_64/arm32 <br> GCC/AutoTool/CMake/VS <br> 编程规范 <br> API接口|
     |6|控制器系统api-server代码架构重构|梳理原有RESTFul API接口，提供v2版本 <br> 调整go依赖至1.12 <br> 调整内部模块代码 <br> GRPC API接口， 提供v3版本 | Golang/C <br> RESTFul API <br> Websocket <br> GRPC|
     |7|控制器系统plugin| 移植协作机器人功能到工业机器人， 以plugin形式 | C <br> Arm Linux|
-    ||||
 
 <br>
 <br>
@@ -100,7 +98,6 @@
     |3|服务监控方案|基于Prometheus的监控方案|Golang <br> Prometheus <br> Grafana|
     |4|负载均衡方案|基于Traefik和Etcd的负载均衡方案|Golang <br> Traefik <br> Etcd <br> RESTFul API|
     |5|维护项目组自研S3存储网关|基于ceph存储 <br> S3存储网关|Golang <br> Ceph <br> AWS S3|
-    |||||
 
 <br>
 <br>
@@ -119,7 +116,6 @@
     |1|维护桌面系统用户登陆鉴权模块|Gdm|C <br> Gnome <br> Linux|
     |2|维护桌面系统文件管理器模块|Nautilus|C <br> Gnome <br> Linux|
     |3|基础包及CVE维护工作|Linux RPM Packaging|C <br> Linux|
-    |||||
 
 <br>
 <br>
@@ -136,7 +132,6 @@
     |1|维护Android Framework Telephony模块|Android Framework中通信协议相关模块|Java <br> Android Framework <br> Telephony|
     |2|维护高通modem通信接口模块|Android RIL 无线接口层|C <br> Android RIL <br> Linux|
     |3|维护高通modem底层通信模块|Qualcomm Modem|C <br> RTOS|
-    |||||
 
 <br>
 <br>
