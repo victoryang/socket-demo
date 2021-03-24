@@ -13,3 +13,9 @@
 [go tooling workshop](https://github.com/campoy/go-tooling-workshop)
 
 [topgoer](http://www.topgoer.com/)
+
+[goproxy](https://www.v2ex.com/t/651330)
+
+[awesome-go](https://github.com/avelino/awesome-go)
+
+[github dns](https://zhuanlan.zhihu.com/p/107334179)
