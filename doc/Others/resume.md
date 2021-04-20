@@ -50,7 +50,7 @@
 
     |编号|项目名称|项目描述|关键字|
     |--|--|--|--|
-    |1|CI/CD 系统维护和开发|维护自研 Docker 生产环境 CI/CD 平台|Go<br>Beego<br>CI/CD<br>Docker<br>|
+    |1|CI/CD 系统维护和开发|维护自研 Docker 生产环境 CI/CD 平台|Go<br>Beego<br>CI/CD<br>Docker<br>容器调度|
     |2|监控系统维护和开发|基于 Graphite 的监控系统及相关组件的维护和开发|Graphite<br>Go<br>基础设施监控|
     |3|新监控体系建设|基于 Prometheus 生态的监控体系构建和改造推进|Prometheus<br>基础设施监控<br>业务监控|
     |4|Kubernetes 调研和落地|调研、搭建、架构方案、测试等|Kubernetes|
