@@ -39,9 +39,23 @@
 <div class="page" />
 
 ## 工作经验
+---
+### &emsp;&emsp;2021.9~至今 &emsp;&emsp;&emsp;中电科普华基础软件有限公司 &emsp;&emsp;&emsp;基础软件事业部
+
+- 资深软件开发工程师
+- 负责容器、虚拟化等相关基础软件服务
+- 参与项目：
+    |编号|项目名称|项目描述|关键字|
+    |--|--|--|--|
+    |1|金融条目项目|金融条目<br>容器云平台项目|容器云平台<br>Go<br>Kubernetes|
+
+<br>
+<br>
+<br>
+<br>
 
 ---
-### &emsp;&emsp;2019.5~至今 &emsp;&emsp;&emsp;雪球(北京)技术开发有限公司 &emsp;&emsp;&emsp;研发部
+### &emsp;&emsp;2019.5~2021.9 &emsp;&emsp;&emsp;雪球(北京)技术开发有限公司 &emsp;&emsp;&emsp;研发部
 
 - 资深运维开发工程师
 - 基础架构/SRE  DevOps团队
