@@ -113,3 +113,8 @@ ca.crt:         1338 bytes
 namespace:      7 bytes
 token:          ...
 ```
+
+## Add ImagePullSecrets to a service account
+
+### Create an imagePullSecret
+
