@@ -149,6 +149,10 @@ kubelet managers
 nodeIndexer := cache.NewIndexer(cache.MetaNamespaceKeyFunc, cache.Indexers{})
 nodeLister = corelisters.NewNodeLister(nodeIndexer)
 
+// register pod source in three ways: 
+// file config, url config and apiserver
+kubeDeps.PodConfig, err = makePodSourceConfig(kubeCfg, kubeDeps, nodeName, nodeHasSynced)
+
 containerGCPolicy := kubecontainer.GCPolicy
 
 daemonEndpoints := &v1.NodeDaemonEndpoints
@@ -167,6 +171,7 @@ nodeRef := &v1.ObjectReference
 oomWatcher, err := oomwatcher.NewWatcher(kubeDeps.Recorder)
 
 secretManager = secret.NewWatchingSecretManager(kubeDeps.KubeClient, klet.resyncInterval)
+
 configMapManager = configmap.NewWatchingConfigMapManager(kubeDeps.KubeClient, klet.resyncInterval)
 
 imageBackOff := flowcontrol.NewBackOff(backOffPeriod, MaxContainerBackOff)
@@ -174,6 +179,8 @@ imageBackOff := flowcontrol.NewBackOff(backOffPeriod, MaxContainerBackOff)
 klet.livenessManager = proberesults.NewManager()
 klet.readinessManager = proberesults.NewManager()
 klet.startupManager = proberesults.NewManager()
+
+// cache stores the PodStatus for the pods.
 klet.podCache = kubecontainer.NewCache()
 
 mirrorPodClient := kubepod.NewBasicMirrorClient(klet.kubeClient, string(nodeName), nodeLister)
@@ -183,6 +190,104 @@ klet.statusManager = status.NewManager(klet.kubeClient, klet.podManager, klet)
 
 klet.resourceAnalyzer = serverstats.NewResourceAnalyzer(klet, kubeCfg.VolumeStatsAggPeriod.Duration, kubeDeps.Recorder)
 
+klet.runtimeClassManager = runtimeclass.NewManager(kubeDeps.KubeClient)
+
+klet.reasonCache = NewReasonCache()
+
+klet.workQueue = queue.NewBasicWorkQueue(klet.clock)
+klet.podWorkers = newPodWorkers
+
+runtime, err := kuberuntime.NewKubeGenericRuntimeManager
+klet.containerRuntime = runtime
+klet.streamingRuntime = runtime
+klet.runner = runtime
+runtimeCache, err := kubecontainer.NewRuntimeCache
+klet.runtimeCache = runtimeCache
+
+klet.StatsProvider = stats.NewCRIStatsProvider
+
+klet.pleg = pleg.NewGenericPLEG(klet.containerRuntime, plegChannelCapacity, plegRelistPeriod, klet.podCache, clock.RealClock{})
+
+klet.runtimeState = newRuntimeState(maxWaitForContainerRuntime)
+klet.runtimeState.addHealthCheck("PLEG", klet.pleg.Healthy)
+klet.updatePodCIDR
+
+containerGC, err := kubecontainer.NewContainerGC
+
+klet.containerDeletor = newPodContainerDeletor
+
+imageManager, err := images.NewImageGCManager
+
+klet.probeManager = prober.NewManager
+
+tokenManager := token.NewManager
+
+klet.volumePluginMgr, err = NewInitializedVolumePluginMgr
+
+klet.pluginManager = pluginmanager.NewPluginManager
+
+klet.volumeManager = volumemanager.NewVolumeManager
+
+evictionManager, evictionAdmitHandler := eviction.NewManager
+
+klet.admitHandlers.AddPodAdmitHandler(evictionAdmitHandler)
+
+klet.admitHandlers.AddPodAdmitHandler(sysctlsAllowlist)
+
+klet.admitHandlers.AddPodAdmitHandler(klet.containerManager.GetAllocateResourcesPodAdmitHandler())
+
+klet.admitHandlers.AddPodAdmitHandler(lifecycle.NewPredicateAdmitHandler(klet.getNodeAnyWay, criticalPodAdmissionHandler, klet.containerManager.UpdatePluginResources))
+
+klet.softAdmitHandlers.AddPodAdmitHandler(lifecycle.NewAppArmorAdmitHandler(klet.appArmorValidator))
+
+klet.softAdmitHandlers.AddPodAdmitHandler(lifecycle.NewNoNewPrivsAdmitHandler(klet.containerRuntime))
+klet.softAdmitHandlers.AddPodAdmitHandler(lifecycle.NewProcMountAdmitHandler(klet.containerRuntime))
+
+klet.nodeLeaseController = lease.NewController
+
+shutdownManager, shutdownAdmitHandler := nodeshutdown.NewManager
+klet.admitHandlers.AddPodAdmitHandler(shutdownAdmitHandler)
+```
+
+kubelet.Run
+```
+ kl.initializeModules
+
+ volumeManager.Run
+
+ kl.nodeLeaseController.Run
+
+ kl.statusManager.Start()
+
+ kl.runtimeClassManager.Start
+
+// Start the pod lifecycle event generator.
+kl.pleg.Start()
+kl.syncLoop(updates, kl)
+```
+
+kubelet.syncLoop
+```
+// syncLoop is the main loop for processing changes. It watches for changes from
+// three channels (file, apiserver, and http) and creates a union of them. For
+// any new change seen, will run a sync against desired state and running state.
+
+syncTicker := time.NewTicker(time.Second)
+
+kl.syncLoopIteration(updates, handler, syncTicker.C, housekeepingTicker.C, plegCh)
+```
+
+kubelet.syncLoopIteration
+```
+// syncLoopIteration reads from various channels and dispatches pods to the
+// given handler.
+//
+// Arguments:
+// 1.  configCh:       a channel to read config events from
+// 2.  handler:        the SyncHandler to dispatch pods to
+// 3.  syncCh:         a channel to read periodic sync events from
+// 4.  housekeepingCh: a channel to read housekeeping events from
+// 5.  plegCh:         a channel to read PLEG updates from
 
 
 ```
