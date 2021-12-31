@@ -114,9 +114,7 @@ podCfg := kubeDeps.PodConfig
 k.Run(podCfg.Updates())
 ```
 
-## kubelet
-
-pkg/kubelet/kubelet.go
+## pkg/kubelet/kubelet.go
 
 Bootstrap
 ```
@@ -131,8 +129,8 @@ type Bootstrap interface {
     RunOnce(<-chan kubetypes.PodUpdate) ([]RunPodResult, error)
 }
 ```
+### kubelet server
 
-kubelet managers
 - containerRefManager
 - oomWatcher
 - klet.secretManager
@@ -249,6 +247,7 @@ shutdownManager, shutdownAdmitHandler := nodeshutdown.NewManager
 klet.admitHandlers.AddPodAdmitHandler(shutdownAdmitHandler)
 ```
 
+### kubelet.Run
 kubelet.Run
 ```
  kl.initializeModules
@@ -266,7 +265,8 @@ kl.pleg.Start()
 kl.syncLoop(updates, kl)
 ```
 
-kubelet.syncLoop
+#### kubelet.syncLoop
+
 ```
 // syncLoop is the main loop for processing changes. It watches for changes from
 // three channels (file, apiserver, and http) and creates a union of them. For
@@ -277,7 +277,7 @@ syncTicker := time.NewTicker(time.Second)
 kl.syncLoopIteration(updates, handler, syncTicker.C, housekeepingTicker.C, plegCh)
 ```
 
-kubelet.syncLoopIteration
+#### kubelet.syncLoopIteration
 ```
 // syncLoopIteration reads from various channels and dispatches pods to the
 // given handler.
@@ -288,6 +288,297 @@ kubelet.syncLoopIteration
 // 3.  syncCh:         a channel to read periodic sync events from
 // 4.  housekeepingCh: a channel to read housekeeping events from
 // 5.  plegCh:         a channel to read PLEG updates from
+```
 
+syncHandler
+```go
+type syncHandler interface{
+    HandlePodAdditions
+    HandlePodUpdates
+    HandlePodRemove
+    HandlePodReconcile
+    HandlePodSync
+    HandlePodCleanups
+}
+```
+
+- podmanager
+- probemanager
+- podworker
+- podKiller
+
+#### kl.syncPod
+
+syncPod is the transaction script for the sync of a single pod (setting up) a pod. The reverse (teardown) is handled in syncTerminatingPod and syncTerminatedPod. If syncPod exits without error, then the pod runtime state is in sync with the desired configuration state (pod is running). If syncPod exits with a transient error, the next invocation of syncPod is expected to make progress towards reaching the runtime state.
+
+Arguments:
+o - the SyncPodOptions for this invocation
+
+The workflow is:
+
+* If the pod is being creatd, record pod worker start latency 
+* Call generateAPIPodStatus to prepare an v1.PodStatus for the pod
+* If the pod is being seen as running for the first time, record pod start latency
+* Update the status of the pod in the status manager
+* Kill the pod if it should not be running due to soft admission
+* Create a mirror pod if the pod is a static pod, and does not already have a mirror pod
+* Create the data directories for the pod if they do not exist
+* Wait for volumes to attach/mount
+* Fetch the pull secrets for the pod
+* Call the container runtime's SyncPod callback
+* Update the traffic shaping for the pod's ingress and egress limits
+
+If any step of this workflow errors, the error is returned, and is repeated on the next syncPod call.
 
 ```
+firstSeenTime = kubetypes.ConvertToTimestamp(firstSeenTimeStr).Get()
+
+apiPodStatus := kl.generateAPIPodStatus(pod, podStatus)
+
+existingStatus, ok := kl.statusManager.GetPodStatus(pod.UID)
+
+kl.statusManager.SetPodStatus(pod, apiPodStatus)
+
+kl.killPod(pod, p, nil)
+
+kl.podManager.CreateMirrorPod(pod)
+
+kl.makePodDataDirs(pod)
+
+kl.volumeManager.WaitForAttachAndMount(pod)
+
+kl.getPullSecretsForPod(pod)
+
+kl.containerRuntime.SyncPod
+```
+
+#### kubeGenericRuntimeManager.SyncPod
+
+SyncPod syncs the running pod into the desired pod by executing folloing steps:
+1. Compute sandbox and container changes.
+2. Kill pod sandbox if necessary.
+3. Kill any containers that should not be running.
+4. Create sandbox if necessary.
+5. Create ephemeral containers.
+6. Create init containers.
+7. Create normal containers.
+
+```
+podContainerChanges := m.computePodActions(pod, podStatus)
+
+killResult := m.killPodWithSyncResult
+
+m.pruneInitContainersBeforeStart(pod, podStatus)
+
+podSandboxID, msg, err = m.createPodSandbox
+
+start := func(typeName, metricLabel string, spec *startSpec) {
+    m.startContainer(podSandboxID, podSandboxConfig, spec, pod, podStatus, pullSecrets, podIP, podIPs)
+}
+
+start("ephemeral container", metrics.EphemeralContainer, ephemeralContainerStartSpec(&pod.Spec.EphemeralContainers[idx]))
+
+start("init container", metrics.InitContainer, containerStartSpec(container))
+
+start("container", metrics.Container, containerStartSpec(&pod.Spec.Containers[idx]))
+```
+
+kubeGenericRuntimeManager.startContainer
+
+startContainer starts a container and returns a message indicates why it is failed on error.
+It starts the container through the following steps:
+* pull the image
+* create the container
+* start the container
+* run the post start lifecycle hooks (if applicable)
+
+
+#### healthyCheck
+kl.probeManager.AddPod(pod)
+
+#### deletePod
+```
+HandlePodRemoves
+
+kl.deletePod(pod)
+
+kl.podWorkers.UpdatePod(UpdatePodOptions{
+    Pod:        pod,
+    UpdateType: kubetypes.SyncPodKill,
+})
+
+m.killPodWithSyncResult
+
+m.killContainersWithSyncResult
+
+m.killContainer(pod, container.ID, container.Name, "", reasonUnknown, gracePeriodOverride)
+```
+
+### PLEG
+
+```
+type GenericPLEG struct {
+	// The period for relisting.
+	relistPeriod time.Duration
+	// The container runtime.
+	runtime kubecontainer.Runtime
+	// The channel from which the subscriber listens events.
+	eventChannel chan *PodLifecycleEvent
+	// The internal cache for pod/container information.
+	podRecords podRecords
+	// Time of the last relisting.
+	relistTime atomic.Value
+	// Cache for storing the runtime states required for syncing pods.
+	cache kubecontainer.Cache
+	// For testability.
+	clock clock.Clock
+	// Pods that failed to have their status retrieved during a relist. These pods will be
+	// retried during the next relisting.
+	podsToReinspect map[types.UID]*kubecontainer.Pod
+}
+```
+
+kl.pleg.Start 
+```
+// relist every 1 seconds
+go wait.Until(g.relist, g.relistPeriod, wait.NeverStop)
+```
+
+k1.pleg.Healthy
+```
+elapsed > relistThreshold
+```
+
+relist queries the container runtime for list of pods/containers, compare with the internal pods/containers, and generates events accordingly.
+
+GenericPLEG.relist
+```
+podList, err := g.runtime.GetPods(true)
+pods := kubecontainer.Pods(podList)
+g.podRecords.setCurrent(pods)
+
+// Compare the old and the current pods, and generate events.
+eventsByPodID := map[types.UID][]*PodLifecycleEvent{}
+for pid := range g.podRecords {
+    oldPod := g.podRecords.getOld(pid)
+    pod := g.podRecords.getCurrent(pid)
+    // Get all containers in the old and the new pod.
+    allContainers := getContainersFromPods(oldPod, pod)
+    for _, container := range allContainers {
+        events := computeEvents(oldPod, pod, &container.ID)
+        for _, e := range events {
+            updateEvents(eventsByPodID, e)
+        }
+    }
+}
+
+computeEvents
+    - generateEvents
+
+// updateCache will inspect the pod and update the cache.
+g.updateCache(pod, pid)
+```
+
+handler.HandlePodSyncs([]*v1.Pod{pod})
+
+### Runtime
+
+cmd/kubelet/app/server.go
+kubelet.run
+```
+kubelet.PreInitRuntimeService
+
+kubeDeps.ContainerManager, err = cm.NewContainerManager
+```
+
+pkg/kubelet/kubelet.go
+kubelet.PreInitRuntimeService
+start a runtime server which implys cri interface
+
+- dockershim
+- remote
+    - cri server
+
+```
+// DockerContainerRuntime
+runDockershim(
+    kubeCfg,
+    kubeDeps,
+    crOptions,
+    runtimeCgroups,
+    remoteRuntimeEndpoint,
+    remoteImageEndpoint,
+    nonMasqueradeCIDR,
+)
+
+// RemoteRuntimeService
+kubeDeps.RemoteRuntimeService, err = remote.NewRemoteRuntimeService(remoteRuntimeEndpoint, kubeCfg.RuntimeRequestTimeout.Duration)
+```
+
+- DockerContainerRuntime
+    - pkg/kubelet/kubelet_dockershim.go
+- RemoteRuntimeService
+    - pkg/kubelet/cri/remote/remote.go
+
+```
+createAndInitKubelet(
+    ...
+    &kubeServer.ContainerRuntimeOptions,
+    kubeServer.ContainerRuntime,
+    ...
+)
+```
+
+```
+runtime, err := kuberuntime.NewKubeGenericRuntimeManager
+
+klet.containerRuntime = runtime
+klet.streamingRuntime = runtime
+klet.runner = runtime
+
+runtimeCache, err := kubecontainer.NewRuntimeCache(klet.containerRuntime)
+klet.runtimeCache = runtimeCache
+
+klet.dockerLegacyService = kubeDeps.dockerLegacyService
+klet.runtimeService = kubeDeps.RemoteRuntimeService
+
+klet.runtimeClassManager = runtimeclass.NewManager(kubeDeps.KubeClient)
+```
+
+pkg/kubelet/kuberuntime/kuberuntime_manager.go
+NewKubeGenericRuntimeManager
+```
+kubeRuntimeManager := &kubeGenericRuntimeManager {
+    ...
+    runtimeService:         newInstrumentedRuntimeService(runtimeService),
+    imageService:           newInstrumentedImageManagerService(imageService),
+    ...
+}
+```
+
+#### CRI
+
+```
+// CRIService includes all methods necessary for a CRI server.
+type CRIService interface {
+	runtimeapi.RuntimeServiceServer
+	runtimeapi.ImageServiceServer
+	Start() error
+}
+```
+
+- RuntimeService
+    - PodSandbox
+    - Containers
+    - Streaming API
+        - Exec
+        - Attach
+        - PortForward
+    - Verion + Status
+- ImageService
+
+kubeRuntimeManager := &kubeGenericRuntimeManager {
+    ...
+    runtimeService: newInstrumentedRuntimeSerice(runtimeService),
+    ...
+}
