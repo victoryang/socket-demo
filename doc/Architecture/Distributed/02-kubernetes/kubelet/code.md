@@ -582,3 +582,63 @@ kubeRuntimeManager := &kubeGenericRuntimeManager {
     runtimeService: newInstrumentedRuntimeSerice(runtimeService),
     ...
 }
+
+### probeManager
+
+#### statusManager
+
+```
+// pkg/kubelet/kubelet.go
+klet.statusManager = status.NewManager(klet.kubeClient, klet.podManager, klet)
+
+// pkg/kubelet/status/status_manager.go
+// Manager is the Source of truth for kubelet pod status, and should be kept up-to-date with
+// the latest v1.PodStatus. It also syncs updates back to the API server.
+type Manager interface {
+	PodStatusProvider
+
+	// Start the API server status sync loop.
+	Start()
+
+	// SetPodStatus caches updates the cached status for the given pod, and triggers a status update.
+	SetPodStatus(pod *v1.Pod, status v1.PodStatus)
+
+	// SetContainerReadiness updates the cached container status with the given readiness, and
+	// triggers a status update.
+	SetContainerReadiness(podUID types.UID, containerID kubecontainer.ContainerID, ready bool)
+
+	// SetContainerStartup updates the cached container status with the given startup, and
+	// triggers a status update.
+	SetContainerStartup(podUID types.UID, containerID kubecontainer.ContainerID, started bool)
+
+	// TerminatePod resets the container status for the provided pod to terminated and triggers
+	// a status update.
+	TerminatePod(pod *v1.Pod)
+
+	// RemoveOrphanedStatuses scans the status cache and removes any entries for pods not included in
+	// the provided podUIDs.
+	RemoveOrphanedStatuses(podUIDs map[types.UID]bool)
+}
+```
+
+#### probeManager
+
+```
+// pkg/kubelet/kubelet.go
+klet.livenessManager = proberesults.NewManager()
+klet.readinessManager = proberesults.NewManager()
+klet.startupManager = proberesults.NewManager()
+
+klet.probeManager = prober.NewManager(
+    klet.statusManager,
+    klet.livenessManager,
+    klet.readinessManager,
+    klet.startupManager,
+    klet.runner,
+    kubeDeps.Recorder)
+```
+
+```
+// pkg/kubelet/prober/prober_manager.go
+
+```
