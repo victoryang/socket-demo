@@ -116,7 +116,7 @@ k.Run(podCfg.Updates())
 
 ## pkg/kubelet/kubelet.go
 
-Bootstrap
+Bootstrap defines what kubelet can do, which can be invoked by cmd/kubelet
 ```
 type Bootstrap interface {
     GetConfiguration() kubeletconfiginternal.KubeletConfiguration
@@ -246,6 +246,26 @@ klet.nodeLeaseController = lease.NewController
 shutdownManager, shutdownAdmitHandler := nodeshutdown.NewManager
 klet.admitHandlers.AddPodAdmitHandler(shutdownAdmitHandler)
 ```
+
+#### member structure
+
+##### podCache
+
+pkg/kubelet/container/cache.go
+
+Cache stores the PodStatus for the pods. It represents *all* the visible pods/containers in the container runtime. All cache entries are at least as new or newer than the global timestamp, while individual entries may be slightly newer than the global timestamp. If a pod has no states known by the runtime, Cache returns an empty PodStatus object with ID populated.
+
+Cache provides two methods to retrieve the PodStatus: the non-blocking Get() and the blocking GetNewerThan() method. The component responsible for populating the cache is expected to call Delete() to explicitly free the cache entries.
+
+##### podmanager
+
+pkg/kubelet/pod/pod_manager.go
+
+Manager stores and manages access to pods, maintaining the mappings between static pods and mirror pods.
+
+The kubelet discovers pod update from 3 sources: file, http, and apiserver. Pods from non-apiserver resources are called static pods, and API server is not aware of the existence of static pods. In order to monitor the status of such pods, the kubelet creates a mirror pod for each static pod via the API server.
+
+A mirror pod has the same pod full name (name and namespace) as its static couterpart (albeit different metadata such as UID,etc). By leveraging the fact that the kubelet reports the pod status using the pod full name, the status of the mirror pod always reflects the actual status of the static pod. When a static pod gets deleted, the associated orphaned mirror pod will also be removed.
 
 ### kubelet.Run
 kubelet.Run
@@ -393,8 +413,60 @@ It starts the container through the following steps:
 * run the post start lifecycle hooks (if applicable)
 
 
-#### healthyCheck
+#### probe
 kl.probeManager.AddPod(pod)
+start goroutines for probes
+- startup
+- readiness
+- liveness
+
+```
+func (m *manager) AddPod(pod *v1.Pod) {
+	m.workerLock.Lock()
+	defer m.workerLock.Unlock()
+
+	key := probeKey{podUID: pod.UID}
+	for _, c := range pod.Spec.Containers {
+		key.containerName = c.Name
+
+		if c.StartupProbe != nil {
+			key.probeType = startup
+			if _, ok := m.workers[key]; ok {
+				klog.ErrorS(nil, "Startup probe already exists for container",
+					"pod", klog.KObj(pod), "containerName", c.Name)
+				return
+			}
+			w := newWorker(m, startup, pod, c)
+			m.workers[key] = w
+			go w.run()
+		}
+
+		if c.ReadinessProbe != nil {
+			key.probeType = readiness
+			if _, ok := m.workers[key]; ok {
+				klog.ErrorS(nil, "Readiness probe already exists for container",
+					"pod", klog.KObj(pod), "containerName", c.Name)
+				return
+			}
+			w := newWorker(m, readiness, pod, c)
+			m.workers[key] = w
+			go w.run()
+		}
+
+		if c.LivenessProbe != nil {
+			key.probeType = liveness
+			if _, ok := m.workers[key]; ok {
+				klog.ErrorS(nil, "Liveness probe already exists for container",
+					"pod", klog.KObj(pod), "containerName", c.Name)
+				return
+			}
+			w := newWorker(m, liveness, pod, c)
+			m.workers[key] = w
+			go w.run()
+		}
+	}
+}
+```
 
 #### deletePod
 ```
@@ -619,6 +691,33 @@ type Manager interface {
 	// the provided podUIDs.
 	RemoveOrphanedStatuses(podUIDs map[types.UID]bool)
 }
+```
+
+// kl.Run()
+kl.statusManager.Start()
+```
+go wait.Forever(func() {
+    for {
+        select {
+        case syncRequest := <-m.podStatusChannel:
+            klog.V(5).InfoS("Status Manager: syncing pod with status from podStatusChannel",
+                "podUID", syncRequest.podUID,
+                "statusVersion", syncRequest.status.version,
+                "status", syncRequest.status.status)
+            m.syncPod(syncRequest.podUID, syncRequest.status)
+        case <-syncTicker:
+            klog.V(5).InfoS("Status Manager: syncing batch")
+            // remove any entries in the status channel since the batch will handle them
+            for i := len(m.podStatusChannel); i > 0; i-- {
+                <-m.podStatusChannel
+            }
+            m.syncBatch()
+        }
+    }
+}, 0)
+
+// m.syncPod
+// syncPod syncs the given status with the API server. The caller must not hold the lock.
 ```
 
 #### probeManager
