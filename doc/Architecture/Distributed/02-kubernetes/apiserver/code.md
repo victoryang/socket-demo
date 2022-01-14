@@ -183,6 +183,82 @@ m.InstallAPIs
 m.GenericAPIServer.InstallAPIGroups(apiGroupsInfo...)
 ```
 
+staging/k8s.io/apiserver/pkg/server/genericapiserver.go
+m.InstallAPIGroups
+```
+for _,apiGroupInfo :=range apiGroupInfos {
+    s.installAPIResources()
+}
+```
+
+installAPIResources is a private method for installing the REST storage backing each api groupversionresource
+```
+apiGroupVersion := s.getAPIGroupVersion {
+    s.newAPIGroupVersion(apiGroupInfo, groupVersion) {
+        return &genericapi.APIGroupVersion{
+            GroupVersion:     groupVersion,
+            MetaGroupVersion: apiGroupInfo.MetaGroupVersion,
+            ParameterCodec:        apiGroupInfo.ParameterCodec,
+            Serializer:            apiGroupInfo.NegotiatedSerializer,
+            Creater:               apiGroupInfo.Scheme,
+            Convertor:             apiGroupInfo.Scheme,
+            ConvertabilityChecker: apiGroupInfo.Scheme,
+            UnsafeConvertor:       runtime.UnsafeObjectConvertor(apiGroupInfo.Scheme),
+            Defaulter:             apiGroupInfo.Scheme,
+            Typer:                 apiGroupInfo.Scheme,
+            Linker:                runtime.SelfLinker(meta.NewAccessor()),
+
+            EquivalentResourceRegistry: s.EquivalentResourceRegistry,
+
+            Admit:             s.admissionControl,
+            MinRequestTimeout: s.minRequestTimeout,
+            Authorizer:        s.Authorizer,
+        }
+    }
+}
+r, err := apiGroupVersion.InstallREST(s.Handler.GoRestfulContainer)
+
+resourceInfos = append(resourceInfos, r...)
+
+s.StorageVersionManager.AddResourceInfo(resourceInfos...)
+```
+
+InstallREST registers the REST handlers (storage, watch, proxy and redirect) into a restful Container
+
+```
+prefix := path.Join(g.Root, g.GroupVersion.Group, g.GroupVersion.Version)
+installer := &APIInstaller{
+    group:             g,
+    prefix:            prefix,
+    minRequestTimeout: g.MinRequestTimeout,
+}
+
+apiResources, resourceInfos, ws, registrationErrors := installer.Install()
+versionDiscoveryHandler := discovery.NewAPIVersionHandler(g.Serializer, g.GroupVersion, staticLister{apiResources})
+versionDiscoveryHandler.AddToWebService(ws)
+container.Add(ws)
+```
+
+----
+**staging/src/k8s.io/apiserver/pkg/endpoints/installer.go**
+
+installer.Install
+```
+// Install handlers for API resources
+ws := a.newWebService()
+
+for _,path :=range paths {
+    apiResource, resourceInfo, err := a.registerResourceHandlers(path, a.group.Storage[path], ws)
+}
+```
+
+**installer.registerResourceHandlers**
+```
+// register handler to restful webservice for all kinds of resources
+```
+
+-----
+
 ### aggregatorServer
 
 ```
@@ -206,3 +282,23 @@ aggregatorConfig := &aggregatorapiserver.Config{
 }
 ```
 
+```
+// PrepareRun prepares the aggregator to run, by setting up the OpenAPI spec and calling the generic PrepareRun
+prepared, err := server.PrepareRun()
+
+prepared.Run(stopCh)
+```
+
+staging/src/k8s.io/kube-aggregator/pkg/apiserver/apiserver.go
+server.PrepareRun
+```
+prepared := s.GenericAPIServer.PrepareRun()
+
+preparedAPIAggregator{APIAggregator: s, runnable: prepared}
+```
+
+staging/src/k8s.io/apiserver/pkg/server/genericapiserver.go
+prepared.Run
+```
+s.NonBlockingRun
+```
