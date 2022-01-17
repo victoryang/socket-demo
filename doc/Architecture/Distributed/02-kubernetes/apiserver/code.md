@@ -257,7 +257,44 @@ for _,path :=range paths {
 // register handler to restful webservice for all kinds of resources
 ```
 
+e.g. create handler
+
+```bash
+case "POST": // Create a resource.
+handler = restfulCreateResource(creater, reqScope, admit) {
+    handlers.CreateResource(r, &scope, admit)(res.ResponseWriter, req.Request)
+}
+```
+
+// createHandler
+```bash
+// enforce a timeout of at most requestTimeoutUpperBound (34s) or less if the user-provided
+// timeout inside the parent context is lower than requestTimeoutUpperBound.
+ctx, cancel := context.WithTimeout(req.Context(), requestTimeoutUpperBound)
+
+gv := scope.Kind.GroupVersion()
+
+decoder := scope.Serializer.DecoderToVersion(s.Serializer, scope.HubGroupVersion)
+
+requestFunc := func() (runtime.Object, error) {
+    return r.Create(
+        ctx,
+        name,
+        obj,
+        rest.AdmissionToValidateObjectFunc(admit, admissionAttributes, scope),
+        options,
+    )
+}
+
+result, err := requestFunc()
+```
 -----
+**database operation**
+
+staging/src/k8s.io/apiserver/pkg/registry/generic/store.go
+```
+(e *Store) Create
+```
 
 ### aggregatorServer
 
