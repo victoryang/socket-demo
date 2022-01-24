@@ -296,6 +296,73 @@ staging/src/k8s.io/apiserver/pkg/registry/generic/store.go
 (e *Store) Create
 ```
 
+cmd/kube-apiserver/app/server.go
+buildGenericConfig()
+```
+s.Etcd.ApplyWithStorageFactoryTo(storageFactory, genericConfig) {
+    c.RESTOptionsGetter = &StorageFactoryRestOptionsFactory{Options: *s, StorageFactory: factory}
+}
+
+StorageFactoryRestOptionsFactory.GetRESTOptions {
+    if ok && size <= 0 {
+        ret.Decorator = generic.UndecoratedStorage
+    } else {
+        ret.Decorator = genericregistry.StorageWithCacher()
+    }
+}
+```
+
+staging/src/k8s.io/apiserver/pkg/registry/generic/registry/storage_factory.go
+StorageWithCacher
+```
+s, d, err := generic.NewRawStorage(storageConfig, newFunc)
+
+cacherConfig := cacherstorage.Config{
+    Storage:        s,
+    Versioner:      etcd3.APIObjectVersioner{},
+    ResourcePrefix: resourcePrefix,
+    KeyFunc:        keyFunc,
+    NewFunc:        newFunc,
+    NewListFunc:    newListFunc,
+    GetAttrsFunc:   getAttrsFunc,
+    IndexerFuncs:   triggerFuncs,
+    Indexers:       indexers,
+    Codec:          storageConfig.Codec,
+}
+
+// NewCacherFromConfig creates a new Cacher responsible for servicing WATCH and LIST requests from
+// its internal cache and updating its cache in the background based on the
+// given configuration.
+cacher, err := cacherstorage.NewCacherFromConfig(cacherConfig)
+```
+
+```
+// NewRawStorage creates the low level kv storage. This is a work-around for current
+// two layer of same storage interface.
+generic.NewRawStorage{
+    factory.Create(*config, newFunc)
+}
+```
+
+staging/src/k8s.io/apiserver/pkg/storage/storagebackend/factory/factory.go
+```
+switch c.Type {
+    case storagebackend.StorageTypeETCD2:
+        return nil, nil, fmt.Errorf("%s is no longer a supported storage backend", c.Type)
+    case storagebackend.StorageTypeUnset, storagebackend.StorageTypeETCD3:
+        return newETCD3Storage(c, newFunc)
+    default:
+        return nil, nil, fmt.Errorf("unknown storage type: %s", c.Type)
+}
+```
+
+newETCD3Storage
+```
+// staging/src/k8s.io/apiserver/pkg/storage/etcd3/store.go
+etcd3.New(client, c.Codec, newFunc, c.Prefix, transformer, c.Paging, c.LeaseManagerConfig)
+```
+
+
 ### aggregatorServer
 
 ```
