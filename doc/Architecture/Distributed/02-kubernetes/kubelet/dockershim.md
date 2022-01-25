@@ -144,6 +144,77 @@ err = ds.client.StartContainer(createResp.ID)
 err = ds.network.SetUpPod(config.GetMetadata().Namespace, config.GetMetadata().Name, cID, config.Annotations, networkOptions)
 ```
 
+ds.network.SetUpPod --> pluginManager.SetUpPod --> cniNetworkPlugin.SetUpPod
+
+pkg/kubelet/dockershim/network/cni/cni.go
+SetUpPod
+```go
+plugin.addToNetwork(cniTimeoutCtx, plugin.getDefaultNetwork(), name, namespace, id, netnsPath, annotations, options)
+```
+
+addToNetwork
+```go
+rt, err := plugin.buildCNIRuntimeConf(podName, podNamespace, podSandboxID, podNetnsPath, annotations, options) {
+    rt := &libcni.RuntimeConf{
+		ContainerID: podSandboxID.ID,
+		NetNS:       podNetnsPath,
+		IfName:      network.DefaultInterfaceName,
+		CacheDir:    plugin.cacheDir,
+		Args: [][2]string{
+			{"IgnoreUnknown", "1"},
+			{"K8S_POD_NAMESPACE", podNs},
+			{"K8S_POD_NAME", podName},
+			{"K8S_POD_INFRA_CONTAINER_ID", podSandboxID.ID},
+		},
+	}
+}
+
+res, err := cniNet.AddNetworkList(ctx, netConf, rt)
+```
+
+github.com/containernetworking/cni/libcni/api.go
+
+cni interface
+```go
+type CNI interface {
+	AddNetworkList(ctx context.Context, net *NetworkConfigList, rt *RuntimeConf) (types.Result, error)
+	CheckNetworkList(ctx context.Context, net *NetworkConfigList, rt *RuntimeConf) error
+	DelNetworkList(ctx context.Context, net *NetworkConfigList, rt *RuntimeConf) error
+	GetNetworkListCachedResult(net *NetworkConfigList, rt *RuntimeConf) (types.Result, error)
+	GetNetworkListCachedConfig(net *NetworkConfigList, rt *RuntimeConf) ([]byte, *RuntimeConf, error)
+
+	AddNetwork(ctx context.Context, net *NetworkConfig, rt *RuntimeConf) (types.Result, error)
+	CheckNetwork(ctx context.Context, net *NetworkConfig, rt *RuntimeConf) error
+	DelNetwork(ctx context.Context, net *NetworkConfig, rt *RuntimeConf) error
+	GetNetworkCachedResult(net *NetworkConfig, rt *RuntimeConf) (types.Result, error)
+	GetNetworkCachedConfig(net *NetworkConfig, rt *RuntimeConf) ([]byte, *RuntimeConf, error)
+
+	ValidateNetworkList(ctx context.Context, net *NetworkConfigList) ([]string, error)
+	ValidateNetwork(ctx context.Context, net *NetworkConfig) ([]string, error)
+}
+
+AddNetworkList {
+    c.addNetwork {
+        pluginPath, err := c.exec.FindInPath(net.Network.Type, c.Path)
+
+        invoke.ExecPluginWithResult(ctx, pluginPath, newConf.Bytes, c.args("ADD", rt), c.exec) {
+            stdoutBytes, err := exec.ExecPlugin(ctx, pluginPath, netconf, args.AsEnv())
+        }
+    }
+}
+
+args.AsEnv {
+    env = append(env,
+		"CNI_COMMAND="+args.Command,
+		"CNI_CONTAINERID="+args.ContainerID,
+		"CNI_NETNS="+args.NetNS,
+		"CNI_ARGS="+pluginArgsStr,
+		"CNI_IFNAME="+args.IfName,
+		"CNI_PATH="+args.Path,
+	)
+}
+```
+
 ### startContainer
 
 pkg/kubelet/kuberuntime/kuberuntime_container.go
