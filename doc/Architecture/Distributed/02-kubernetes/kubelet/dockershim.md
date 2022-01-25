@@ -1,6 +1,49 @@
 # Dockershim
 
-## SyncPod
+kubelet.syncPod --> kuberuntime_manager.SyncPod
+
+## kubelet.syncPod
+
+kublete.Run --> kubelet.syncLoop --> kubelet.syncLoopIteration --> kubelet.podworkers.UpdatePod  --> kubelet.syncPod
+
+```go
+// If the pod should not be running, we request the pod's containers be stopped. This is not the same
+// as termination (we want to stop the pod, but potentially restart it later if soft admission allows
+// it later). Set the status and phase appropriately
+runnable := kl.canRunPod(pod)
+
+// Record the time it takes for the pod to become running.
+existingStatus, ok := kl.statusManager.GetPodStatus(pod.UID)
+
+// If pod has already been terminated then we need not create
+// or update the pod's cgroup
+if !kl.podWorkers.IsPodTerminationRequested(pod.UID){
+
+}
+
+// Create Mirror Pod for Static Pod if it doesn't already exist
+if kubetypes.IsStaticPod(pod) {
+
+}
+
+// Make data directories for the pod
+kl.makePodDataDirs(pod)
+
+// Volume manager will not mount volumes for terminating pods
+if !kl.podWorkers.IsPodTerminationRequested(pod.UID) {
+
+}
+
+// Fetch the pull secrets for the pod
+pullSecrets := kl.getPullSecretsForPod(pod)
+
+// Call the container runtime's SyncPod callback
+result := kl.containerRuntime.SyncPod(pod, podStatus, pullSecrets, kl.backOff)
+
+kl.reasonCache.Update(pod.UID, result)
+```
+
+## kuberuntime_manager.SyncPod
 
 genericRuntimeManager --> dockershim --> docker
 
@@ -59,8 +102,23 @@ start("init container", metrics.InitContainer, containerStartSpec(container))
 start("container", metrics.Container, containerStartSpec(&pod.Spec.Containers[idx]))
 ```
 
-## RunPodSandbox
+### createPodSandbox
 
+pkg/kubelet/kuberuntime/kuberuntime_sandbox.go
+
+```go
+podSandboxConfig, err := m.generatePodSandboxConfig(pod, attempt)
+
+// Create pod logs directory
+err = m.osInterface.MkdirAll(podSandboxConfig.LogDirectory, 0755)
+
+runtimeHandler, err = m.runtimeClassManager.LookupRuntimeHandler(pod.Spec.RuntimeClassName)
+
+podSandBoxID, err := m.runtimeService.RunPodSandbox(podSandboxConfig, runtimeHandler)
+```
+
+pkg/kubelet/dockershim/docker_sandbox.go
+RunPodSandbox
 ```go
 // Step 1: Pull the image for the sandbox.
 image := defaultSandboxImage
@@ -84,4 +142,29 @@ err = ds.client.StartContainer(createResp.ID)
 // on the host as well, to satisfy parts of the pod spec that aren't
 // recognized by the CNI standard yet.
 err = ds.network.SetUpPod(config.GetMetadata().Namespace, config.GetMetadata().Name, cID, config.Annotations, networkOptions)
+```
+
+### startContainer
+
+pkg/kubelet/kuberuntime/kuberuntime_container.go
+
+startContainer
+```go
+// Step 1: pull the image.
+imageRef, msg, err := m.imagePuller.EnsureImageExists(pod, container, pullSecrets, podSandboxConfig)
+
+// Step 2: create the container.
+containerConfig, cleanupAction, err := m.generateContainerConfig(container, pod, restartCount, podIP, imageRef, podIPs, target)
+
+m.internalLifecycle.PreCreateContainer(pod, container, containerConfig)
+
+containerID, err := m.runtimeService.CreateContainer(podSandboxID, containerConfig, podSandboxConfig)
+
+m.internalLifecycle.PreStartContainer(pod, container, containerID)
+
+// Step 3: start the container.
+err = m.runtimeService.StartContainer(containerID)
+
+// Step 4: execute the post start hook.
+msg, handlerErr := m.runner.Run(kubeContainerID, pod, container, container.Lifecycle.PostStart)
 ```
