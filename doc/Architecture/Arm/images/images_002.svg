@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width="750" height="285" viewBox="0 0 750 285">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        fill: #00c1de;
+      }
+
+      .cls-4, .cls-5, .cls-6 {
+        fill: #333e48;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-9 {
+        stroke-dasharray: 0 0 5 3;
+      }
+
+      .cls-9, .cls-10 {
+        fill: none;
+        stroke: #333e48;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-11 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-13 {
+        font-family: Courier;
+      }
+
+      .cls-5, .cls-14 {
+        font-family: Lato;
+        font-weight: 500;
+      }
+
+      .cls-5, .cls-6 {
+        font-size: 18px;
+      }
+
+      .cls-15 {
+        letter-spacing: 0em;
+      }
+
+      .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-18 {
+        letter-spacing: 0em;
+      }
+
+      .cls-19 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-9" x="30" y="30" width="690" height="225"/>
+  <text class="cls-5" transform="translate(319.25 59.14)"><tspan x="0" y="0">CPU </tspan><tspan class="cls-12" x="40.71" y="0">I</tspan><tspan class="cls-15" x="45.68" y="0">n</tspan><tspan class="cls-1" x="55.63" y="0">t</tspan><tspan x="62.09" y="0">er</tspan><tspan class="cls-18" x="78.22" y="0">f</tspan><tspan x="84.52" y="0">a</tspan><tspan class="cls-2" x="93.51" y="0">c</tspan><tspan x="101.96" y="0">e</tspan></text>
+  <text class="cls-5" transform="translate(97.12 179.14)"><tspan x="0" y="0">I</tspan><tspan class="cls-16" x="5.11" y="0">R</tspan><tspan x="16.32" y="0">Q</tspan></text>
+  <text class="cls-5" transform="translate(187.63 179.14)"><tspan x="0" y="0">FIQ</tspan></text>
+  <rect class="cls-3" x="495" y="75" width="210" height="75"/>
+  <text class="cls-6" transform="translate(515.42 108.34)"><tspan class="cls-14"><tspan x="0" y="0">Virtual CPU </tspan><tspan class="cls-12" x="98.37" y="0">I</tspan><tspan class="cls-15" x="103.34" y="0">n</tspan><tspan class="cls-1" x="113.29" y="0">t</tspan><tspan x="119.75" y="0">er</tspan><tspan class="cls-18" x="135.88" y="0">f</tspan><tspan x="142.18" y="0">a</tspan><tspan class="cls-2" x="151.17" y="0">c</tspan><tspan x="159.62" y="0">e</tspan></tspan><tspan class="cls-13"><tspan x="25.17" y="21.6">ICv_xyz_EL1</tspan></tspan></text>
+  <g>
+    <line class="cls-10" x1="165" y1="150" x2="165" y2="189.26"/>
+    <polygon class="cls-4" points="161.01 188.09 165 195 168.99 188.09 161.01 188.09"/>
+  </g>
+  <rect class="cls-3" x="270" y="75" width="210" height="75"/>
+  <g>
+    <line class="cls-10" x1="75" y1="150" x2="75" y2="189.26"/>
+    <polygon class="cls-4" points="71.01 188.09 75 195 78.99 188.09 71.01 188.09"/>
+  </g>
+  <text class="cls-5" transform="translate(542.55 179.14)"><tspan class="cls-17" x="0" y="0">v</tspan><tspan x="9.13" y="0">I</tspan><tspan class="cls-16" x="14.25" y="0">R</tspan><tspan x="25.45" y="0">Q</tspan></text>
+  <text class="cls-5" transform="translate(633.06 179.14)"><tspan class="cls-17" x="0" y="0">v</tspan><tspan x="9.13" y="0">FIQ</tspan></text>
+  <g>
+    <line class="cls-10" x1="615" y1="150" x2="615" y2="189.26"/>
+    <polygon class="cls-4" points="611.01 188.09 615 195 618.99 188.09 611.01 188.09"/>
+  </g>
+  <g>
+    <line class="cls-10" x1="525" y1="150" x2="525" y2="189.26"/>
+    <polygon class="cls-4" points="521.01 188.09 525 195 528.99 188.09 521.01 188.09"/>
+  </g>
+  <text class="cls-6" transform="translate(290.19 108.34)"><tspan class="cls-14"><tspan x="0" y="0">Virtualiz</tspan><tspan class="cls-7" x="65.67" y="0">a</tspan><tspan x="74.54" y="0">tion </tspan><tspan class="cls-19" x="110.3" y="0">C</tspan><tspan x="122.12" y="0">o</tspan><tspan class="cls-15" x="132.36" y="0">n</tspan><tspan x="142.31" y="0">t</tspan><tspan class="cls-11" x="148.82" y="0">r</tspan><tspan x="155.08" y="0">ol</tspan></tspan><tspan class="cls-13"><tspan x="25.4" y="21.6">ICH_xyz_EL2</tspan></tspan></text>
+  <rect class="cls-3" x="45" y="75" width="210" height="75"/>
+  <text class="cls-6" transform="translate(60 108.34)"><tspan class="cls-14"><tspan class="cls-1" x="0" y="0">P</tspan><tspan class="cls-8" x="10.84" y="0">h</tspan><tspan class="cls-2" x="20.68" y="0">y</tspan><tspan x="29.85" y="0">sical CPU </tspan><tspan class="cls-12" x="109.21" y="0">I</tspan><tspan class="cls-15" x="114.19" y="0">n</tspan><tspan class="cls-1" x="124.14" y="0">t</tspan><tspan x="130.6" y="0">er</tspan><tspan class="cls-18" x="146.73" y="0">f</tspan><tspan x="153.03" y="0">a</tspan><tspan class="cls-2" x="162.02" y="0">c</tspan><tspan x="170.47" y="0">e</tspan></tspan><tspan class="cls-13"><tspan x="30.59" y="21.6">ICC_xyz_EL1</tspan></tspan></text>
+  <rect class="cls-10" x="45" y="195" width="435" height="45"/>
+  <rect class="cls-10" x="495" y="195" width="210" height="45"/>
+  <text class="cls-5" transform="translate(560.53 224.14)"><tspan x="0" y="0">Virtual PE</tspan></text>
+  <text class="cls-5" transform="translate(217.61 224.14)"><tspan class="cls-1" x="0" y="0">P</tspan><tspan class="cls-8" x="10.84" y="0">h</tspan><tspan class="cls-2" x="20.68" y="0">y</tspan><tspan x="29.85" y="0">sical PE</tspan></text>
+</svg>

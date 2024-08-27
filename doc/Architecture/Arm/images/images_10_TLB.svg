@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width="945" height="495" viewBox="0 0 945 495">
+  <rect x="30" y="30" width="180" height="300" fill="#0091bd"/>
+  <rect x="45" y="45" width="150" height="105" fill="#fff"/>
+  <rect x="45" y="210" width="150" height="105" fill="#fff"/>
+  <text transform="translate(76.17 239.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.02em">U</tspan><tspan x="12.85" y="0">se</tspan><tspan x="30.2" y="0" letter-spacing="-.02em">r</tspan><tspan x="36.42" y="0"> </tspan><tspan x="40.97" y="0" letter-spacing="-.01em">S</tspan><tspan x="50.57" y="0">pa</tspan><tspan x="69.69" y="0" letter-spacing="0em">c</tspan><tspan x="78.14" y="0">e</tspan></text>
+  <text transform="translate(74.24 291.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.02em">N</tspan><tspan x="13.5" y="0">on-</tspan><tspan x="40.51" y="0" letter-spacing="0em">G</tspan><tspan x="53.57" y="0">lobal</tspan></text>
+  <text transform="translate(68.69 74.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.04em">K</tspan><tspan x="11.35" y="0">ernel </tspan><tspan x="55.93" y="0" letter-spacing="-.01em">S</tspan><tspan x="65.53" y="0">pa</tspan><tspan x="84.65" y="0" letter-spacing="0em">c</tspan><tspan x="93.1" y="0">e</tspan></text>
+  <text transform="translate(94.49 126.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">G</tspan><tspan x="13.06" y="0">lobal</tspan></text>
+  <rect x="30" y="375" width="180" height="60" fill="#7d868c"/>
+  <rect x="405" y="90" width="510" height="225" fill="#7d868c"/>
+  <rect x="45" y="390" width="150" height="30" fill="#fff"/>
+  <text transform="translate(99.8 411.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">0x02</tspan></text>
+  <g>
+    <polyline points="180 132.5 180 135 177.5 135" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="174.51" y1="135" x2="64.49" y2="135" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.98 2.99" stroke-miterlimit="10"/>
+    <polyline points="63 135 60.5 135 60.5 132.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="60.5" y1="129.72" x2="60.5" y2="108.89" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.63 2.78" stroke-miterlimit="10"/>
+    <polyline points="60.5 107.5 60.5 105 63 105" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="65.99" y1="105" x2="176.01" y2="105" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.98 2.99" stroke-miterlimit="10"/>
+    <polyline points="177.5 105 180 105 180 107.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="180" y1="110.28" x2="180" y2="131.11" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.63 2.78" stroke-miterlimit="10"/>
+  </g>
+  <g>
+    <polyline points="180 297.5 180 300 177.5 300" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="174.51" y1="300" x2="64.49" y2="300" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.98 2.99" stroke-miterlimit="10"/>
+    <polyline points="63 300 60.5 300 60.5 297.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="60.5" y1="294.72" x2="60.5" y2="273.89" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.63 2.78" stroke-miterlimit="10"/>
+    <polyline points="60.5 272.5 60.5 270 63 270" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="65.99" y1="270" x2="176.01" y2="270" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.98 2.99" stroke-miterlimit="10"/>
+    <polyline points="177.5 270 180 270 180 272.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <line x1="180" y1="275.28" x2="180" y2="296.11" fill="none" stroke="#333e48" stroke-dasharray="0 0 4.63 2.78" stroke-miterlimit="10"/>
+  </g>
+  <rect x="420" y="270" width="150" height="30" fill="#fff"/>
+  <rect x="585" y="270" width="150" height="30" fill="#fff"/>
+  <rect x="750" y="270" width="150" height="30" fill="#fff"/>
+  <rect x="420" y="225" width="150" height="30" fill="#fff"/>
+  <rect x="585" y="225" width="150" height="30" fill="#fff"/>
+  <rect x="750" y="225" width="150" height="30" fill="#fff"/>
+  <rect x="420" y="180" width="150" height="30" fill="#fff"/>
+  <rect x="585" y="180" width="150" height="30" fill="#fff"/>
+  <rect x="750" y="180" width="150" height="30" fill="#fff"/>
+  <rect x="420" y="135" width="150" height="30" fill="#fff"/>
+  <rect x="585" y="135" width="150" height="30" fill="#fff"/>
+  <rect x="750" y="135" width="150" height="30" fill="#fff"/>
+  <text transform="translate(469.58 291.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">0x001</tspan></text>
+  <text transform="translate(409.15 344.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.11em">T</tspan><tspan x="8.74" y="0" letter-spacing="0em">r</tspan><tspan x="15.19" y="0">ansl</tspan><tspan x="46.38" y="0" letter-spacing="0em">a</tspan><tspan x="55.25" y="0">tion </tspan><tspan x="91.01" y="0" letter-spacing="-.03em">L</tspan><tspan x="99.67" y="0">oo</tspan><tspan x="120.16" y="0" letter-spacing="-.02em">k</tspan><tspan x="129.02" y="0">-aside </tspan><tspan x="181.11" y="0" letter-spacing="0em">B</tspan><tspan x="192.62" y="0">uf</tspan><tspan x="209.03" y="0" letter-spacing="-.02em">f</tspan><tspan x="215.09" y="0">e</tspan><tspan x="224.62" y="0" letter-spacing="-.02em">r</tspan><tspan x="230.84" y="0" xml:space="preserve"> (TLB)</tspan></text>
+  <text transform="translate(27.56 463.64)" fill="#333e48" font-size="18"><tspan x="0" y="0" font-family="Lato" font-weight="500">ASID f</tspan><tspan x="51.75" y="0" font-family="Lato" font-weight="500" letter-spacing="-.02em">r</tspan><tspan x="58" y="0" font-family="Lato" font-weight="500">om </tspan><tspan x="87.67" y="0" font-family="Courier">TTBRn_EL1</tspan></text>
+  <text transform="translate(639.8 291.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">0x02</tspan></text>
+  <text transform="translate(785.13 291.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.03em">A</tspan><tspan x="11.73" y="0">ttribu</tspan><tspan x="55.92" y="0" letter-spacing="0em">t</tspan><tspan x="62.38" y="0">es</tspan></text>
+  <text transform="translate(783.28 119.14)" fill="#fff" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">D</tspan><tspan x="13.56" y="0">escri</tspan><tspan x="50.51" y="0" letter-spacing="0em">p</tspan><tspan x="60.52" y="0" letter-spacing="0em">t</tspan><tspan x="66.98" y="0">o</tspan><tspan x="77.22" y="0" letter-spacing="-.02em">r</tspan></text>
+  <text transform="translate(639.57 119.14)" fill="#fff" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">ASID</tspan></text>
+  <text transform="translate(468.01 119.14)" fill="#fff" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.06em">V</tspan><tspan x="11.28" y="0" letter-spacing="-.03em">A</tspan><tspan x="22.94" y="0" letter-spacing="-.03em"> </tspan><tspan x="26.95" y="0" letter-spacing="-.11em">T</tspan><tspan x="35.58" y="0">ag</tspan></text>
+  <text transform="translate(653.3 201.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">--</tspan></text>
+  <text transform="translate(785.13 201.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.03em">A</tspan><tspan x="11.73" y="0">ttribu</tspan><tspan x="55.92" y="0" letter-spacing="0em">t</tspan><tspan x="62.38" y="0">es</tspan></text>
+  <text transform="translate(469.9 201.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">0</tspan><tspan x="10.44" y="0" letter-spacing="0em">x</tspan><tspan x="19.46" y="0">FFE</tspan></text>
+  <g>
+    <polyline points="195 120 300 120 300 195 414.26 195" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="413.09 198.99 420 195 413.09 191.01 413.09 198.99" fill="#333e48"/>
+  </g>
+  <g>
+    <line x1="195" y1="285.5" x2="414.26" y2="285.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="413.09 289.49 420 285.5 413.09 281.51 413.09 289.49" fill="#333e48"/>
+  </g>
+  <polyline points="195 405 270 405 270 285" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+</svg>

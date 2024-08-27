@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width="675" height="390" viewBox="0 0 675 390">
+  <rect x="285" y="60" width="180" height="300" fill="#0091bd"/>
+  <rect x="300" y="75" width="150" height="105" fill="#fff"/>
+  <rect x="300" y="240" width="150" height="105" fill="#fff"/>
+  <text transform="translate(288.98 43.28)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">Virtual</tspan><tspan x="53.12" y="0" letter-spacing="-.03em"> </tspan><tspan x="57.06" y="0" letter-spacing="-.01em">A</tspan><tspan x="69.13" y="0">dd</tspan><tspan x="89.36" y="0" letter-spacing="-.02em">r</tspan><tspan x="95.61" y="0">ess </tspan><tspan x="125.33" y="0" letter-spacing="-.01em">S</tspan><tspan x="134.94" y="0">pa</tspan><tspan x="154.05" y="0" letter-spacing="0em">c</tspan><tspan x="162.5" y="0">e</tspan></text>
+  <text transform="translate(331.17 299.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.02em">U</tspan><tspan x="12.85" y="0">se</tspan><tspan x="30.2" y="0" letter-spacing="-.02em">r</tspan><tspan x="36.42" y="0"> </tspan><tspan x="40.97" y="0" letter-spacing="-.01em">S</tspan><tspan x="50.57" y="0">pa</tspan><tspan x="69.69" y="0" letter-spacing="0em">c</tspan><tspan x="78.14" y="0">e</tspan></text>
+  <text transform="translate(323.69 134.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.04em">K</tspan><tspan x="11.35" y="0">ernel </tspan><tspan x="55.93" y="0" letter-spacing="-.01em">S</tspan><tspan x="65.53" y="0">pa</tspan><tspan x="84.65" y="0" letter-spacing="0em">c</tspan><tspan x="93.1" y="0">e</tspan></text>
+  <text transform="translate(36.58 102.99)" fill="#333e48" font-family="Courier" font-size="18"><tspan x="0" y="0">0xFFFF_FFFF_FFFF_FFFF</tspan></text>
+  <text transform="translate(512.69 177.99)" fill="#333e48" font-family="Courier" font-size="18"><tspan x="0" y="0">TCR_EL1.T1SZ</tspan></text>
+  <text transform="translate(512.69 252.99)" fill="#333e48" font-family="Courier" font-size="18"><tspan x="0" y="0">TCR_EL1.T0SZ</tspan></text>
+  <text transform="translate(36.58 177.99)" fill="#333e48" font-family="Courier" font-size="18"><tspan x="0" y="0">0xFFF0_0000_0000_0000</tspan></text>
+  <text transform="translate(36.58 252.99)" fill="#333e48" font-family="Courier" font-size="18"><tspan x="0" y="0">0x000F_FFFF_FFFF_FFFF</tspan></text>
+  <text transform="translate(36.58 327.99)" fill="#333e48" font-family="Courier" font-size="18"><tspan x="0" y="0">0x0000_0000_0000_0000</tspan></text>
+  <g>
+    <line x1="495.14" y1="80.24" x2="495.14" y2="180.42" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="491.15 81.41 495.14 74.5 499.13 81.41 491.15 81.41" fill="#333e48"/>
+  </g>
+  <g>
+    <line x1="495.14" y1="338.76" x2="495.14" y2="239.92" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="499.13 337.59 495.14 344.5 491.15 337.59 499.13 337.59" fill="#333e48"/>
+  </g>
+</svg>

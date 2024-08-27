@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width="1140" height="495" viewBox="0 0 1140 495">
+  <g>
+    <line x1="210" y1="285.5" x2="279.26" y2="285.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="278.09 289.49 285 285.5 278.09 281.51 278.09 289.49" fill="#333e48"/>
+  </g>
+  <g>
+    <line x1="405" y1="285.5" x2="474.26" y2="285.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="473.09 289.49 480 285.5 473.09 281.51 473.09 289.49" fill="#333e48"/>
+  </g>
+  <g>
+    <line x1="660" y1="285.5" x2="729.26" y2="285.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="728.09 289.49 735 285.5 728.09 281.51 728.09 289.49" fill="#333e48"/>
+  </g>
+  <g>
+    <line x1="855" y1="285.5" x2="924.26" y2="285.5" fill="none" stroke="#333e48" stroke-miterlimit="10"/>
+    <polygon points="923.09 289.49 930 285.5 923.09 281.51 923.09 289.49" fill="#333e48"/>
+  </g>
+  <rect x="255" y="240" width="180" height="90" fill="#7d868c"/>
+  <rect x="270" y="255" width="150" height="60" fill="#fff"/>
+  <text transform="translate(301.77 280.84)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.11em">T</tspan><tspan x="8.74" y="0" letter-spacing="0em">r</tspan><tspan x="15.19" y="0">ansl</tspan><tspan x="46.38" y="0" letter-spacing="0em">a</tspan><tspan x="55.25" y="0">tion</tspan><tspan x="18.53" y="21.6" letter-spacing="-.11em">T</tspan><tspan x="27.17" y="21.6">ables</tspan></text>
+  <rect x="705" y="240" width="180" height="90" fill="#7d868c"/>
+  <rect x="720" y="255" width="150" height="60" fill="#fff"/>
+  <text transform="translate(751.77 280.84)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.11em">T</tspan><tspan x="8.74" y="0" letter-spacing="0em">r</tspan><tspan x="15.19" y="0">ansl</tspan><tspan x="46.38" y="0" letter-spacing="0em">a</tspan><tspan x="55.25" y="0">tion</tspan><tspan x="18.53" y="21.6" letter-spacing="-.11em">T</tspan><tspan x="27.17" y="21.6">ables</tspan></text>
+  <rect x="30" y="90" width="180" height="375" fill="#0091bd"/>
+  <rect x="45" y="105" width="150" height="45" fill="#fff"/>
+  <rect x="45" y="165" width="150" height="45" fill="#fff"/>
+  <rect x="45" y="360" width="150" height="90" fill="#fff"/>
+  <text transform="translate(33.98 66.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">Virtual</tspan><tspan x="53.12" y="0" letter-spacing="-.03em"> </tspan><tspan x="57.06" y="0" letter-spacing="-.01em">A</tspan><tspan x="69.13" y="0">dd</tspan><tspan x="89.36" y="0" letter-spacing="-.02em">r</tspan><tspan x="95.61" y="0">ess </tspan><tspan x="125.33" y="0" letter-spacing="-.01em">S</tspan><tspan x="134.94" y="0">pa</tspan><tspan x="154.05" y="0" letter-spacing="0em">c</tspan><tspan x="162.5" y="0">e</tspan></text>
+  <text transform="translate(928.56 66.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">P</tspan><tspan x="10.84" y="0" letter-spacing="-.01em">h</tspan><tspan x="20.68" y="0" letter-spacing="0em">y</tspan><tspan x="29.85" y="0">sical</tspan><tspan x="63.96" y="0" letter-spacing="-.03em"> </tspan><tspan x="67.91" y="0" letter-spacing="-.01em">A</tspan><tspan x="79.97" y="0">dd</tspan><tspan x="100.21" y="0" letter-spacing="-.02em">r</tspan><tspan x="106.46" y="0">ess </tspan><tspan x="136.18" y="0" letter-spacing="-.01em">S</tspan><tspan x="145.78" y="0">pa</tspan><tspan x="164.9" y="0" letter-spacing="0em">c</tspan><tspan x="173.35" y="0">e</tspan></text>
+  <text transform="translate(485.1 48.34)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">I</tspan><tspan x="4.98" y="0" letter-spacing="0em">n</tspan><tspan x="14.92" y="0" letter-spacing="0em">t</tspan><tspan x="21.38" y="0">ermedi</tspan><tspan x="76.42" y="0" letter-spacing="0em">a</tspan><tspan x="85.29" y="0" letter-spacing="0em">t</tspan><tspan x="91.76" y="0">e </tspan><tspan x="105.83" y="0" letter-spacing="0em">P</tspan><tspan x="116.67" y="0" letter-spacing="-.01em">h</tspan><tspan x="126.51" y="0" letter-spacing="0em">y</tspan><tspan x="135.69" y="0">sical </tspan><tspan x="27.41" y="21.6" letter-spacing="-.01em">A</tspan><tspan x="39.48" y="21.6" letter-spacing="0em">dd</tspan><tspan x="59.71" y="21.6" letter-spacing="-.02em">r</tspan><tspan x="65.96" y="21.6">ess </tspan><tspan x="95.68" y="21.6" letter-spacing="-.01em">S</tspan><tspan x="105.29" y="21.6">pa</tspan><tspan x="124.4" y="21.6" letter-spacing="0em">c</tspan><tspan x="132.85" y="21.6">e</tspan></text>
+  <text transform="translate(75.88 134.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.03em">P</tspan><tspan x="10.43" y="0">eriphe</tspan><tspan x="60.67" y="0" letter-spacing="0em">r</tspan><tspan x="67.12" y="0">als</tspan></text>
+  <text transform="translate(94.31 194.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.04em">K</tspan><tspan x="11.35" y="0">ernel</tspan></text>
+  <text transform="translate(75.07 411.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">A</tspan><tspan x="12.23" y="0">pplic</tspan><tspan x="49.78" y="0" letter-spacing="0em">a</tspan><tspan x="58.65" y="0">tion</tspan></text>
+  <text transform="translate(288.97 359.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.02em">S</tspan><tspan x="9.39" y="0">ta</tspan><tspan x="24.89" y="0" letter-spacing="0em">g</tspan><tspan x="34.15" y="0">e 1</tspan><tspan x="58.66" y="0" letter-spacing="-.03em"> </tspan><tspan x="62.67" y="0" letter-spacing="-.11em">T</tspan><tspan x="71.31" y="0">ables</tspan></text>
+  <text transform="translate(738.97 359.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.02em">S</tspan><tspan x="9.39" y="0">ta</tspan><tspan x="24.89" y="0" letter-spacing="0em">g</tspan><tspan x="34.15" y="0">e 2</tspan><tspan x="58.66" y="0" letter-spacing="-.03em"> </tspan><tspan x="62.67" y="0" letter-spacing="-.11em">T</tspan><tspan x="71.31" y="0">ables</tspan></text>
+  <rect x="480" y="90" width="180" height="375" fill="#95d600"/>
+  <rect x="495" y="255" width="150" height="60" fill="#fff"/>
+  <rect x="495" y="390" width="150" height="60" fill="#fff"/>
+  <text transform="translate(525.88 291.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.03em">P</tspan><tspan x="10.43" y="0">eriphe</tspan><tspan x="60.67" y="0" letter-spacing="0em">r</tspan><tspan x="67.12" y="0">als</tspan></text>
+  <text transform="translate(549.39 426.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">F</tspan><tspan x="10.03" y="0">lash</tspan></text>
+  <rect x="495" y="105" width="150" height="75" fill="#fff"/>
+  <text transform="translate(550.64 149.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">DDR</tspan></text>
+  <rect x="930" y="90" width="180" height="375" fill="#ffc700"/>
+  <rect x="945" y="195" width="150" height="60" fill="#fff"/>
+  <rect x="945" y="270" width="150" height="60" fill="#fff"/>
+  <text transform="translate(975.88 231.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="-.03em">P</tspan><tspan x="10.43" y="0">eriphe</tspan><tspan x="60.67" y="0" letter-spacing="0em">r</tspan><tspan x="67.12" y="0">als</tspan></text>
+  <text transform="translate(999.39 306.64)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">F</tspan><tspan x="10.03" y="0">lash</tspan></text>
+  <rect x="945" y="345" width="150" height="45" fill="#fff"/>
+  <text transform="translate(994.9 374.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">SRAM</tspan></text>
+  <rect x="945" y="405" width="150" height="45" fill="#fff"/>
+  <text transform="translate(998.78 434.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0" letter-spacing="0em">R</tspan><tspan x="11.21" y="0">OM</tspan></text>
+  <rect x="945" y="105" width="150" height="75" fill="#fff"/>
+  <text transform="translate(1000.64 149.14)" fill="#333e48" font-family="Lato" font-size="18" font-weight="500"><tspan x="0" y="0">DDR</tspan></text>
+</svg>
