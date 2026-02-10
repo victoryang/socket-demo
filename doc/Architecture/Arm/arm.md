@@ -17,6 +17,10 @@
 
 [智能座舱 域控制器](https://weibo.com/ttarticle/p/show?id=2309404554728506785819)
 
+[system-architectures](https://www.arm.com/architecture/system-architectures)
+
+[a-profile](https://www.arm.com/architecture/learn-the-architecture/a-profile)
+
 ## Hypervisor
 
 ### EL

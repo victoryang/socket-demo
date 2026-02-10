@@ -6,6 +6,8 @@
 
 [MMU](https://zhuanlan.zhihu.com/p/619234382)
 
+[TLB 作用](https://zhuanlan.zhihu.com/p/492155655)
+
 ## What is memory management
 
 Memory management describes how access to memory in a system is controlled. The hardware performs memory management every time that memory is accessed by either the OSs or applications. Memory management is a way of dynamically allocating regions of memory to applications.

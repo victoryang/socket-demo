@@ -37,6 +37,4 @@
 
 ### Schedule
 
-- [yesterday] 调研 & 讨论 IPC 方案
-- [today] 调研Linux IPC 方案
-- [blocks] 无
+
