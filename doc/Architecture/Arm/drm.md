@@ -37,6 +37,8 @@
 
 [android surface](https://juejin.cn/post/7047745117267951646)
 
+[drm virtio-gpu](https://www.cnblogs.com/ArsenalfanInECNU/p/14632356.html)
+
 ## Linux graphic stack
 
 ### compositing

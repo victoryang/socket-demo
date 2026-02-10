@@ -38,6 +38,8 @@ https://zhuanlan.zhihu.com/p/699017345
 
 [android input vsync](https://www.androidperformance.com/2019/11/04/Android-Systrace-Input/#/%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95)
 
+[android minigbm](https://deepwiki.com/feijiang1/deepwiki_minigbm)
+
 
 ## vhost-device-gpu
 
