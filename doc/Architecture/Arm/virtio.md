@@ -40,6 +40,8 @@ https://zhuanlan.zhihu.com/p/699017345
 
 [android minigbm](https://deepwiki.com/feijiang1/deepwiki_minigbm)
 
+[GPU 虚拟化典型应用场景分类](https://blog.csdn.net/stray2b/article/details/131371122)
+
 
 ## vhost-device-gpu
 
