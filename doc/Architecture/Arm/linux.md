@@ -32,3 +32,5 @@
 [restricted dma pool v15](https://lore.kernel.org/all/20210624155526.2775863-1-tientzu@chromium.org/)
 
 [restricted dma pool v3](https://www.spinics.net/lists/kernel/msg3787068.html)
+
+[kernel config](https://www.kernelconfig.io/)
