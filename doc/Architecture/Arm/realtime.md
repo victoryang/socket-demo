@@ -1,8 +1,21 @@
 # Realtime
 
+[蔚来天枢](https://news.qq.com/rain/a/20250103A0208900)
+
+[蔚来天枢](https://zhuanlan.zhihu.com/p/1972833468116398485)
+
+[rcore-os](https://rcore-os.cn/rCore-Tutorial-Book-v3/chapter9/2device-driver-4.html)
+
+[SPHERE 基于异构平台的下一代信息物理系统多SoC架构](https://zhuanlan.zhihu.com/p/1919491370554463373)
+
+
 ## MCS
 
 [混合系统集成方法](https://rk.51cto.com/article/317121.html)
+
+[rel4 mcs](https://rel4team.github.io/zh/docs/reL4kernel/mcs_support/mcs_support/)
+
+[sel4](https://deepwiki.com/seL4/seL4)
 
 ## Scheduler
 
@@ -274,6 +287,157 @@ chrt -p <pid>
 renice -n <-20~19> -p <PID>
 ```
 
+### Linux 进程调度实战
+
+[Linux进程调度实战](https://geek-blogs.com/blog/linux-sched/)
+
+
+#### 调度器基础
+
+1. 调度器的核心目标
+调度器的设计需平衡多个目标，不同场景下侧重点不同：
+
+- 公平性：确保每个进程获得合理的 CPU 时间，避免“饥饿”（某个进程长期无法获得资源）
+- 响应性：优先保证交互式（如键盘输入、GUI）的低延迟，提升用户体验
+- 吞吐量：最大化单位时间内完成的任务量，适合CPU密集型批处理任务
+- 实时性：满足实时任务的deadline约束，确保关键任务（如工业控制、音频处理）的确定性执行。
+
+2. Linux调度器的演进
+Linux调度器经历了多次迭代，核心设计不断优化：
+
+- O(1)调度器（2.6.0~2.6.23）：通过维护活跃/过期进程数组，实现 O(1)的时间复杂度的调度决策，但对交互任务公平性支持不足。
+- CFS（完全公平调度，2.6.23至今）：目前默认调度器，基于“虚拟运行时间”（vruntime）实现公平性，核心思想是“让每个进程尽可能获得相同的CPU时间”。
+- 实时调度器：时钟与CFS并存，支持SCHED_FIFO和SCHED_RR策略，满足实时场景需求。
+
+#### Linux调度核心：CFS
+CFS是Linux针对普通进程（非实时）的默认调度器，其设计颠覆了传统“时间片”模型，转而以“公平分配CPU时间”核心。
+
+1. 核心思想：虚拟运行时间（vruntime）
+
+CFS 认为“公平”即“每个进程获得的CPU时间与权重成正比”。为实现这一点，CFS为每个进程维护一个 vruntime（虚拟运行时间），表示进程“理应”占用的CPU时间。调度器始终选择 vruntime最小的进程运行，确保“欠CPU时间”的进程优先执行。
+
+2. 实现机制：红黑树和调度实体
+
+- 调度实体（sched_entity）：内核用`struct shced_entity`描述进程的调度属性，包含vruntime、权重（与优先级相关）等。
+- 红黑树（rbtree）：所有可运行进程的“sched_entity”按runtime排序，存储在红黑树中。调度器通过选择红黑树的最左节点（vruntime最小）来决定下一个运行进程，保证O(log n)的时间复杂度的调度策略。
+
+3. 调度触发时机
+CFS调度在以下场景触发：
+
+- 时间片结束：进程运行一段时间后，调度器检查是否需要切换（通过scheduler_tick周期性触发）
+- 进程状态发生变化：如进程阻塞（等待I/O）、唤醒、创建/退出。
+- 主动放弃CPU：进程调用“sched_yield()”。
+
+4. vruntime 计算逻辑
+
+vruntime的核心公式为：
+
+`vruntime += 时机运行时间 * (NICE_0_LOAD/进程权重)`
+
+- NICE_0_LOAD：基准权重（默认1024，对应`nice=0`的进程）
+- 进程权重：与 `nice` 值相关（`nice`范围-20~19，值越小权重越大）。例如
+    - `nice=-20` （最高优先级）：权重1024*8 = 8192
+    - `nice=19` （最低优先级）：权重1024/8=128
+- 直观理解：高优先级进程（低`nice`）的权重更大，相同时机运行时间下，vruntime增长更慢，因此能获得更多CPU时间。
+
+#### 实时调度：SCHED_FIFO和SCHED_RR
+linux为实时任务提供了两种调度策略，优先级高于CFS进程（实时进程可抢占CFS进程）
+
+1. SCHED_FIFO
+
+- 特性：一旦进程过得CPU，将持续运行直到：
+    - 主动放弃CPU（如阻塞）
+    - 被更高优先级的实时进程抢占
+    - 调用 `sched_yield()`
+- 适用场景：需长时间独占CPU的实时任务（如工业控制）
+
+2. SCHED_RR（轮转实时调度）
+
+- 特性：与SCHED_FIFO类似，但进程运行一段时间后会被强制放入队列尾部（时间片默认100ms，可通过`sched_rr_get_interval()`获取）
+- 适用场景：多个同优先级实时任务需要轮流执行（如多媒体流处理）。
+
+3. 实时优先级范围
+
+实时进程的优先级范围为 1~99（1最低，99最高），优先级越高，抢占能力越强。
+
+#### 任务状态与调度类
+
+1. 进程状态
+
+进程在生命中会切换多种状态，调度器仅关注可运行状态（TASK_RUNNING）的进程：
+
+- `TASK_RUNNING`:进程可运行（正在CPU上执行或在就绪队列中等待）。
+- `TASK_INTERRUPTIBLE`/`TASK_UNINTERRUPTIBLE`：进程阻塞（等待I/O或信号），不参与调度。
+- `TASK_STOPPED`/`TASK_ZOMBIE`：进程停止或退出，不参与调度
+
+2. 调度类（sched_class）
+
+Linux内核通过调度类实现多种调度策略的层次化管理，优先级从高到低为：
+
+1. `stop_sched_class`：最高优先级，用于停止CPU（如CPU热插拔）
+2. `rt_sched_class`：实时调度类（SCHED_FIFO/SCHED_RR）
+3. `fair_sched_class`：CFS调度类（默认策略）
+4. `idle_sched_class`：空闲进程调度类（CPU空闲时运行的`swapper`进程）
+
+调度器按此顺序遍历调度类，选择第一个有可运行进程的类进行调度。
+
+#### 调度策略与优先级
+
+#### 常用工具与实践操作
+
+1. 调整CFS进程优先级 `nice`与`renice`
+2. 管理实时进程 `chrt`
+
+#### 最佳实践与注意事项
+
+1. 避免滥用实时调度
+
+- 风险：实时进程（尤其是最高优先级）可能抢占所有CPU，导致系统无响应（包括内核进程）
+- 原则：仅在明确需要实时性时使用，且优先级不宜过高（建议50以下）
+
+2. 合理设置CFS优先级
+
+- CPU密集型任务：适用`SCHED_BATCH`（减少调度切换），或适当提高nice值（如`nice=10`）避免影响交互任务
+- 后台低优先级任务：适用`SCHED_IDLE`策略（如日志清理、备份），确保仅在CPU空闲时运行。
+
+3. 避免优先级反转
+
+优先级反转：低优先级进程持有高优先级进程所需的锁，导致高优先级进程阻塞
+解决方案：
+
+- 适用支持**优先级继承**的锁（如`pthread_mutexattr_setprotocol(&attr,PTHREAD_PRIO_INHERIT)`）
+- 避免在实时进程中长时间持有锁
+
+4. 利用cgroups限制CPU资源
+
+通过cgroups的`cpu.shares`可按比例分配CPU时间（适用于容器或多租户场景）
+
+#### 调度器域、负载均衡与cgroups
+
+1. 调度器域
+
+在多CPU系统（CMP、NUMA）中，调度器将CPU分组为调度器域（如socket、core），并在域内、域间进行负载均衡，避免某个CPU过载而其他CPU空闲
+
+2. 负载均衡
+调度器通过以下机制平衡CPU负载：
+
+- 周期性负载均衡：`scheduler_tick`触发，检查并迁移任务
+- 唤醒时负载均衡：进程唤醒时，选择负载较轻的CPU运行
+
+3. cgroups与调度
+
+cgroups 提供了更细粒度的资源控制
+
+- cpu.shares:按比例分配CFS进程的CPU（相对权重）
+- cpu.cfs_quota_us/cpu.cfs_period_us:限制CFS进程的CPU使用率
+- cpuset：将进程绑定到特定CPU核心，减少跨核心调度开销
+
+#### 故障排查与性能分析工具
+
+1. 监控调度行为
+
+2. 深入分析：`perf`与`trace-cmd`
+
 ### 实时调度实战
 
 [实时调度实战](https://zhuanlan.zhihu.com/p/29235176417)
@@ -284,12 +448,37 @@ Linux 系统中的进程可以分为不同的类型，其中实时进程对时�
 
 实时调度器主要为了解决以下四种情况：
 
-1. 在唤醒任务时，待唤醒的任务放置到哪个运行队列最合适
+1. 在唤醒任务时，待唤醒的任务放置到哪个运行队列最合适（这里称为pre-balance）
 2. 新唤醒任务的优先级比某个运行队列的当前任务更低时，怎么处理这个更低优先级任务
 3. 新唤醒任务的优先级比同一运行队列的某个任务更高时，并且抢占了该更低优先级任务，该低优先级任务怎么处理
 4. 当某个任务降低自身优先级，导致原来更低优先级任务相比之下具有更高优先级，这种情况怎么处理
 
 对于情况2和情况3，实时调度器采用push操作。push操作从根域中所有运行队列中挑选一个运行队列（一个cpu对应一个运行队列），该运行队列的优先级比待push任务的优先级更低。运行队列的优先级是指该运行队列上所有任务的最高优先级。
+
+对于情况4，实时调度器采用pull操作。当某个运行队列上准备调度时，候选任务比当前任务的优先级更低时，实时调度器检查其他运行队列，确定是否可以pull更高优先级任务到本运行队列。还有，当某个运行队列上发生调度时，该运行队列上没有任务比当前任务优先级高，实时调度器执行pull操作，从其他运行队列中pull更高优先级任务到本运行队列。
+
+每个CPU变量运行队列rq，包含一个rt_rq数据结构。rt_rq数据结构主要内容如下：
+
+```C
+struct rt_rq {
+    struct rt_prio_array  active;
+    ...
+    unsigned long         rt_nr_running;         // 可运行实时任务个数
+    unsigned long         rt_nr_migratory;       // 该运行队列上可以迁移到其他运行队列的实时任务个数
+    unsigned long         rt_nr_uninterruptible;
+    int                   highest_prio;
+    int                   overloaded;
+};
+```
+
+实时任务优先级范围为0到99.这些实时任务组织称优先级索引数组active，该优先级数组的数据结构类型为 rt_prio_array。rt_prio_array数据结构由两部分组成，一部分是位图，另一部分是数组。
+
+```C
+struct rt_prio_arry {
+    unsigned long bitmap[BITS_TO_LONGS(MAX_RT_PRIO+1)];
+    struct list_head queue[MAX_RT_PRIO]；
+}
+```
 
 #### 实时调度策略
 
@@ -311,9 +500,565 @@ SCHED_FIFO策略的优点显而易见，它可以为那些对时间要求极为�
 
 SCHED_RR策略在保证实时性的同时，还兼顾了公平性。它通过时间片的轮转，让每个进程都能在一定的时间内获得CPU资源，避免了低优先级进程长时间得不到执行的情况。这使得它在一些对响应时间要求较高，同时又需要保证公平性的实时进程中得到了广泛应用，比如交互式应用程序、游戏等。在这些应用中，用户希望能够得到及时地响应，同时也不希望某个任务独占CPU资源，导致其他操作变得迟缓。
 
+#### 实时调度类的数据结构详解
+
+1 优先级队列 rt_prio_array
+
+在kernel/sched.c中，是一组链表，每个优先级对应一个链表。还维护一个由101bit组成的bitmap，其中实时进程优先级为0~99，占100bit，再加1bit的定界符。当某个优先级别上有进程被插入列表时，相应的比特位就被置位。通常sched_find_first_bit()函数查询该bitmap，它返回当前被置位的最高优先级的数组下标。由于使用位图，查找一个任务来执行所需要的时间并不依赖活动任务的个数，而是依赖优先级的数量。可见实时调度是一个O(1)调度策略。
+
+```
+struct rt_prio_array {
+	DECLARE_BITMAP(bitmap, MAX_RT_PRIO+1); /* 包含1 bit的定界符 */
+	struct list_head queue[MAX_RT_PRIO];
+};
+```
+
+这里用 include/linux/types.h 中的DECLARE_BITMAP宏来定义指定长度的位图，用include/linux/list.h中的struct list_head来为100个优先级定义各自的双链表。在实时调度中，运行进程根据优先级放到对应的队列里面，对于相同的优先级的进程后面来的进程放到同一优先级队列的队尾。对于FIFO/RR调度，各自的进程需要设置相关的属性。进程运行时，要根据task中的这些属性判断和设置，放弃cpu的时机（运行完成是时间片用完）。
+
+2. 实时运行队列rt_rq
+
+在kernel/sched.c中，用于组织实时调度的相关信息。
+
+```C
+struct rt_rq {
+	struct rt_prio_array active;
+	unsigned long rt_nr_running;
+#if defined CONFIG_SMP || defined CONFIG_RT_GROUP_SCHED
+	struct {
+		int curr; /* 最高优先级的实时任务 */
+#ifdef CONFIG_SMP
+		int next; /* 下一个最高优先级的任务 */
+#endif
+	} highest_prio;
+#endif
+#ifdef CONFIG_SMP
+	unsigned long rt_nr_migratory;
+	unsigned long rt_nr_total;
+	int overloaded;
+	struct plist_head pushable_tasks;
+#endif
+	int rt_throttled;
+	u64 rt_time;
+	u64 rt_runtime;
+	/* Nests inside the rq lock: */
+	spinlock_t rt_runtime_lock;
+ 
+#ifdef CONFIG_RT_GROUP_SCHED
+	unsigned long rt_nr_boosted;
+ 
+	struct rq *rq;
+	struct list_head leaf_rt_rq_list;
+	struct task_group *tg;
+	struct sched_rt_entity *rt_se;
+#endif
+};
+```
+
+3. 实时调度实体 sched_rt_entity
+
+在 Linux内核的实时调度机制中，sched_rt_entity结构体扮演着至关重要的角色，它就像是一个精心打造的“任务名片”，记录了实时进程参与调度所需的关键信息。该结构体定义于include/linux/sched.h头文件中，其源码如下：
+
+```
+struct sched_rt_entity {
+    struct list_head run_list;         // 用于将“实时调度实体”加入到优先级队列中的
+    unsigned long timeout;            // 用于设置调度超时时间
+    unsigned long watchdog_stamp;     // 用于记录jiffies的值
+    unsigned int time_slice;         // 时间片
+    unsigned short on_rq;
+    unsigned short on_list;
+    struct sched_rt_entity *back;     // 用于由上到下连接“实时调度实体”
+#ifdef CONFIG_RT_GROUP_SCHED
+    struct sched_rt_entity *parent;   // 指向父类“实时调度实体”
+    /* rq on which this entity is (to be) queued: */
+    struct rt_rq *rt_rq;             // 表示“实时调度实体”所属的“实时运行队列”
+    /* rq "owned" by this entity/group: */
+    struct rt_rq *my_q;              // 表示“实时调度实体”所拥有的“实时运行队列”，用于管理“子任务”
+#endif
+} __randomize_layout;
+```
+
+run_list 字段是一个双向链表节点，它就像一根无形的线，将各个实时调度实体按照优先级串联起来，加入到优先级队列中，方便调度器快速定位和处理。当一个实时进程被创建或者状态发生变化时，它的run_list就会被插入到相应的优先级队列中，等待调度器的调度。
+
+timeout字段是用于设置调度超时时间，这就像是给任务设定了一个“闹钟”。当任务运行时间超过这个设定的超时时间时，调度器可能会对其进行特殊处理，比如将其从CPU上移除，重新调度其他任务，以确保系统的实时性和稳定性。在一些对时间要求极高的实时系统中，如自动驾驶汽车的控制系统，每个任务在规定的时间内完成，否则可能会导致严重的后果。timeout字段就可以保证这些任务不会因为长时间占用CPU而影响其他关键任务的执行。
+
+watchdog_stamp字段用于记录jiffies的值，jiffies是Linux内核中的一个全局变量，表示系统启动以来的时钟滴答数。通过记录jiffies的值，watchdog_stamp可以为调度器提供时间参考，用于判断任务的运行状态和调度时机。比如，调度器可以根据watchdog_stamp和当前jiffies值来计算任务的运行时间，从而决定是否需要对任务进行调度。
+
+time_slice字段表示时间片，对于采用时间片轮转调度策略（如SCHED_RR）的实时进程来说，这个字段尤为重要。它规定了每个进程在被调度后可以连续运行的时间长度。当进程的时间片用完后，调度器会将其从CPU上移除，并将其放入就绪队列的末尾，等待下一轮调度。这就像一场接力比赛，每个选手都有固定的跑步时间，时间一道就把接力棒交给下一位选手，保证了每个选手都有公平的参与机会。在多媒体播放系统中，音频和视频的解码任务通常采用SCHED_RR策略，通过合理设置time_slice，可以确保音频和视频的流畅播放，不会出现卡顿或延迟的情况。
+
+在支持实时组调度（CONFIG_RT_GROUP_SCHED）的情况下，parent字段指向父类“实时调度实体”，这就像是一个家族树中的父子关系，通过这种关系，调度器可以更好的管理和调度整个任务组。rt_rq字段表示“实时调度实体”所属的“实时运行队列”，而my_q字段则表示“实时调度实体”所拥有的“实时运行队列”，用于管理“子任务”。这种层次化的结构设计，使得调度器能够更加灵活地处理复杂的实时任务场景。
+
+4. 实时就绪队列 struct rt_rq
+
+struct rt_rq结构体是Linux内核实时调度的核心数据结构之一，它就像是一个高效的“任务指挥官”，负责管理实时进程的运行队列，在核心调度器管理活动中发挥着举足轻重的作用。该结构体定义于 kernel/sched/sched.h 头文件中，其源码如下：
+
+```C
+struct rt_rq {
+    struct rt_prio_array active;        // 优先级队列
+    unsigned int rt_nr_running;        // 在RT运行队列中所有活动的任务数
+    unsigned int rr_nr_running;
+#if defined CONFIG_SMP || defined CONFIG_RT_GROUP_SCHED
+    struct {
+        int curr;                       // 当前RT任务的最高优先级
+#ifdef CONFIG_SMP
+        int next;                       // 下一个要运行的RT任务的优先级，如果两个任务都有最高优先级，则curr == next
+#endif
+    } highest_prio;
+#endif
+#ifdef CONFIG_SMP
+    unsigned long rt_nr_migratory;     // 任务没有绑定在某个CPU上时，这个值会增减，用于任务迁移
+    unsigned long rt_nr_total;         // 用于overload检查
+    int overloaded;                    // RT运行队列过载，则将任务推送到其他CPU
+    struct plist_head pushable_tasks;  // 优先级列表，用于推送过载任务
+#endif /* CONFIG_SMP */
+    int rt_queued;                     // 表示RT运行队列已经加入rq队列
+    int rt_throttled;                  // 用于限流操作
+    u64 rt_time;                       // 累加的运行时，超出了本地rt_runtime时，则进行限制
+    u64 rt_runtime;                    // 分配给本地池的运行时
+    /* Nests inside the rq lock: */
+    raw_spinlock_t rt_runtime_lock;
+#ifdef CONFIG_RT_GROUP_SCHED
+    unsigned long rt_nr_boosted;       // 用于优先级翻转问题解决
+    struct rq *rq;                     // 指向运行队列
+    struct task_group *tg;             // 指向任务组
+#endif
+};
+```
+
+active 字段是一个rt_prio_array类型的优先级队列，它维护了100个优先级的队列（链表），优先级范围从0到99，从高到低排列。同时，它还定义了位图，用于快速查询。这就像是一个多层的货架，每个货架层对应一个优先级，实时进程根据其优先级被放置在相应的货架上。调度器可以通过位图快速找到最高优先级的队列，从而选择优先级最高的进程进行调度，大大提高了调度效率。在航空航天控制系统中，各种实时任务的优先级划分非常严格，通过active优先级队列，调度器能够快速响应优先级任务，确保系统的安全和稳定运行。
+
+rt_nr_running字段表示在“实时运行队列”中所有活动的任务数，这个数字就像是一个实时监控的计数器，调度器可以根据它来了解当前实时运行队列中的任务负载情况。如果任务数过多，调度器可能会采取一些措施，如任务迁移、限流等，以保证系统的正常运行。
+
+在支持对称多处理（CONFIG_SMP）或实时组调度（CONFIG_RT_GROUP_SCHED）的情况下，highest_prio结构体中的curr字段表示当前RT任务的最高优先级，next字段表示下一个要运行的RT任务的优先级。如果两个任务都有最高优先级，则curr和next字段值相等。这些字段就像是调度器的“指南针”，帮助调度器在众多任务中准确地选择下一个要运行的任务。
+
+rt_nr_migratory字段用于记录任务没有绑定在某个CPU上时，这个值会增减，用于任务迁移。在多处理器系统中，当某个CPU的负载过高时，调度器可以根据这个字段的值，将一些可迁移的任务迁移到其他CPU上，以实现负载均衡。rt_nr_total字段用于overload检查，当rt_nr_total超过一定阈值时，说明系统可能处于过载状态，调度器会采用相应的措施，如将任务推送到其他CPU，以缓解系统压力。overloaded字段表示RT运行队列过载，当该字段为真时，调度器会将任务推送到其他CPU，以保证系统的正常运行。pushable_tasks字段是一个优先级列表，用于推送过载任务，它就像是一个“任务搬运工”，将过载的任务从一个CPU推送到其他CPU上。
+
+rt_queued字段表示RT运行队列已经加入rq队列，rq队列是系统中所有进程的运行队列，RT运行队列是其中的一部分。rt_throttled字段用于限流操作，当实时进程的运行时间超过一定限制时，以保证系统的公平性和稳定性。rt_time字段表示累加的运行时，当超出本地rt_runtime时，则进行限制。rt_runtime字段表示分配给本地池的运行时，它就像是一个“资源配额”，限制了实时进程在本地的运行时间。
+
+在支持实时组调度（CONFIG_RT_GROUP_SCHED）的情况下，rt_nr_boosted字段用于优先级反转问题解决。在实时调度系统中，可能会出现优先级翻转的情况，即低优先级任务持有高优先级任务所需的资源，导致高优先级任务无法执行。通过rt_nr_boosted字段，调度器可以对任务的优先级进行调整，解决优先级翻转问题。rq字段指向运行队列，tg字段指向任务组，通过这些指针，调度器可以更好地管理和调度整个任务组。
+
+**实时调度的主要操作：** 实时调度的操作在 kernel/sched_rt.c中实现。
+（1）**进程插入enqueue_task_rt：** 更新调度信息，调用enqueue_rt_entity()-->_enqueue_rt_entity(),将调度实体插入到相应优先级队列的末尾。如下：
+
+```C
+static void
+enqueue_task_rt(struct rq *rq, struct task_struct *p, int wakeup, bool head)
+{
+	struct sched_rt_entity *rt_se = &p->rt;
+ 
+	if (wakeup)
+		rt_se->timeout = 0;
+ 
+	enqueue_rt_entity(rt_se, head); /* 实际工作 */
+ 
+	if (!task_current(rq, p) && p->rt.nr_cpus_allowed > 1)
+		enqueue_pushable_task(rq, p); /* 添加到对应的hash表中 */
+}
+ 
+static void enqueue_rt_entity(struct sched_rt_entity *rt_se, bool head)
+{
+	dequeue_rt_stack(rt_se); /* 先从运行队列中删除 */
+	for_each_sched_rt_entity(rt_se)
+		__enqueue_rt_entity(rt_se, head); /* 然后添加到运行队列尾部 */
+}
+ 
+static void __enqueue_rt_entity(struct sched_rt_entity *rt_se, bool head)
+{
+	struct rt_rq *rt_rq = rt_rq_of_se(rt_se);
+	struct rt_prio_array *array = &rt_rq->active;
+	struct rt_rq *group_rq = group_rt_rq(rt_se);
+	struct list_head *queue = array->queue + rt_se_prio(rt_se);
+ 
+	/*
+	 * Don't enqueue the group if its throttled, or when empty.
+	 * The latter is a consequence of the former when a child group
+	 * get throttled and the current group doesn't have any other
+	 * active members.
+	 */
+	if (group_rq && (rt_rq_throttled(group_rq) || !group_rq->rt_nr_running))
+		return;
+ 
+	if (head)
+		list_add(&rt_se->run_list, queue);
+	else
+		list_add_tail(&rt_se->run_list, queue);
+	__set_bit(rt_se_prio(rt_se), array->bitmap);
+ 
+	inc_rt_tasks(rt_se, rt_rq); /* 运行进程数增一 */
+}
+```
+该函数先获取运行队列中的优先级列表，然后调用include/linux/list.h：list_add_tail()--->_list_add()，将进程插入到链表的末尾。如下：
+```C
+static inline void __list_add(struct list_head *new,
+			      struct list_head *prev,
+			      struct list_head *next)
+{
+	next->prev = new;
+	new->next = next;
+	new->prev = prev;
+	prev->next = new;
+}
+```
+
+（2）**进程选择pick_next_task_rt:** 实时调度会选择最高优先级的实时进程来运行。调用 _pick_next_task_rt() ---> pick_next_rt_entity() 来完成获取下一个进程的工作。如下：
+
+```C
+static struct task_struct *pick_next_task_rt(struct rq *rq)
+{
+	struct task_struct *p = _pick_next_task_rt(rq); /* 实际工作 */
+ 
+	/* The running task is never eligible for pushing */
+	if (p)
+		dequeue_pushable_task(rq, p);
+ 
+#ifdef CONFIG_SMP
+	/*
+	 * We detect this state here so that we can avoid taking the RQ
+	 * lock again later if there is no need to push
+	 */
+	rq->post_schedule = has_pushable_tasks(rq);
+#endif
+ 
+	return p;
+}
+
+static struct task_struct *_pick_next_task_rt(struct rq *rq)
+{
+	struct sched_rt_entity *rt_se;
+	struct task_struct *p;
+	struct rt_rq *rt_rq;
+ 
+	rt_rq = &rq->rt;
+ 
+	if (unlikely(!rt_rq->rt_nr_running))
+		return NULL;
+ 
+	if (rt_rq_throttled(rt_rq))
+		return NULL;
+ 
+	do { /* 遍历组调度中的每个进程 */
+		rt_se = pick_next_rt_entity(rq, rt_rq);
+		BUG_ON(!rt_se);
+		rt_rq = group_rt_rq(rt_se);
+	} while (rt_rq);
+ 
+	p = rt_task_of(rt_se);
+	/* 更新执行域 */
+	p->se.exec_start = rq->clock_task;
+ 
+	return p;
+}
+
+static struct sched_rt_entity *pick_next_rt_entity(struct rq *rq,
+						   struct rt_rq *rt_rq)
+{
+	struct rt_prio_array *array = &rt_rq->active;
+	struct sched_rt_entity *next = NULL;
+	struct list_head *queue;
+	int idx;
+	/* 找到第一个可用的 */
+	idx = sched_find_first_bit(array->bitmap);
+	BUG_ON(idx >= MAX_RT_PRIO);
+	/* 从链表组中找到对应的链表 */
+	queue = array->queue + idx;
+	next = list_entry(queue->next, struct sched_rt_entity, run_list);
+	/* 返回找到的运行实体 */
+	return next;
+}
+```
+该函数调用sched_find_first_bit()返回位图中当前被置位的最高优先级，以作为这组链表的数组下标找到其优先级队列。然后调用list_entry()--->container_of()，返回该优先级队列中的第一个进程，作为下一个要运行的实时进程。例如当前所有实时进程中最高优先级为45，则直接读取rt_prio_array中的queue[45]，得到优先级为45的进程队列指针。该队列头上的第一个进程就是被选中的进程。这种算法的复杂度为O(1)。
+
+sched_find_first_bit 的实现如下。它与CPU体系结构相关，其他体系结构会实现自己的 sched_find_first_bit 函数。下面的实现以最快的方式搜索100bit的位图，它能保证100bit中至少有一位被清除。
+
+```C
+static inline int sched_find_first_bit(const unsigned long *b)
+{
+#if BITS_PER_LONG == 64
+	if (b[0])
+		return __ffs(b[0]);
+	return __ffs(b[1]) + 64;
+#elif BITS_PER_LONG == 32
+	if (b[0])
+		return __ffs(b[0]);
+	if (b[1])
+		return __ffs(b[1]) + 32;
+	if (b[2])
+		return __ffs(b[2]) + 64;
+	return __ffs(b[3]) + 96;
+#else
+#error BITS_PER_LONG not defined
+#endif
+}
+```
+
+（3）**进程删除 dequeue_task_rt** 从优先级队列中删除实时进程，并更新调度信息，然后把这个进程添加到队尾。调用链 dequeue_rt_entity() --> dequeue_rt_stack() --> _dequeue_rt_entity()，如下：
+
+```C
+static void dequeue_task_rt(struct rq *rq, struct task_struct *p, int sleep)
+{
+	struct sched_rt_entity *rt_se = &p->rt;
+	/* 更新调度信息 */
+	update_curr_rt(rq);
+	/* 实际工作，将rt_se从运行队列中删除然后 
+      添加到队列尾部 */
+	dequeue_rt_entity(rt_se);
+	/* 从hash表中删除 */
+	dequeue_pushable_task(rq, p);
+}
+
+static void update_curr_rt(struct rq *rq)
+{
+	struct task_struct *curr = rq->curr;
+	struct sched_rt_entity *rt_se = &curr->rt;
+	struct rt_rq *rt_rq = rt_rq_of_se(rt_se);
+	u64 delta_exec;
+ 
+	if (!task_has_rt_policy(curr)) /* 判断是否问实时调度进程 */
+		return;
+	/* 执行时间 */
+	delta_exec = rq->clock_task - curr->se.exec_start;
+	if (unlikely((s64)delta_exec < 0))
+		delta_exec = 0;
+ 
+	schedstat_set(curr->se.exec_max, max(curr->se.exec_max, delta_exec));
+	/* 更新当前进程的总的执行时间 */
+	curr->se.sum_exec_runtime += delta_exec;
+	account_group_exec_runtime(curr, delta_exec);
+	/* 更新执行的开始时间 */
+	curr->se.exec_start = rq->clock_task;
+	cpuacct_charge(curr, delta_exec); /* 组调度相关 */
+ 
+	sched_rt_avg_update(rq, delta_exec);
+ 
+	if (!rt_bandwidth_enabled())
+		return;
+ 
+	for_each_sched_rt_entity(rt_se) {
+		rt_rq = rt_rq_of_se(rt_se);
+ 
+		if (sched_rt_runtime(rt_rq) != RUNTIME_INF) {
+			spin_lock(&rt_rq->rt_runtime_lock);
+			rt_rq->rt_time += delta_exec;
+			if (sched_rt_runtime_exceeded(rt_rq))
+				resched_task(curr);
+			spin_unlock(&rt_rq->rt_runtime_lock);
+		}
+	}
+}
+
+static void dequeue_rt_entity(struct sched_rt_entity *rt_se)
+{
+	dequeue_rt_stack(rt_se); /* 从运行队列中删除 */
+ 
+	for_each_sched_rt_entity(rt_se) {
+		struct rt_rq *rt_rq = group_rt_rq(rt_se);
+ 
+		if (rt_rq && rt_rq->rt_nr_running)
+			__enqueue_rt_entity(rt_se, false); /* 添加到队尾 */
+	}
+}
+
+static void dequeue_rt_stack(struct sched_rt_entity *rt_se)
+{
+	struct sched_rt_entity *back = NULL;
+ 
+	for_each_sched_rt_entity(rt_se) { /* 遍历整个组调度实体 */
+		rt_se->back = back; /* 可见rt_se的back实体为组调度中前一个调度实体 */
+		back = rt_se;
+	}
+	/* 将组中的所有进程从运行队列中移除 */
+	for (rt_se = back; rt_se; rt_se = rt_se->back) {
+		if (on_rt_rq(rt_se))
+			__dequeue_rt_entity(rt_se);
+	}
+}
+
+static void __dequeue_rt_entity(struct sched_rt_entity *rt_se)
+{
+	struct rt_rq *rt_rq = rt_rq_of_se(rt_se);
+	struct rt_prio_array *array = &rt_rq->active;
+	/* 移除进程 */
+	list_del_init(&rt_se->run_list);
+	/* 如果链表变为空，则将位图中对应的bit位清零 */
+	if (list_empty(array->queue + rt_se_prio(rt_se)))
+		__clear_bit(rt_se_prio(rt_se), array->bitmap);
+ 
+	dec_rt_tasks(rt_se, rt_rq); /* 运行进程计数减一 */
+}
+```
+
+可见更新调度信息的函数为 update_curr_rt()，在 dequeue_rt_entity() 中将当前实时进程从运行队列中移除，并添加到队尾。完成工作函数为 dequeue_rt_stack() -->_dequeue_rt_entity()，它调用 list_del_init()-->_list_del() 删除进程。然后如果链表变为空，则将位图中对应优先级的bit位清零。如下：
+
+```C
+static inline void __list_del(struct list_head * prev, struct list_head * next)
+{
+	next->prev = prev;
+	prev->next = next;
+}
+```
+从上面的介绍可以看出，对于实时调度，linux的实现比较简单，仍然采用之前的O(1)调度策略，把所有的运行进程根据优先级放到不用的队列里面，采用位图方式进行使用记录。进队列仅仅是删除原来队列里面的本进程，然后将它挂到队列尾部；而对于“移除”操作，也仅仅是从队里里面移除后添加到运行队列尾部。
+
+#### 配置和优化指南
+
+1. 系统调用设置：掌握调度的“魔法棒”
+
+pthread_setschedparam主要用于设置线程的调度参数，其函数原型如下：
+```C
+#include <pthread.h>
+int pthread_setschedparam(pthread_t thread, int policy, const struct sched_param *param);
+```
+
+sched_setscheduler函数则用于设置进程的调度策略和优先级，其函数原型为：
+```C
+#include <sched.h>
+int sched_setscheduler(pid_t pid, int policy, const struct sched_param *param);
+```
+
+2. 性能优化建议：提高效率的“秘籍”
+
+- 根据任务特点选择调度策略是关键的一步
+- 合理分配优先级也是优化实时调度性能的重要手段
+- 优化系统资源配置也不容忽视
+    - 在多处理器系统中，可以根据任务的特点和 CPU 的负载情况，将任务绑定到特定的 CPU 核心上执行，以提高 CPU 缓存的命中率，减少任务在不同 CPU 核心之间切换带来的开销
+    - 对于一些计算密集型的实时任务，可以将它们固定分配到性能较强的 CPU 核心上，以充分发挥 CPU 的计算能力
+    - 实时任务通常对内存的访问速度和稳定性有较高的要求，因此可以通过优化内存分配算法、减少内存碎片等方式，提高内存的使用效率和性能。此外，还可以采用内存锁定技术，将关键的实时任务所需的内存页面锁定在物理内存中，避免它们被交换到磁盘上，从而提高任务的执行速度和实时性
 
 
-调度优化-调度策略配置测试报告
+## Linux 进程管理之调度域
+
+[Linux 进程管理之调度域](https://zhuanlan.zhihu.com/p/580456593)
+
+### 基本原理
+
+schedule domain 分为三个层次，从低到高依次为SMT，MC和ALL CPU。SMT即single multi thread，level0 调度域，同一个物理 Core 中的所有 thread 都在该调度域中；MC即 multi Core，level 1 调度域，同一个cluster中的所有物理Core中的所有CPU都在该调度域中；ALL Cpu，Level 2 调度域，也是最高级别的调度域，该调度域包括SOC中所有的CPU。其中如果不支持超线程，则没有SMT调度域，如果是单核SOC，则没有MC调度域，但是包括所有CPU的调度域一定是存在的，也就是说单核系统只有一个调度域，这个调度域中只有一个CPU。
+
+### SoC拓扑
+
+该SOC集成了两个NUMA Node，每个NUMA Node 集成两个cluster，每个cluster集成了两个物理Core，每个物理Core又虚拟出了两个逻辑CPU。
+
+### 从CPU0的视图来看调度域
+
+Cpu0 和 Cpu1 同属于一个物理Core，所以他们两个属于一级调度域；Cpu0，Cpu1，Cpu2和Cpu3 同属于一个Cluster，所以他们四个属于二级调度域；Cpu0-Cpu15属于三级调度域。由此拓扑我们可以归纳出几个特性要点：
+
+- 一级调度域中的CPU亲和性最高
+- 高一级的调度域覆盖低一级的调度域
+- 做负载均衡的时候应该先尝试在一级调度域做均衡，一级调度域均衡失败，再考虑二级调度域，二级调度域失败再考虑三级调度域。
+
+### 从CPU8的视图看调度域
+
+Cpu8 和 Cpu9 同属于一个物理Core，所以他们两个属于一级调度域；Cpu8，Cpu9，Cpu10，Cpu11同属于一个Cluster，所以他们属于二级调度域；Cpu0-Cpu15属于三级调度域。由此我们知道，对不同的CPU来说，一级调度域和二级调度域可能是不同的，但是三级调度域一定是相同的，都包括所有的CPU。
+
+### CPU拓扑
+
+DTS中定义的CPU拓扑最终要反应到软件上，ARM64的CPU拓扑用结构体sturct cpu_topology来描述，本章节会详细介绍该结构体的定义以及初始化。
+
+#### cpu_topology结构体定义
+
+```C
+struct cpu_topology {
+	int thread_id;
+	int core_id;
+	int cluster_id;
+	cpumask_t thread_sibling;
+	cpumask_t core_sibling;
+};
+```
+
+每一个CPU都会维护这么一个结构体实例，用来描述CPU拓扑，从不同的CPU的视角来看，CPU的拓扑是不一样的。
+
+thread_id 当前CPU的Thread ID从mpidr_el1寄存器中获取
+core_id 当前CPU的Core ID从mpidr_el1寄存器中获取
+cluster_id 当前CPU的Cluster ID从mpidr_el1寄存器中获取
+当前CPU的兄弟thread，即在同一个Core中的CPU。这里要注意的是兄弟thread也包括当前CPU。比如上图中CPU0的兄弟thread是CPU0和CPU1。
+当前CPU的兄弟Core，即在同一个Cluster中的CPU。比如上图中CPU0的兄弟Core实际包括CPU0，CPU1,CPU2和CPU3。
+
+#### cpu_topology初始化
+
+调用 store_cpu_topology接口完成CPU拓扑的初始化，有两个路调用该接口。Boot CPU的调用路径如下：
+kernel_init_freeable -> smp_prepare_cpus ->store_cpu_topology
+也就是说每个CPU都会调用 store_cpu_topology 接口完成CPU拓扑的初始化。
+
+```
+void store_cpu_topology(unsigned int cpuid)
+{
+	struct cpu_topology *cpuid_topo = &cpu_topology[cpuid];
+	u64 mpidr;
+
+	if (cpuid_topo->cluster_id != -1)
+		goto topology_populated;
+
+	mpidr = read_cpuid_mpidr();
+
+	/* Uniprocessor systems can rely on default topology values */
+	if (mpidr & MPIDR_UP_BITMASK)
+		return;
+
+	/* Create cpu topology mapping based on MPIDR. */
+	if (mpidr & MPIDR_MT_BITMASK) {
+		/* Multiprocessor system : Multi-threads per core */
+		cpuid_topo->thread_id  = MPIDR_AFFINITY_LEVEL(mpidr, 0);
+		cpuid_topo->core_id    = MPIDR_AFFINITY_LEVEL(mpidr, 1);
+		cpuid_topo->cluster_id = MPIDR_AFFINITY_LEVEL(mpidr, 2) |
+					 MPIDR_AFFINITY_LEVEL(mpidr, 3) << 8;
+	} else {
+		/* Multiprocessor system : Single-thread per core */
+		cpuid_topo->thread_id  = -1;
+		cpuid_topo->core_id    = MPIDR_AFFINITY_LEVEL(mpidr, 0);
+		cpuid_topo->cluster_id = MPIDR_AFFINITY_LEVEL(mpidr, 1) |
+					 MPIDR_AFFINITY_LEVEL(mpidr, 2) << 8 |
+					 MPIDR_AFFINITY_LEVEL(mpidr, 3) << 16;
+	}
+
+	pr_debug("CPU%u: cluster %d core %d thread %d mpidr %#016llx\n",
+		 cpuid, cpuid_topo->cluster_id, cpuid_topo->core_id,
+		 cpuid_topo->thread_id, mpidr);
+
+topology_populated:
+	update_siblings_masks(cpuid);
+}
+```
+
+- 从 mpidr_el1寄存器获取thread_id,core_id和cluster_id
+- 调用 update_siblings_mask 接口更新 sibling
+
+```C
+static void update_siblings_masks(unsigned int cpuid)
+{
+	struct cpu_topology *cpu_topo, *cpuid_topo = &cpu_topology[cpuid];
+	int cpu;
+
+	/* update core and thread sibling masks */
+	for_each_possible_cpu(cpu) {
+		cpu_topo = &cpu_topology[cpu];
+
+		if (cpuid_topo->cluster_id != cpu_topo->cluster_id)
+			continue;
+
+		cpumask_set_cpu(cpuid, &cpu_topo->core_sibling);
+		if (cpu != cpuid)
+			cpumask_set_cpu(cpu, &cpuid_topo->core_sibling);
+
+		if (cpuid_topo->core_id != cpu_topo->core_id)
+			continue;
+
+		cpumask_set_cpu(cpuid, &cpu_topo->thread_sibling);
+		if (cpu != cpuid)
+			cpumask_set_cpu(cpu, &cpuid_topo->thread_sibling);
+	}
+}
+```
+
+- 如果clusterID相同，说明是兄弟core，更新core_sibling
+- 如果coreID，说明是兄弟thread,更新core_sibling
+
+#### 调度域的初始化
+
+kernel_init_freeable ->sched_init_smp -> init_sched_domains(cpu_active_mask)
+
+```
+```
+
+
+## 调度优化-调度策略配置测试报告
 
 一、测试概述
 本文档描述如何通过配置任务的调度策略和cgroup分组，实现系统的混合关键级调度，将安全关键业务部署在实时调度域，非安全业务运行在分时调度域内，并通过层次化调度策略确保低优先的任务能够获得最低服务保障，避免任务饥饿。

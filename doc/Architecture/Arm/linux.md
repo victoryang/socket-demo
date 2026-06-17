@@ -34,3 +34,13 @@
 [restricted dma pool v3](https://www.spinics.net/lists/kernel/msg3787068.html)
 
 [kernel config](https://www.kernelconfig.io/)
+
+[音频基础](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MTkxOTQyMQ==&action=getalbum&album_id=2140155659944787969#wechat_redirect)
+
+[openGL基础概念](https://mp.weixin.qq.com/s?__biz=MjM5MTkxOTQyMQ==&mid=2257486712&idx=1&sn=4b8debc7708dd9c0c8ddb2a8d8d07615&scene=21&poc_token=HPtQ8GmjRBvwz-CPgs5jVinFrTnHNLezQLxYbYIk)
+
+[scmi](https://www.qualcomm.com/developer/blog/2024/08/scmi--abstracting-platform-resources-using-power-and-performance)
+
+[ARM 低功耗架构](https://blog.csdn.net/qq_40456702/article/details/134533317)
+
+[Linux 驱动](https://wiki.lckfb.com/zh-hans/linux-docs-tspi3-rk3576/linux-driver-Basics/char-device/implement-char-device.html)

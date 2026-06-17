@@ -2,6 +2,14 @@
 
 https://zhuanlan.zhihu.com/p/699017345
 
+[Restricted DMA](https://lwn.net/ml/linux-kernel/20210106034124.30560-1-tientzu@chromium.org/)
+
+[swiotlb](https://linuxkernel.org.cn/doc/html/latest/core-api/swiotlb.html)
+
+[drm/virtio](https://lwn.net/Articles/998774/)
+
+[vhost-user-gpu 原理介绍及改进策略](https://www.bilibili.com/video/BV1ch4y1T7ct?spm_id_from=333.788.videopod.sections)
+
 [virtio spec](https://docs.oasis-open.org/virtio/virtio/v1.2/virtio-v1.2.html)
 
 [vring](https://blog.csdn.net/qq_41596356/article/details/128437440)
@@ -11,6 +19,8 @@ https://zhuanlan.zhihu.com/p/699017345
 [vhost-user-gpu](https://www.bilibili.com/video/BV1ch4y1T7ct/)
 
 [eventfd and irqfd](https://www.bilibili.com/opus/767992010168598537)
+
+[深入分析Linux虚拟化KVM-Qemu之ioeventfd与irqfd](https://www.bilibili.com/read/cv22112391/?opus_fallback=1)
 
 [eventfd](https://zhuanlan.zhihu.com/p/662264612)
 
@@ -42,12 +52,20 @@ https://zhuanlan.zhihu.com/p/699017345
 
 [GPU 虚拟化典型应用场景分类](https://blog.csdn.net/stray2b/article/details/131371122)
 
+[dma-buf缓冲区共享和同步](https://developer.aliyun.com/article/1604032)
+
 ## hypervisor
 
 [acrn-hypervisor](https://zhuanlan.zhihu.com/p/597780462)
 
 [windriver hypervisor](https://www.windriver.com.cn/downloads/files/HVP_Data_Sheet-CN.pdf)
 
+[raite hypervisor](https://blog.csdn.net/anwei20000/article/details/115210254?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-115210254-blog-114750652.235^v43^pc_blog_bottom_relevance_base5&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
+
+
+## virtio-gpu
+
+[vcl-virtio-gpu-opencl-driver](https://www.qualcomm.com/developer/blog/2024/10/vcl-virtio-gpu-opencl-driver)
 
 ## vhost-device-gpu
 
