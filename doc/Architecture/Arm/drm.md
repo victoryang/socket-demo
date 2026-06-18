@@ -182,6 +182,45 @@ VKMS 是 Virtual Kernel Mode Setting 的缩写，之所以称它为Virtual KMS�
 - plane Composition
 - GEM Prime Import
 
+### 关于DRM中DUMB和PRIME名字的由来
+
+https://blog.csdn.net/hexiaolong2009/article/details/105961192
+
+
+
+### Mainline Explict Fencing
+
+dma-fence作为kernel中buffer共享同步机制，已经称为DRM驱动框架必不可少的基础组件。了解 dma-fence 的背景知识，有助于后期学习 DRM 中 fence 相关的驱动开发。
+
+#### Mainline Explicit Fencing - part 1
+
+当我们谈到 Linux kernel 中的 buffer 共享同步机制时，通常有两种： `Implicit Fence` 和 `Explicit Fence`。它们的主要区别在于：**kernel是否会将同步信息共享给用户空间**。因此它要么是隐式的（不提供任何fence信息给用户空间）；要么是显式的（提供所有fence信息给用户空间）。
+
+fence同步机制可以确保 buffer 在共享过程中，驱动程序或用户空间不会对一个正在被写入的 buffer 进行读操作，或对一个仍在被其他模块使用的buffer进行写操作。fence确保了这些操作能够有序进行，即只会在buffer不被使用时才进行读写操作。例如，当一个GPU的job被塞进队列时，该job中的buffer会被关联上一个fence，其他驱动程序可以借助该fence来进行同步。在收到该 fence 的信号之前，这些驱动程序不会对该buffer进行任何操作，fence signal表明该buffer现在可以被正常使用了。同样地，为了让GPU驱动能等待buffer从显示屏中切换出来，我们可以给显示驱动采用相同的fence机制，以便GPU能再次使用这些buffer进行渲染。
+
+fence是该机制的核心元素，每当向kernel发送buffer相关的的请求时，该buffer都会附带一个fence。用户空间或其他驱动程序可以使用fence来等待硬件工作完成。因此，一旦工作完成，该fence就会被signal，等待该fence的模块也就可以继续对该buffer进行它们想要的操作了。
+
+虽然 Implicit Fence 在buffer同步方面起了很大作用，但在某些情况下，整个桌面的合成可能会被卡住。想象一下下面的合成过程：有A、B、C三个buffer需要处理，A和B被GPU拿去同时做渲染，而C将作为A与B合成的结果拿去显示。但只有A、B这两个buffer都渲染完成时才会通知compositor做合成，因此如果B渲染的时间太长，将导致整个桌面的合成因为需要等待B而被Block住，于是C就无法及时的显示出来。
+
+而如果采用Explicit Fence机制，compositor会为每个buffer关联上一个fence，这样就可以在每个buffer渲染完成时收到通知。因此，如果A渲染的很快而B需要很长时间才能渲染完成，那么compositor可以做出决定不等待B，而是继续使用旧的buffer B与A一起做合成，接着显示C。因此compositor可以根据fence信息来做出更加明智的决定，以此来避免屏幕冻结的发生。
+
+到目前为止，Linux内核只有Implicit Fence的通用API，虽然有些驱动程序已经实现了Explicit Fence，但它们的API都是与设备强相关的。Android目前已经有了一套自己的同步实现机制，即Android Sync Framework。
+
+Explicit Fence 是一种消费者-生产者模型，在一条GPU渲染+扫描上屏显示的pipeline中，它将在kernel驱动程序之间进行同步，一次当向GPU（生产者）提交一个新的渲染job时，用户空间将获得一个与本次提交buffer相关联的fence。也就是说用户空间不需要一直等待job完成而被阻塞在那里，当job完成时会自动向该fence发送一个信号。因为用户空间不再需要一直等在那里，且有了fence的加持，它就可以立即进行系统调用，告诉Display硬件（消费者）去扫描还未渲染完的buffer。采用Explicit Fence，内核空间会被告知需要等到fence signal之后才能开始buffer扫描上屏的处理。
+
+当用户空间向kernel空间提交一个buffer用户Display显示时，用户空间同时会收到一个新创建的fnec。当该buffer不再需要被显示时，它所对应的fence就会被signal，于是这块buffer就可以被另一个渲染job拿去重新使用了。一旦用户空间拿到该fence，它可以无需等待就向GPU提交一个新的渲染job。GPU驱动则在内核空间等待该buffer显示完成，一旦fence发出信号，buffer的渲染工作就可以立即启动。
+
+![](images/ba487ffcbb8840a4bc143ae117bc2f38.png)
+
+最后不得不提的是，Explicit Fence大大改善了图形pipeline的debug能力。在用户空间访问 fence可以更加清楚的知道底层pipeline当前正在发生的事情。以前，由于implicit fence没有可访问的信息，因此很难清楚pipeline上到底发生了什么，而且每个vendor厂商都试图实现它们自己的implicit fence机制，调试起来难度很大。现在，有了标准的 Explicit Fence，我们就可以更容易的建立起 debug 和 trace 框架，以便能够跟踪任何系统上的显示问题。
+
+#### Mainline Explicit Fencing - part 2
+
+我们将介绍Android Sync Framework，这是 Linux 内核中首个（out-of-tree）Explicit Fence的具体实现。
+
+
+#### Mainline Explicit Fencing - part 3
+
 ## Linux graphic stack
 
 ### compositing
