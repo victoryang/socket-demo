@@ -38,6 +38,8 @@
 
 [opengl](https://zhuanlan.zhihu.com/p/1930594532157813197)
 
+[mesa manual](https://docs.imgtec.com/reference-manuals/open-gl-es-extensions/html/topics/GL_OES_EGL/image-external.html)
+
 [android surface](https://juejin.cn/post/7047745117267951646)
 
 [drm virtio-gpu](https://www.cnblogs.com/ArsenalfanInECNU/p/14632356.html)

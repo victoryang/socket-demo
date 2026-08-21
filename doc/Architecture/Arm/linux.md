@@ -1,5 +1,6 @@
 # linux
 
+[kernel](https://sphinxes0o0.github.io/notes/kernel/)
 
 [kernel document](https://docs.linuxkernel.org.cn/driver-api/clk.html)
 [chinese document](https://www.kernel.org/doc/html/latest/translations/zh_CN/core-api/cpu_hotplug.html)
@@ -56,7 +57,7 @@ https://blog.csdn.net/hexiaolong2009/article/details/102596744
 
 https://blog.csdn.net/hexiaolong2009/article/details/102596761
 
-#### dma-buf 智能用于DMA硬件访问吗
+#### dma-buf 只能用于DMA硬件访问吗
 
 在内核代码中，我们见得最多的dma-buf API莫过于 `dma_buf_attach()` `dma_buf_map_attachment()`，dma-buf难道只能DMA硬件来访问吗？当然不是，dma-buf本质上是buffer与file的结合，因此它仍然是一块buffer。不要看它带了dma字样就被迷惑了，dma-buf不仅能用于DMA硬件访问，也同样适用于CPU软件访问，这也是dma-buf在内核中大受欢迎的一个重要原因。
 
@@ -157,4 +158,13 @@ attach操作可以让exporter驱动根据不同的device硬件能力，来分配
 #### 何时分配内存？
 
 既可以在export阶段，也可以在 map attachment阶段分配，甚至可以在两个阶段都分配，这通常由DMA硬件能力来决定。
+
+
+### dma-buf (四) -- mmap
+
+https://blog.csdn.net/hexiaolong2009/article/details/102596791
+
+### dma-buf (五) -- File
+
+https://blog.csdn.net/hexiaolong2009/article/details/102596802
 

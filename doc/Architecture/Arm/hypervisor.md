@@ -131,6 +131,8 @@ Hypervisor（虚拟化监控器）是运行在硬件之上的第一层软件，�
 
 ## Gunyah
 
+[qualcomm Linux](https://docs.qualcomm.com/doc/80-70023-3SC/topic/virtualization.html)
+
 [meet gunyah](https://www.qualcomm.com/developer/blog/2024/08/learn-about-gunyah--qualcomm-s-open-source--lightweight-hypervis)
 
 
